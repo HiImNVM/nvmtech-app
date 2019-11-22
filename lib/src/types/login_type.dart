@@ -1,5 +1,6 @@
 enum LoginType {
   FB,
+  Account,
 }
 
-enum LoginState { Success, NewUser, Fail, Cancel }
+enum LoginState { Loading, Success, NewUser, Fail, Cancel, Default }

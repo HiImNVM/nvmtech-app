@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 abstract class ISharedPreferences {
   String getToken();
   void clear();
+  SharedPreferences getSPreferences();
 }
 
 class SharedPreferencesWrapper implements ISharedPreferences {
@@ -26,4 +27,7 @@ class SharedPreferencesWrapper implements ISharedPreferences {
 
   @override
   void clear() => _preferences.clear();
+
+  @override
+  SharedPreferences getSPreferences() => _preferences;
 }

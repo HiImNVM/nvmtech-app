@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nvmtech/src/styles/color_style.dart';
 
 class AppButton extends StatelessWidget {
-  AppButton({
+  const AppButton({
     this.onPressed,
     this.child,
   });

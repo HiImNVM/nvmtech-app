@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/index.dart';
 import 'package:nvmtech/core/widgets/loading/index_loading.dart';
-import 'package:nvmtech/src/components/button/button.dart';
-import 'package:nvmtech/src/components/modal/prompt_modal.dart';
+import 'package:nvmtech/src/components/button/index_button.dart';
 import 'package:nvmtech/src/components/modal/success_modal.dart';
 import 'package:nvmtech/src/modules/login/bloc/login_bloc.dart';
 import 'package:nvmtech/src/styles/textStyle_style.dart';
@@ -55,6 +54,8 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
         title: Text('ABC'),
       ),
       body: StreamBuilder<LoginState>(

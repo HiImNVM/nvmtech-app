@@ -1,7 +1,6 @@
 import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/core/bloc/index.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
-import 'package:nvmtech/src/types/app_type.dart';
 import 'package:nvmtech/src/types/login_type.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -15,7 +14,6 @@ class LoginBloc extends BlocBase {
 
   void navigateToDashBoard(context) {
     final AppBloc appBloc = BlocProvider.of(context);
-    appBloc.changeAppStatus(AppStatus.Loading);
   }
 
   @override

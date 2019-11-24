@@ -1,16 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/core/store/shared_preferences.dart';
 import 'package:nvmtech/src/constants/sharedPreference_constant.dart';
-import 'package:nvmtech/src/types/app_type.dart';
 import 'package:nvmtech/src/types/theme_type.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AppBloc extends BlocBase {
-  final BehaviorSubject<AppStatus> _appStatus =
-      BehaviorSubject<AppStatus>.seeded(AppStatus.Loading);
-
-  void sinkAppStatus(dynamic value) => this._appStatus.sink.add(value);
-  ValueObservable<AppStatus> get streamAppStatus => this._appStatus.stream;
+  GlobalKey<NavigatorState> _navigatorKey;
 
   final BehaviorSubject<ThemeType> _theme =
       BehaviorSubject<ThemeType>.seeded(ThemeType.Light);
@@ -20,21 +16,29 @@ class AppBloc extends BlocBase {
 
   SharedPreferencesWrapper _sPreferencesWrapper;
 
-  AppBloc() {
-    this._run();
+  AppBloc(navigatorKey) {
+    this._navigatorKey = navigatorKey;
+    SharedPreferencesWrapper.getInstance()
+        .then((sf) => this._sPreferencesWrapper = sf);
   }
 
-  void changeAppStatus(AppStatus newStatus) => this.sinkAppStatus(newStatus);
-
-  void _run() async {
-    this._sPreferencesWrapper = await SharedPreferencesWrapper.getInstance();
-
+  void setupApp() async {
     final bool isFirstTime = this._isFirstTime();
     if (isFirstTime) {
-      changeAppStatus(AppStatus.Welcome);
+      this._navigatorKey.currentState.pushReplacementNamed('/welcome');
+      return;
+    }
+
+    final bool isLoggined = this._isLoggined();
+    if (!isLoggined) {
+      this._navigatorKey.currentState.pushReplacementNamed('/login');
       return;
     }
   }
+
+  bool _isLoggined() =>
+      this._sPreferencesWrapper.getSPreferences().getBool(CONST_LOGGINED) ??
+      false;
 
   bool _isFirstTime() =>
       this._sPreferencesWrapper.getSPreferences().getBool(CONST_FIRST_TIME) ??
@@ -42,10 +46,8 @@ class AppBloc extends BlocBase {
 
   @override
   void dispose() async {
+    this._navigatorKey = null;
     this._sPreferencesWrapper = null;
-
-    await this._appStatus?.drain();
-    this._appStatus.close();
 
     await this._theme?.drain();
     this._theme.close();

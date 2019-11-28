@@ -10,17 +10,18 @@ import 'package:nvmtech/src/styles/textStyle_style.dart';
 class SplashPage extends StatelessWidget {
   SplashPage() {
     Future.delayed(
-        Duration(milliseconds: 2000), () => this._appBloc.setupApp());
+        Duration(milliseconds: 5000), () => this._appBloc.setupApp());
   }
 
-  AppBloc _appBloc
+  AppBloc _appBloc;
+
   Widget _renderAppIcon() {
     return Image.asset(
       AppImage.PATH_MAIN_ICON,
       width: 120,
       height: 120,
       fit: BoxFit.fill,
-    ); 
+    );
   }
 
   Widget _renderSlogan() {

@@ -1,2 +1,3 @@
 const String CONST_FIRST_TIME = 'FIRST_TIME';
 const String CONST_LANG_CODE = 'LANG_CODE';
+const String CONST_LOGGINED = 'LOGGINED';

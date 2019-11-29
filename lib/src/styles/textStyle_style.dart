@@ -29,4 +29,19 @@ class AppTextStyle {
       fontFamily: 'NunitoSans',
       fontStyle: FontStyle.normal,
       fontSize: 12.0);
+
+  static const TextStyle TOPAZ_W400_NORMAL_F70 = const TextStyle(
+      color: const Color(0xff2a99cc),
+      fontWeight: FontWeight.w400,
+      fontFamily: 'NunitoSans',
+      fontStyle: FontStyle.normal,
+      fontSize: 70.0);
+
+  static const TextStyle TOPAZ_W400_NORMAL_F16 = const TextStyle(
+      color: const Color(0xff2a99cc),
+      fontWeight: FontWeight.w400,
+      fontFamily: 'NunitoSans',
+      fontStyle: FontStyle.normal,
+      decoration: TextDecoration.none,
+      fontSize: 16.0);
 }

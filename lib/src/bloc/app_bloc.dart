@@ -22,6 +22,9 @@ class AppBloc extends BlocBase {
         .then((sf) => this._sPreferencesWrapper = sf);
   }
 
+  NavigatorState getNavigator(){
+    return this._navigatorKey.currentState;
+  }
   void setupApp() async {
     final bool isFirstTime = this._isFirstTime();
     if (isFirstTime) {
@@ -29,6 +32,7 @@ class AppBloc extends BlocBase {
       this._navigatorKey.currentState.pushReplacementNamed('/login');
       return;
     }
+    
 
     final bool isLoggined = this._isLoggined();
     if (!isLoggined) {

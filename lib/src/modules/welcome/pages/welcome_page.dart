@@ -9,7 +9,7 @@ class WelcomePage extends StatelessWidget {
         title: Text('Welcome to social network'),
       ),
       body: Center(
-        child: Text('Hello'),
+        child: Text('Hello welcome page'),
       ),
     );
   }

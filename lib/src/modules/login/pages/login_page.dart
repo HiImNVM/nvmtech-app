@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/index.dart';
 import 'package:nvmtech/core/widgets/loading/index_loading.dart';
@@ -34,14 +33,14 @@ class _LoginPageState extends State<LoginPage> {
 
     //listen textchange tu textform(user interaction) roi add vao stream(output)
     emailController.addListener(() {
-      LoginBloc.of(context).emailSink.add(emailController.text);
+      _loginBloc.emailSink.add(emailController.text);
     });
 
     passwordController.addListener(() {
-      LoginBloc.of(context).passwordSink.add(passwordController.text);
+      _loginBloc.passwordSink.add(passwordController.text);
     });
   }
-  
+
   Widget _renderTextInButton(String text) {
     return Text(
       text,
@@ -49,14 +48,14 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _rendersignInTitle() {
+  Widget _renderSignInTitle() {
     return Row(
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(left: 24),
           margin: EdgeInsets.only(top: 82),
           child: Text(
-            loginText_signintitle,
+            CONST_LOGINTEXT_SIGNINTITLE,
             style: AppTextStyle.BLACK_W700_NORMAL_F30,
           ),
         )
@@ -81,34 +80,38 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         children: <Widget>[
           StreamBuilder<String>(
-            stream: _loginBloc.emailStream,
-            builder: (context, snapshot) {
-              return TextFormField(
-                controller: emailController,
-                textInputAction: TextInputAction.done,
-                decoration: InputDecoration(
-                  labelText: "Enter Email",
-                  errorText: snapshot.data,
-                ),
-                keyboardType: TextInputType.emailAddress, // @
-              );
-            }
-          ),
+              stream: _loginBloc.emailStream,
+              builder: (context, snapshot) {
+                if (snapshotUtil(snapshot) == true) {
+                  return Container();
+                }
+                return TextFormField(
+                  controller: emailController,
+                  textInputAction: TextInputAction.done,
+                  decoration: InputDecoration(
+                    labelText: CONST_LOGINTEXT_ENTEREMAIL,
+                    errorText: snapshot.data,
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                );
+              }),
           StreamBuilder<String>(
-            stream: _loginBloc.passwordStream,
-            builder: (context, snapshot) {
-              return TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                textInputAction: TextInputAction.done,
-                decoration: InputDecoration(
-                  labelText: "Enter Password",
-                  errorText: snapshot.data,
-                ),
-                keyboardType: TextInputType.visiblePassword, // @
-              );
-            }
-          ),
+              stream: _loginBloc.passwordStream,
+              builder: (context, snapshot) {
+                if (snapshotUtil(snapshot) == true) {
+                  return Container();
+                }
+                return TextFormField(
+                  controller: passwordController,
+                  obscureText: true,
+                  textInputAction: TextInputAction.done,
+                  decoration: InputDecoration(
+                    labelText: CONST_LOGINTEXT_ENTERPASS,
+                    errorText: snapshot.data,
+                  ),
+                  keyboardType: TextInputType.visiblePassword,
+                );
+              }),
         ],
       ),
     );
@@ -118,28 +121,18 @@ class _LoginPageState extends State<LoginPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
       child: StreamBuilder<bool>(
-        stream: _loginBloc.btnStream,
-        builder: (context, snapshot) {
-
-          if(snapshotUtil(snapshot) == false){
-            return Container();
-          }
-          
-          return 
-            AppButton(
-            color: AppColor.TOPAZ,
-            onPressed:
-            snapshot.data == true ? ()
-            {
-//              Navigator.pushReplacement(
-//                context,
-//                MaterialPageRoute(builder: (_) => HomePage()),
-//              );
-            } : null,
-            child: _renderTextInButton(loginText_signintitle),
-          );
-        }
-      ),
+          stream: _loginBloc.isLoginSuccessStream,
+          builder: (context, snapshot) {
+            if (snapshotUtil(snapshot) == true) {
+              return Container();
+            }
+            return AppButton(
+              color: AppColor.TOPAZ,
+              child: _renderTextInButton(CONST_LOGINTEXT_SIGNINTITLE),
+              onPressed: (){}
+              //snapshot.data == true ? () {} : null,
+            );
+          }),
     );
   }
 
@@ -148,13 +141,14 @@ class _LoginPageState extends State<LoginPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Padding(padding: EdgeInsets.only(top: 24)),
-        Text("Don't" + loginText_signin,
+        Text("Don't" + CONST_LOGINTEXT_SIGNIN,
             style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
         GestureDetector(
-          onTap: (){
-            this._appBloc.getNavigator().pushReplacementNamed('/signup');
-          },
-          child: Text(loginText_signuptitle, style: AppTextStyle.BLACK_W600_NORMAL_F12)),
+            onTap: () {
+              this._appBloc.getNavigator().pushReplacementNamed('/signup');
+            },
+            child: Text(CONST_LOGINTEXT_SIGNUPTITLE,
+                style: AppTextStyle.BLACK_W600_NORMAL_F12)),
       ],
     );
   }
@@ -167,7 +161,21 @@ class _LoginPageState extends State<LoginPage> {
           AppButton(
               color: AppColor.DARKBLUEFACEBOOK,
               onPressed: () {},
-              child: _renderTextInButton('Login with Facebook')),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                      flex: 0,
+                      child: Image.asset(
+                        AppImage.PATH_FACEBOOK_ICON,
+                        fit: BoxFit.fill,
+                      )),
+                  Expanded(flex: 1, child: Text(' |')),
+                  Expanded(
+                    flex: 3,
+                    child: _renderTextInButton(CONST_LOGINTEXT_FACEBOOK),
+                  ),
+                ],
+              )),
           SizedBox(
             height: 10,
           ),
@@ -185,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                 Expanded(flex: 1, child: Text(' |')),
                 Expanded(
                   flex: 3,
-                  child: _renderTextInButton('Login with Google'),
+                  child: _renderTextInButton(CONST_LOGINTEXT_GOOGLE),
                 ),
               ],
             ),
@@ -199,18 +207,13 @@ class _LoginPageState extends State<LoginPage> {
     return Center(
       child: Column(
         children: <Widget>[
-          _rendersignInTitle(),
-          
+          _renderSignInTitle(),
           _renderLogo(),
-          
           _renderEmailPassForm(),
-          
           _renderSignInButton(),
-          
           _renderNavigatetoSignUp(),
-          
-          Text(loginText_or, style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
-          
+          Text(CONST_LOGINTEXT_OR,
+              style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
           _renderSocialMedia()
         ],
       ),

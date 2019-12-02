@@ -1,15 +1,11 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/core/bloc/index.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
 import 'package:nvmtech/src/types/login_type.dart';
 import 'package:nvmtech/src/util/validationUtil.dart';
 import 'package:rxdart/rxdart.dart';
-
-import 'package:provider/provider.dart';
-
 
 class LoginBloc extends BlocBase {
   BehaviorSubject<LoginState> _loginType =
@@ -25,12 +21,7 @@ class LoginBloc extends BlocBase {
 
   final _emailSubject = BehaviorSubject<String>();
   final _passwordSubject = BehaviorSubject<String>();
-  final _btnSubject = BehaviorSubject<bool>();
-
-//static function
-  static LoginBloc of(BuildContext context){
-    return BlocProvider.of<LoginBloc>(context);
-  }
+  final _isLoginSuccessSubject = BehaviorSubject<bool>();
 
   //StreamTransformer => transform data day ra
   var emailValidation = StreamTransformer<String, String>.fromHandlers(
@@ -54,8 +45,8 @@ class LoginBloc extends BlocBase {
   Sink<String> get passwordSink => _passwordSubject.sink;
   Stream<String> get passwordStream => _passwordSubject.stream.transform(passValidation).skip(1);
 
-  Sink<bool> get btnSink => _btnSubject.sink;
-  Stream<bool> get btnStream => _btnSubject.stream;
+  Sink<bool> get isLoginSuccessSink => _isLoginSuccessSubject.sink;
+  Stream<bool> get isLoginSuccessStream => _isLoginSuccessSubject.stream;
 
   //Constructor
   LoginBloc() {
@@ -64,7 +55,7 @@ class LoginBloc extends BlocBase {
       return Validation.validateEmail(email) == null &&
         Validation.validatePassword(pass) == null;
     }).listen((enable) { //Lang nghe viec co bi thay doi hay ko?
-      btnSink.add(enable);
+      isLoginSuccessSink.add(enable);
       //sink add thay doi den BloC(business logic)
       //BLoC notify thay đổi đến Widget thông qua stream
     });
@@ -75,8 +66,13 @@ class LoginBloc extends BlocBase {
     await this._loginType?.drain();
     this._loginType.close();
 
-    _emailSubject.close();
-    _passwordSubject.close();
-    _btnSubject.close();
+    await this._emailSubject?.drain();
+    this._emailSubject.close();
+
+    await this._passwordSubject?.drain();
+    this._passwordSubject.close();
+
+    await this._isLoginSuccessSubject?.drain();
+    this._isLoginSuccessSubject.close();
   }
 }

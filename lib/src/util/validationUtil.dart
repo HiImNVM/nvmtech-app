@@ -1,34 +1,33 @@
+import 'package:nvmtech/src/constants/validationUtil_constant.dart';
+
 class Validation{
-  static String abc = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
-  
-  
+  static String emailvalid = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
   
   static String validateEmail(String email){
     if(email == null){
-      return "Email is invalid because of null";
+      return CONST_VALIDATION_EMAILISNULL;
     }
-    if(email == email.isEmpty){
-      return "You have to fill in the blank";
+    if(email.isEmpty){
+      return CONST_VALIDATION_ISEMPTY;
     }
-    var emailValid = RegExp(abc)
+    var emailValid = RegExp(emailvalid)
       .hasMatch(email);
     if(!emailValid){
-      return "Email is invalid";
+      return CONST_VALIDATION_EMAILISINVALID;
     }
     return null;
   }
   
   static String validatePassword(String password){
     if(password == null){
-      return "Password is invalid because of null";
+      return CONST_VALIDATION_PASSISNULL;
     }
-    if(password == password.isEmpty){
-      return "You have to fill in the blank";
+    if(password.isEmpty){
+      return CONST_VALIDATION_ISEMPTY;
     }
     if(password.length < 7){
-      return "Password require minimum 7 characters!";
+      return CONST_VALIDATION_ISPASSLENGTH;
     }
     return null;
   }
 }
-//email - password

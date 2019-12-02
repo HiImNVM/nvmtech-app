@@ -16,23 +16,21 @@ class WelcomePage extends StatelessWidget {
       this._appBloc.getNavigator().pushReplacementNamed(route);
     }
 
-    Widget _renderAppBar(){
+    Widget _renderAppBar() {
       return AppBar(
         title: Text('Welcome to social network'),
       );
     }
-    Widget _renderNextButton(){
+
+    Widget _renderNextButton() {
       return Container(
-        padding: EdgeInsets.all(50),
-      child: AppButton(
-      color: AppColor.TOPAZ,
-      onPressed: () => _onPressedNextNavigation('/login'),
-      child: Text('Next'))
-      );
+          padding: EdgeInsets.all(50),
+          child: AppButton(
+              color: AppColor.TOPAZ,
+              onPressed: () => _onPressedNextNavigation('/login'),
+              child: Text('Next')));
     }
-    return Scaffold(
-      appBar: _renderAppBar(), 
-      body: _renderNextButton()
-    );
+
+    return Scaffold(appBar: _renderAppBar(), body: _renderNextButton());
   }
 }

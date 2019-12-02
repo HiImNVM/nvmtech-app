@@ -23,21 +23,20 @@ class _LoginPageState extends State<LoginPage> {
   LoginBloc _loginBloc;
   AppBloc _appBloc;
 
-  //Khai bao controller
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
 
     //listen textchange tu textform(user interaction) roi add vao stream(output)
-    emailController.addListener(() {
-      _loginBloc.emailSink.add(emailController.text);
+    _emailController.addListener(() {
+      _loginBloc.emailSink.add(_emailController.text);
     });
 
-    passwordController.addListener(() {
-      _loginBloc.passwordSink.add(passwordController.text);
+    _passwordController.addListener(() {
+      _loginBloc.passwordSink.add(_passwordController.text);
     });
   }
 
@@ -86,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                   return Container();
                 }
                 return TextFormField(
-                  controller: emailController,
+                  controller: _emailController,
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     labelText: CONST_LOGINTEXT_ENTEREMAIL,
@@ -102,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                   return Container();
                 }
                 return TextFormField(
-                  controller: passwordController,
+                  controller: _passwordController,
                   obscureText: true,
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
@@ -136,6 +135,10 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  void _onTapSignUpNavigation(String route){
+    this._appBloc.getNavigator().pushReplacementNamed(route);
+  }
+  
   Widget _renderNavigatetoSignUp() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -143,10 +146,8 @@ class _LoginPageState extends State<LoginPage> {
         Padding(padding: EdgeInsets.only(top: 24)),
         Text("Don't" + CONST_LOGINTEXT_SIGNIN,
             style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
-        GestureDetector(
-            onTap: () {
-              this._appBloc.getNavigator().pushReplacementNamed('/signup');
-            },
+        GestureDetector(  
+            onTap: () => _onTapSignUpNavigation('/signup'),
             child: Text(CONST_LOGINTEXT_SIGNUPTITLE,
                 style: AppTextStyle.BLACK_W600_NORMAL_F12)),
       ],

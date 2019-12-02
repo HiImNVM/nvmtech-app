@@ -28,7 +28,6 @@ class _MyAppState extends State<MyApp> {
 
   Route _renderUnknowRoute(RouteSettings routeSettings) {
     // TODO: Should early update
-
   }
 
   @override

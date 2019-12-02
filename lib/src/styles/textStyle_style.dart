@@ -16,7 +16,6 @@ class AppTextStyle {
       fontStyle: FontStyle.normal,
       fontSize: 18.0);
 
-  //title page
   static const TextStyle BLACK_W700_NORMAL_F30 = const TextStyle(
       color: const Color(0xff404040),
       fontWeight: FontWeight.w700,

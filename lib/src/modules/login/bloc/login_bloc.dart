@@ -47,14 +47,12 @@ class LoginBloc extends BlocBase {
 
   Sink<bool> get isLoginSuccessSink => _isLoginSuccessSubject.sink;
   Stream<bool> get isLoginSuccessStream => _isLoginSuccessSubject.stream;
-
-  //Constructor
+  
   LoginBloc() {
-//Observable.combineLatest2 hợp nhất nhiều Stream(subject = sink + stream) thành một Stream
     Observable.combineLatest2(_emailSubject, _passwordSubject, (email, pass) {
       return Validation.validateEmail(email) == null &&
         Validation.validatePassword(pass) == null;
-    }).listen((enable) { //Lang nghe viec co bi thay doi hay ko?
+    }).listen((enable) { 
       isLoginSuccessSink.add(enable);
       //sink add thay doi den BloC(business logic)
       //BLoC notify thay đổi đến Widget thông qua stream

@@ -25,7 +25,10 @@ class AppBloc extends BlocBase {
   void setupApp() async {
     final bool isFirstTime = this._isFirstTime();
     if (isFirstTime) {
-      this._navigatorKey.currentState.pushReplacementNamed('/welcome');
+      //this._navigatorKey.currentState.pushReplacementNamed('/welcome');
+
+      this._navigatorKey.currentState.pushReplacementNamed('/signup');
+
       return;
     }
 

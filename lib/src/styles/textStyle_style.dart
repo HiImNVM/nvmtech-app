@@ -2,12 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:nvmtech/src/styles/color_style.dart';
 
 class AppTextStyle {
+  static const TextStyle OFFWHITE_W600_NORMAL_F14 = const TextStyle(
+    height: 2.0,
+    color: const Color(0xfff1f1f1),
+    fontWeight: FontWeight.w600,
+    fontFamily: "NunitoSans",
+    fontStyle: FontStyle.normal,
+    fontSize: 14.0);
+  
   static const TextStyle WHITE_W700_NORMAL_F16 = const TextStyle(
       color: Colors.white,
       fontWeight: FontWeight.w700,
       fontFamily: 'NunitoSans',
       fontStyle: FontStyle.normal,
       fontSize: 16.0);
+  
+  static const TextStyle WHITE_W700_NORMAL_F18 = const TextStyle(
+    color: const Color(0xffffffff),
+    fontWeight: FontWeight.w700,
+    fontFamily: "NunitoSans",
+    fontStyle: FontStyle.normal,
+    fontSize: 18.0);
 
   static const TextStyle BLACK_W700_NORMAL_F18 = const TextStyle(
       color: const Color(0xff404040),
@@ -44,4 +59,6 @@ class AppTextStyle {
       fontStyle: FontStyle.normal,
       decoration: TextDecoration.none,
       fontSize: 16.0);
+
+
 }

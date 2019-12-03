@@ -5,22 +5,24 @@ class AppButton extends StatelessWidget {
   AppButton({
     this.onPressed,
     this.child,
+    this.color,
+    this.height = 50,
   });
-
   final Function() onPressed;
   final Widget child;
-
+  final color;
+  final double height;
+  
+  
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(2),
-      ),
-      child: FlatButton(
-        textColor: Colors.white,
-        child: child,
-        onPressed: this.onPressed,
-      ),
+    return MaterialButton(
+      height: height, 
+      minWidth: double.infinity,
+      color: color,
+      textColor: Colors.white,
+      child: child,
+      onPressed: this.onPressed,
     );
   }
 }

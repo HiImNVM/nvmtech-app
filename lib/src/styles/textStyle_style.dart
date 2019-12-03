@@ -16,12 +16,27 @@ class AppTextStyle {
       fontStyle: FontStyle.normal,
       fontSize: 18.0);
 
+  static const TextStyle BLACK_W700_NORMAL_F30 = const TextStyle(
+      color: const Color(0xff404040),
+      fontWeight: FontWeight.w700,
+      fontFamily: 'NunitoSans',
+      fontStyle: FontStyle.normal,
+      fontSize: 30.0);
+
   static const TextStyle BLACK_W600_NORMAL_F12 = const TextStyle(
       color: const Color(0xff404040),
       fontWeight: FontWeight.w600,
       fontFamily: 'NunitoSans',
       fontStyle: FontStyle.normal,
       fontSize: 12.0);
+
+  static const TextStyle LIGHTGREY_W600_NORMAL_F14 = const TextStyle(
+    color: Color(0xff9b9b9b),
+    fontWeight: FontWeight.w600,
+    fontFamily: "NunitoSans",
+    fontStyle: FontStyle.normal,
+    fontSize: 14.0,
+  );
 
   static const TextStyle TOPAZ_W600_NORMAL_F12 = const TextStyle(
       color: AppColor.TOPAZ,

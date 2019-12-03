@@ -10,7 +10,7 @@ import 'package:nvmtech/src/styles/textStyle_style.dart';
 class SplashPage extends StatelessWidget {
   SplashPage() {
     Future.delayed(
-        Duration(milliseconds: 10000), () => this._appBloc.setupApp());
+        Duration(milliseconds: 5000), () => this._appBloc.setupApp());
   }
 
   AppBloc _appBloc;

@@ -24,14 +24,20 @@ class AppBloc extends BlocBase {
         .then((sf) => this._sPreferencesWrapper = sf);
   }
 
+  NavigatorState getNavigator(){
+    return this._navigatorKey.currentState;
+  }
   void setupApp() async {
-    final bool isFirstTime = this._isFirstTime();
+    bool isFirstTime = true;        // TODO: Hardcode
+    isFirstTime = this._isFirstTime();
+
     if (isFirstTime) {
       this._navigatorKey.currentState.pushReplacementNamed('/welcome');
       return;
     }
-
-    final bool isLoggined = this._isLoggined();
+    
+    // bool isLoggined = false;
+    bool isLoggined = this._isLoggined();
     if (!isLoggined) {
       this._navigatorKey.currentState.pushReplacementNamed('/login');
       return;

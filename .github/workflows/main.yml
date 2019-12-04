@@ -30,3 +30,4 @@ jobs:
       with:
         args: '{ \"channel\": \"GQXT76UM9\", \"text\": \"Release at:  https://github.com/HiImNVM/nvmtech-app/releases \" }'
 
+

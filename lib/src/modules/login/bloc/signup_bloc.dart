@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/base.dart';
-import 'package:nvmtech/core/bloc/index.dart';
 import 'package:nvmtech/src/util/validationUtil.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -11,22 +9,12 @@ class SignUpBloc extends BlocBase {
   final _passwordSubject = BehaviorSubject<String>();
   final _isLoginSuccessSubject = BehaviorSubject<bool>();
 
-//static function
-  static SignUpBloc of(BuildContext context) {
-    return BlocProvider.of<SignUpBloc>(context);
-  }
-
-  //StreamTransformer => transform data day ra
   var nameValidation =
   StreamTransformer<String, String>.fromHandlers(handleData: (name, sink) {
-    //email: validation
-    //sink: add string data to UI
     sink.add(Validation.validateName(name));
   });
   var emailValidation =
   StreamTransformer<String, String>.fromHandlers(handleData: (email, sink) {
-    //email: validation
-    //sink: add string data to UI
     sink.add(Validation.validateEmail(email));
   });
   var passValidation =
@@ -34,7 +22,6 @@ class SignUpBloc extends BlocBase {
     sink.add((Validation.validatePassword(pass)));
   });
 
-  //Stream(output) -Sink(input)
   //skip(1) = khi focus vao ko bao message error
   Sink<String> get nameSink => _nameSubject.sink;
   Stream<String> get nameStream =>
@@ -50,29 +37,30 @@ class SignUpBloc extends BlocBase {
 
   Sink<bool> get isLoginSuccessSink => _isLoginSuccessSubject.sink;
   Stream<bool> get isLoginSuccessStream => _isLoginSuccessSubject.stream;
-
-  //Constructor
+  
   SignUpBloc() {
-//Observable.combineLatest2 hợp nhất nhiều Stream(subject = sink + stream) thành một Stream
-
     Observable.combineLatest3(_nameSubject, _emailSubject, _passwordSubject,
         (name, email, pass) {
         Validation.validateName(name) == null &&
           Validation.validateEmail(email) == null &&
           Validation.validatePassword(pass) == null;
       }).listen((enable) {
-      //Lang nghe viec co bi thay doi hay ko?
       isLoginSuccessSink.add(enable);
-      //sink add thay doi den BloC(business logic)
-      //BLoC notify thay đổi đến Widget thông qua stream
     });
   }
 
   @override
   void dispose() async {
+    await this._nameSubject?.drain();
     _nameSubject.close();
+    
+    await this._emailSubject?.drain();
     _emailSubject.close();
+    
+    await this._passwordSubject?.drain();
     _passwordSubject.close();
+
+    await this._isLoginSuccessSubject?.drain();
     _isLoginSuccessSubject.close();
   }
 }

@@ -111,9 +111,20 @@ class _LoginPageState extends State<LoginPage> {
                   keyboardType: TextInputType.visiblePassword,
                 );
               }),
+          SizedBox(height: 10),
+          _renderForgotPassword()
         ],
       ),
     );
+  }
+
+  Widget _renderForgotPassword() {
+    return Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
+      GestureDetector(
+          onTap: () => _onTapNavigation('/forgotpassword'),
+          child: Text(CONST_FORGOTPASSTITLE + "?",
+              style: AppTextStyle.LIGHTGREY_W600_NORMAL_F12)),
+    ]);
   }
 
   Widget _renderSignInButton() {
@@ -126,19 +137,19 @@ class _LoginPageState extends State<LoginPage> {
               return Container();
             }
             return AppButton(
-              color: AppColor.TOPAZ,
-              child: _renderTextInButton(CONST_LOGINTEXT_SIGNINTITLE),
-              onPressed: (){}
-              //snapshot.data == true ? () {} : null,
-            );
+                color: AppColor.TOPAZ,
+                child: _renderTextInButton(CONST_LOGINTEXT_SIGNINTITLE),
+                onPressed: () {}
+                //snapshot.data == true ? () {} : null,
+                );
           }),
     );
   }
 
-  void _onTapSignUpNavigation(String route){
+  void _onTapNavigation(String route) {
     this._appBloc.getNavigator().pushReplacementNamed(route);
   }
-  
+
   Widget _renderNavigatetoSignUp() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -146,8 +157,8 @@ class _LoginPageState extends State<LoginPage> {
         Padding(padding: EdgeInsets.only(top: 24)),
         Text("Don't" + CONST_LOGINTEXT_SIGNIN,
             style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
-        GestureDetector(  
-            onTap: () => _onTapSignUpNavigation('/signup'),
+        GestureDetector(
+            onTap: () => _onTapNavigation('/signup'),
             child: Text(CONST_LOGINTEXT_SIGNUPTITLE,
                 style: AppTextStyle.BLACK_W600_NORMAL_F12)),
       ],

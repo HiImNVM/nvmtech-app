@@ -118,8 +118,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   keyboardType: TextInputType.visiblePassword, // @
                 );
               }),
-//          SizedBox(height: 10,),
-//          _renderForgotPassword(),
         ]));
   }
 //

@@ -19,7 +19,7 @@ jobs:
         flutter-version: '1.9.1+hotfix.6'
     - run: flutter pub get
     # - run: flutter test
-    - run: flutter build apk --debug --split-per-abi
+    - run: flutter build apk --release --split-per-abi -t lib/main_prod.dart 
     - name: Create a Release APK
       uses: ncipollo/release-action@v1
       with:

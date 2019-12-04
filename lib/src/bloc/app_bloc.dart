@@ -30,7 +30,7 @@ class AppBloc extends BlocBase {
     isFirstTime = this._isFirstTime();
 
     if (isFirstTime) {
-      this._navigatorKey.currentState.pushReplacementNamed('/forgotpassword');
+      this._navigatorKey.currentState.pushReplacementNamed('/welcome');
       return;
     }
     

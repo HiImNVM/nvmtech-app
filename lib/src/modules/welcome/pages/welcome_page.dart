@@ -49,7 +49,6 @@ class _Welcome_PageState extends State<Welcome_Page> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _flag = true;
     _B1texttitle = CONST_WELCOME_ONBOARDING1_TITLE;

@@ -11,5 +11,5 @@ const String CONST_WELCOME_ONBOARDING2_CONTENT =
   "Encrypted Business Communication Software with Multiple Instant Messaging Features. Test Brosix's Expansive Functionality";
 
 const String CONST_WELCOME_ONBOARDING3_TITLE = 'Share Audio, Video & Photo';
-const String CONST_WELCOME_ONBOARDING3_CONTENT = ""
+const String CONST_WELCOME_ONBOARDING3_CONTENT = 
   "Real-time stats. See which fans are listening to your tracks the most and where your top fans are, all in real-time.";

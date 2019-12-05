@@ -122,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
     return Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
       GestureDetector(
           onTap: () => _onTapNavigation('/forgotpassword'),
-          child: Text(CONST_FORGOTPASSTITLE + "?",
+          child: Text(CONST_FORGOTPASS_TITLE + "?",
               style: AppTextStyle.LIGHTGREY_W600_NORMAL_F12)),
     ]);
   }
@@ -147,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onTapNavigation(String route) {
-    this._appBloc.getNavigator().pushReplacementNamed(route);
+    this._appBloc.getNavigator().pushNamed(route);
   }
 
   Widget _renderNavigatetoSignUp() {

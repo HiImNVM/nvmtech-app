@@ -1,4 +1,4 @@
-const String CONST_FORGOTPASSTITLE = 'Forgot Password';
+const String CONST_FORGOTPASS_TITLE = 'Forgot Password';
 
 const String CONST_LOGINTEXT_OR = 'Or';
 const String CONST_LOGINTEXT_SIGNIN = " have an account? ";

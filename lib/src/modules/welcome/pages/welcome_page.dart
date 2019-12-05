@@ -11,9 +11,7 @@ import 'package:nvmtech/src/styles/textStyle_style.dart';
 class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AppBackground(child: Welcome_Page())
-    );
+    return Scaffold(body: AppBackground(child: Welcome_Page()));
   }
 }
 
@@ -42,15 +40,19 @@ class _Welcome_PageState extends State<Welcome_Page> {
   String _B2screenright;
   String _B3screenright;
 
-  int count = 0;
-  bool _flag;
+  int count;
+  bool _flagnext;
+  bool _flagskip;
   String _btnNext;
+  String _btnSkip;
   AppBloc _appBloc;
 
   @override
   void initState() {
     super.initState();
-    _flag = true;
+    _flagskip = true;
+    _flagnext = true;
+    count = 0;
     _B1texttitle = CONST_WELCOME_ONBOARDING1_TITLE;
     _B1textcontent = CONST_WELCOME_ONBOARDING1_CONTENT;
 
@@ -73,34 +75,7 @@ class _Welcome_PageState extends State<Welcome_Page> {
     _B3screenright = WelcomeImage.WELCOME_B3_SCREENRIGHT;
 
     _btnNext = CONST_WELCOME_NEXT;
-  }
-
-  void _onTapLoginNavigation(String route) {
-    this._appBloc.getNavigator().pushReplacementNamed(route);
-  }
-
-  void _onTapNextButton() {
-    count++;
-    if (count > 1) {
-      _flag = false;
-    }
-    setState(() {
-      _B1texttitle = _B2texttitle;
-      _B1textcontent = _B2textcontent;
-
-      _B2texttitle = _B3texttitle;
-      _B2textcontent = _B3textcontent;
-
-      _B1screenleft = _B2screenleft;
-      _B2screenleft = _B3screenleft;
-
-      _B1screencenter = _B2screencenter;
-      _B2screencenter = _B3screencenter;
-
-      _B1screenright = _B2screenright;
-      _B2screenright = _B3screenright;
-    });
-    
+    _btnSkip = CONST_WELCOME_SKIP;
   }
 
   Widget _renderPhoneScreen() {
@@ -117,7 +92,6 @@ class _Welcome_PageState extends State<Welcome_Page> {
             ),
           ],
         ),
-
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -129,25 +103,6 @@ class _Welcome_PageState extends State<Welcome_Page> {
             ),
           ],
         ),
-//         Center(
-//           child: Stack(
-//             alignment: AlignmentDirectional.center,
-//             fit: StackFit.loose,
-//             children: <Widget>[
-//               Container(
-//                 child: Image.asset(
-//                   WelcomeImage.WELCOME_PHONEFRAME,
-//                 ),
-//               ),
-//               Container(
-//                 margin: EdgeInsets.only(bottom: 25),
-//                 child: Image.asset(
-//                   WelcomeImage.WELCOME_SCREEN,
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -162,6 +117,39 @@ class _Welcome_PageState extends State<Welcome_Page> {
       ],
     );
   }
+
+  void _onTapLoginNavigation(String route) {
+    this._appBloc.getNavigator().pushReplacementNamed(route);
+  }
+
+  void _onTapButton(int totalcount) {
+    count++;
+    totalcount += count;
+
+    if (totalcount == 1) {
+      return setState(() {
+        _B1texttitle = _B2texttitle;
+        _B1textcontent = _B2textcontent;
+        _B1screenleft = _B2screenleft;
+        _B1screencenter = _B2screencenter;
+        _B1screenright = _B2screenright;
+      });
+    }
+    if (totalcount > 1) {
+      _flagnext = false;
+
+      return setState(() {
+        _B1screenleft = _B3screenleft;
+        _B1screenright = _B3screenright;
+        _B1screencenter = _B3screencenter;
+
+        _B1texttitle = _B3texttitle;
+        _B1textcontent = _B3textcontent;
+        _btnSkip = '';
+      });
+    }
+  }
+
   Widget _renderTextIntroduce() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 40),
@@ -182,23 +170,36 @@ class _Welcome_PageState extends State<Welcome_Page> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                _flag == false
-                  ? Container()
-                  : Opacity(
+                Opacity(
                   opacity: 0.6000000238418579,
-                  child: Text(CONST_WELCOME_SKIP,
-                    style: AppTextStyle.OFFWHITE_W600_NORMAL_F14)),
-                _flag == true
-                  ? GestureDetector(
-                  onTap: _onTapNextButton,
-                  child: Text(_btnNext,
-                    style: AppTextStyle.OFFWHITE_W600_NORMAL_F14),
-                )
-                  : GestureDetector(
-                  onTap: () => _onTapLoginNavigation('/login')  ,
-                  child: Text(CONST_WELCOME_GETSTARTED,
-                    style: AppTextStyle.OFFWHITE_W600_NORMAL_F14),
-                )
+                  child:
+                  _flagskip == false
+                      ? GestureDetector(
+                          onTap: () {
+                          },
+                          child: Text(CONST_WELCOME_SKIP,
+                              style: AppTextStyle.OFFWHITE_W600_NORMAL_F14),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            count = 2;
+                            _onTapButton(count);
+                          },
+                          child: Text(_btnSkip,
+                              style: AppTextStyle.OFFWHITE_W600_NORMAL_F14),
+                        ),
+                ),
+                _flagnext == true
+                    ? GestureDetector(
+                        onTap: () => _onTapButton(count),
+                        child: Text(_btnNext,
+                            style: AppTextStyle.OFFWHITE_W600_NORMAL_F14),
+                      )
+                    : GestureDetector(
+                        onTap: () => _onTapLoginNavigation('/login'),
+                        child: Text(CONST_WELCOME_GETSTARTED,
+                            style: AppTextStyle.OFFWHITE_W600_NORMAL_F14),
+                      )
               ],
             ),
           )
@@ -207,14 +208,14 @@ class _Welcome_PageState extends State<Welcome_Page> {
     );
   }
 
-  Widget _renderTextBox(){
+  Widget _renderTextBox() {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(AppImage.PATH_BACKGROUND_IMAGE),
           fit: BoxFit.cover,
         ),
-        gradient: AppGradient.BLUEGREEN,
+        gradient: AppGradient.BLUE_GREEN_LINEARGRADIENT,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(50.0),
           topRight: Radius.circular(50.0),
@@ -223,7 +224,7 @@ class _Welcome_PageState extends State<Welcome_Page> {
       width: double.infinity,
       child: _renderTextIntroduce(),
     );
-}
+  }
 
   @override
   Widget build(BuildContext context) {

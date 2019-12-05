@@ -1,5 +1,5 @@
-const String CONST_FORGOTPASSTITLE = 'Forgot Password';
-const String CONST_FORGOTPASSTEXT =
+const String CONST_FORGOTPASS_TITLE = 'Forgot Password';
+const String CONST_FORGOTPASS_TEXT =
   "No problem. Enter the email address you used to register your account and we’ll send you a reset link";
 const String CONST_FORGOTPASS_CONTINUE = "Continue";
 

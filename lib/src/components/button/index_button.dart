@@ -12,7 +12,13 @@ class AppButton extends StatelessWidget {
   final Widget child;
   final color;
   final double height;
-  
+
+  static Widget renderTextInButton(String text, TextStyle textstyle) {
+    return Text(
+      text,
+      style: textstyle,
+    );
+  }
   
   @override
   Widget build(BuildContext context) {

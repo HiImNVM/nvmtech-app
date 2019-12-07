@@ -1,8 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-//Suppose you wanna save a small value (a flag probably) 
-// that you wanna refer later sometime when a user launches the application. 
-// Then shared preference comes into action.
-//lưu một giá trị nhỏ => giới thiệu sau này => Du lieu khoa gia tri
+
 abstract class ISharedPreferences {
   String getToken();
   void clear();

@@ -10,9 +10,6 @@ import 'package:nvmtech/src/types/theme_type.dart';
 import 'package:nvmtech/src/util/printUtil.dart';
 
 class MyApp extends StatefulWidget {
-  //Navigate without context
-  //Navigate from business logic, where the context is not available
-  // GlobalKey(Stateful) access the NavigatorState outside of the build context
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   @override

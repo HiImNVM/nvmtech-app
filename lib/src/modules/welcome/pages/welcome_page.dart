@@ -172,34 +172,30 @@ class _Welcome_PageState extends State<Welcome_Page> {
               children: <Widget>[
                 Opacity(
                   opacity: 0.6000000238418579,
-                  child:
-                  _flagskip == false
-                      ? GestureDetector(
-                          onTap: () {
-                          },
-                          child: Text(CONST_WELCOME_SKIP,
-                              style: AppTextStyle.OFFWHITE_W600_NORMAL_F14),
-                        )
-                      : GestureDetector(
-                          onTap: () {
-                            count = 2;
-                            _onTapButton(count);
-                          },
-                          child: Text(_btnSkip,
-                              style: AppTextStyle.OFFWHITE_W600_NORMAL_F14),
-                        ),
+                  child: GestureDetector(
+                      onTap: () {
+                        if (_flagskip == true) {
+                          count = 2;
+                          _onTapButton(count);
+                        }
+                      },
+                      child: Text(
+                          _flagskip == false ? CONST_WELCOME_SKIP : _btnSkip,
+                          style: AppTextStyle.OFFWHITE_W600_NORMAL_F14)),
                 ),
-                _flagnext == true
-                    ? GestureDetector(
-                        onTap: () => _onTapButton(count),
-                        child: Text(_btnNext,
-                            style: AppTextStyle.OFFWHITE_W600_NORMAL_F14),
-                      )
-                    : GestureDetector(
-                        onTap: () => _onTapLoginNavigation('/login'),
-                        child: Text(CONST_WELCOME_GETSTARTED,
-                            style: AppTextStyle.OFFWHITE_W600_NORMAL_F14),
-                      )
+                GestureDetector(
+                  onTap: () {
+                    if (_flagnext == true) {
+                      _onTapButton(count);
+                      return;
+                    }
+                    
+                    _onTapLoginNavigation('/login');
+                  },
+                  child: Text(
+                      _flagnext == true ? _btnNext : CONST_WELCOME_GETSTARTED,
+                      style: AppTextStyle.OFFWHITE_W600_NORMAL_F14),
+                )
               ],
             ),
           )

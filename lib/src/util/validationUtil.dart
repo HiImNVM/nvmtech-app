@@ -2,6 +2,16 @@ import 'package:nvmtech/src/constants/validationUtil_constant.dart';
 
 class Validation{
   static String emailvalid = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+
+  static String validateName(String name){
+    if(name == null){
+      return CONST_VALIDATION_NAMEISNULL;
+    }
+    if(name.isEmpty){
+      return CONST_VALIDATION_ISEMPTY;
+    }
+    return null;
+  }
   
   static String validateEmail(String email){
     if(email == null){

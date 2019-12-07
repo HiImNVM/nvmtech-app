@@ -29,6 +29,14 @@ class AppTextStyle {
       fontFamily: 'NunitoSans',
       fontStyle: FontStyle.normal,
       fontSize: 12.0);
+  
+  static const TextStyle LIGHTGREY_W600_NORMAL_F12 = const TextStyle(
+    color: Color(0xff9b9b9b),
+    fontWeight: FontWeight.w600,
+    fontFamily: "NunitoSans",
+    fontStyle: FontStyle.normal,
+    fontSize: 12.0,
+  );
 
   static const TextStyle LIGHTGREY_W600_NORMAL_F14 = const TextStyle(
     color: Color(0xff9b9b9b),

@@ -9,7 +9,10 @@ const String CONST_LOGINTEXT_ENTERPASS = "Enter Password";
 const String CONST_LOGINTEXT_FACEBOOK = "Login with Facebook";
 const String CONST_LOGINTEXT_GOOGLE = "Login with Google";
 
+const String CONST_PHONE_TITLE = "My Mobile Number is";
+const String CONST_PHONE_TEXT =
+    "We need your mobile number to verify your account and to be able to get in touch.";
 
-
-
-
+const String CONST_CODE_TITLE = "My Code is";
+const String CONST_CODE_TEXT =
+    "Check your SMS messages, we have sent you the pin at +311 223 3244";

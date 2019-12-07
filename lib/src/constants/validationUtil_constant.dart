@@ -20,3 +20,12 @@ const String CONST_VALIDATION_PASSISINVALID =
 
 const String CONST_VALIDATION_ISPASSLENGTH =
   _passwordText + " is required minimum 7 characters";
+
+const String _phoneText = "Password";
+
+const String CONST_VALIDATION_PHONEISNULL =
+  _phoneText + _isInvalidText + _nullText;
+const String CONST_VALIDATION_PHONEISINVALID =
+  _phoneText + _isInvalidText + _unmatchedText;
+const String CONST_VALIDATION_ISPHONELENGTH =
+  _phoneText + " is required minimum 9 characters";

@@ -32,7 +32,7 @@ class AppBloc extends BlocBase {
     isFirstTime = this._isFirstTime();
 
     if (isFirstTime) {
-      this._navigatorKey.currentState.pushReplacementNamed('/welcome');
+      this._navigatorKey.currentState.pushReplacementNamed('/phoneverification');
       return;
     }
     

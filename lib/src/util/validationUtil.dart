@@ -30,4 +30,17 @@ class Validation{
     }
     return null;
   }
+
+  static String validatePhone(String phone){
+    if(phone == null){
+      return CONST_VALIDATION_PHONEISNULL;
+    }
+    if(phone.isEmpty){
+      return CONST_VALIDATION_PHONEISINVALID;
+    }
+    if(phone.length < 9){
+      return CONST_VALIDATION_ISPHONELENGTH;
+    }
+    return null;
+  }
 }

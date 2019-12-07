@@ -10,6 +10,9 @@ class Validation{
     if(name.isEmpty){
       return CONST_VALIDATION_ISEMPTY;
     }
+    if(name.length < 30){
+      return CONST_VALIDATION_ISNAMELENGTH;
+    }
     return null;
   }
   

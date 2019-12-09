@@ -15,4 +15,7 @@ const String CONST_PHONE_TEXT =
 
 const String CONST_CODE_TITLE = "My Code is";
 const String CONST_CODE_TEXT =
-    "Check your SMS messages, we have sent you the pin at +311 223 3244";
+    "Check your SMS messages, we have sent you the pin at +";
+const String CONST_CODE_TEXTBUTTON = "Didn't receive SMS?";
+
+

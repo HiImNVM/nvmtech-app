@@ -14,6 +14,7 @@ const String CONST_VALIDATION_ISEMPTY =
 
 const String CONST_VALIDATION_EMAILISINVALID =
   _emailText + _isInvalidText + _unmatchedText;
+
 const String CONST_VALIDATION_PASSISINVALID =
   _passwordText + _isInvalidText + _unmatchedText;
 
@@ -21,11 +22,13 @@ const String CONST_VALIDATION_PASSISINVALID =
 const String CONST_VALIDATION_ISPASSLENGTH =
   _passwordText + " is required minimum 7 characters";
 
-const String _phoneText = "Password";
+const String _phoneText = "Phone number";
 
 const String CONST_VALIDATION_PHONEISNULL =
   _phoneText + _isInvalidText + _nullText;
+
 const String CONST_VALIDATION_PHONEISINVALID =
-  _phoneText + _isInvalidText + _unmatchedText;
+  _phoneText + _isInvalidText;
+
 const String CONST_VALIDATION_ISPHONELENGTH =
-  _phoneText + " is required minimum 9 characters";
+  _phoneText + " is required minimum 9 numbers";

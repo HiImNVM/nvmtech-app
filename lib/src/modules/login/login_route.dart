@@ -21,6 +21,6 @@ final Map<String, Function> LOGIN_ROUTE = {
       ),
   '/codeverification': (RouteSettings settings) => _routeWrapper.renderRoute(
     settings,
-    CodeVerificationPage(),
+    CodePage(),
   ),
 };

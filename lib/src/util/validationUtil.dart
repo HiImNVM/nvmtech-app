@@ -36,11 +36,16 @@ class Validation{
       return CONST_VALIDATION_PHONEISNULL;
     }
     if(phone.isEmpty){
-      return CONST_VALIDATION_PHONEISINVALID;
+      return CONST_VALIDATION_ISEMPTY;
     }
     if(phone.length < 9){
       return CONST_VALIDATION_ISPHONELENGTH;
     }
-    return null;
+    return '';
   }
 }
+
+//String result = validatePhone('abc');
+//if (result.isNotEmpty){
+//  // error
+//}

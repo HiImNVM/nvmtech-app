@@ -19,24 +19,24 @@ class _SignUpPageState extends State<SignUpPage> {
   SignUpBloc _signUpBloc;
   AppBloc _appBloc;
 
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
 
-    nameController.addListener(() {
-      _signUpBloc.nameSink.add(nameController.text);
+    _nameController.addListener(() {
+      _signUpBloc.nameSink.add(_nameController.text);
     });
 
-    emailController.addListener(() {
-      _signUpBloc.emailSink.add(emailController.text);
+    _emailController.addListener(() {
+      _signUpBloc.emailSink.add(_emailController.text);
     });
 
-    passwordController.addListener(() {
-      _signUpBloc.passwordSink.add(passwordController.text);
+    _passwordController.addListener(() {
+      _signUpBloc.passwordSink.add(_passwordController.text);
     });
   }
 
@@ -77,7 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   return Container();
                 }
                 return TextFormField(
-                  controller: nameController,
+                  controller: _nameController,
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     labelText: "Full Name",
@@ -93,7 +93,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   return Container();
                 }
                 return TextFormField(
-                  controller: emailController,
+                  controller: _emailController,
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     labelText: "Enter Email",
@@ -109,7 +109,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   return Container();
                 }
                 return TextFormField(
-                  controller: passwordController,
+                  controller: _passwordController,
                   obscureText: true,
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
@@ -135,7 +135,6 @@ class _SignUpPageState extends State<SignUpPage> {
               color: AppColor.TOPAZ,
               child: renderTextInButton(CONST_LOGINTEXT_SIGNUPTITLE),
               onPressed: () => _onTapSignInNavigation('/login'),
-              //snapshot.data == true ? () {} : null,
             );
           }),
     );

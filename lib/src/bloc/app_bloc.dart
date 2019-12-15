@@ -8,6 +8,7 @@ import 'package:rxdart/rxdart.dart';
 class AppBloc extends BlocBase {
   GlobalKey<NavigatorState> _navigatorKey;
 
+  //-------Theme (BehaviorSubject - Sink - Stream)
   final BehaviorSubject<ThemeType> _theme =
       BehaviorSubject<ThemeType>.seeded(ThemeType.Light);
 
@@ -16,6 +17,7 @@ class AppBloc extends BlocBase {
 
   SharedPreferencesWrapper _sPreferencesWrapper;
 
+  // -------Constructor-------
   AppBloc(navigatorKey) {
     this._navigatorKey = navigatorKey;
     SharedPreferencesWrapper.getInstance()
@@ -30,7 +32,7 @@ class AppBloc extends BlocBase {
 
     
     if (isFirstTime) {
-      this._navigatorKey.currentState.pushReplacementNamed('/welcome');
+      this._navigatorKey.currentState.pushReplacementNamed('/login');
       return;
     }
     
@@ -50,6 +52,7 @@ class AppBloc extends BlocBase {
       this._sPreferencesWrapper.getSPreferences().getBool(CONST_FIRST_TIME) ??
       true;
 
+  //-----Dispose----------
   @override
   void dispose() async {
     this._navigatorKey = null;

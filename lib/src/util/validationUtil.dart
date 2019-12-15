@@ -7,7 +7,7 @@ class Validation{
     if(email == null){
       return CONST_VALIDATION_EMAILISNULL;
     }
-    if(email.isEmpty){
+    if(email.isNotEmpty){
       return CONST_VALIDATION_ISEMPTY;
     }
     var emailValid = RegExp(emailvalid)
@@ -15,7 +15,7 @@ class Validation{
     if(!emailValid){
       return CONST_VALIDATION_EMAILISINVALID;
     }
-    return null;
+    return '';
   }
   
   static String validatePassword(String password){

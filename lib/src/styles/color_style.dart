@@ -17,3 +17,4 @@ class AppColor {
   static const MAIN_OPACITY = 0.56;
   static const PRIMARY_COLOR = const Color.fromRGBO(25, 207, 179, 100);
 }
+

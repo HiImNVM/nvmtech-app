@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nvmtech/src/styles/textStyle_style.dart';
 
 class AppButton extends StatelessWidget {
   AppButton({
@@ -12,7 +13,13 @@ class AppButton extends StatelessWidget {
   final Widget child;
   final color;
   final double height;
-  
+
+  static Widget renderTextInButton(String text) {
+    return Text(
+      text,
+      style: AppTextStyle.WHITE_W700_NORMAL_F16,
+    );
+  }
   
   @override
   Widget build(BuildContext context) {

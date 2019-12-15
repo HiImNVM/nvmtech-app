@@ -8,7 +8,6 @@ import 'package:nvmtech/src/styles/color_style.dart';
 import 'package:nvmtech/src/styles/image_style.dart';
 import 'package:nvmtech/src/styles/textStyle_style.dart';
 import 'package:nvmtech/src/util/snapshotUtil.dart';
-import 'package:nvmtech/src/util/renderTextInButton.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -133,7 +132,7 @@ class _SignUpPageState extends State<SignUpPage> {
             }
             return AppButton(
               color: AppColor.TOPAZ,
-              child: renderTextInButton(CONST_LOGINTEXT_SIGNUPTITLE),
+              child: AppButton.renderTextInButton(CONST_LOGINTEXT_SIGNUPTITLE),
               onPressed: () => _onTapSignInNavigation('/login'),
             );
           }),
@@ -171,7 +170,7 @@ class _SignUpPageState extends State<SignUpPage> {
         Expanded(flex: 1, child: Text(' |')),
         Expanded(
           flex: 3,
-          child: renderTextInButton(text),
+          child: AppButton.renderTextInButton(text),
         ),
       ],
     );

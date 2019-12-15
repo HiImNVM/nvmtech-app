@@ -9,15 +9,15 @@ class SignUpBloc extends BlocBase {
   final _passwordSubject = BehaviorSubject<String>();
   final _isLoginSuccessSubject = BehaviorSubject<bool>();
 
-  var nameValidation =
+  final nameValidation =
   StreamTransformer<String, String>.fromHandlers(handleData: (name, sink) {
     sink.add(Validation.validateName(name));
   });
-  var emailValidation =
+  final emailValidation =
   StreamTransformer<String, String>.fromHandlers(handleData: (email, sink) {
     sink.add(Validation.validateEmail(email));
   });
-  var passValidation =
+  final passValidation =
   StreamTransformer<String, String>.fromHandlers(handleData: (pass, sink) {
     sink.add((Validation.validatePassword(pass)));
   });

@@ -34,7 +34,6 @@ class AppBloc extends BlocBase {
       return;
     }
     
-    // bool isLoggined = false;
     bool isLoggined = this._isLoggined();
     if (!isLoggined) {
       this._navigatorKey.currentState.pushReplacementNamed('/login');

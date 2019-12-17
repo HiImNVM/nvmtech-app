@@ -3,6 +3,8 @@ env:
   SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 on:
   push:
+    tags:
+    - '*'
     branches:
       - master
 jobs:

@@ -1,14 +1,14 @@
+import 'package:flutter/widgets.dart';
 import 'package:nvmtech/src/util/printUtil.dart';
 
-bool snapshotUtil(dynamic snapshot){
-  if (snapshot == null) {
-    return true;
-  }
-  
+bool hasDataSnapshotUtil(AsyncSnapshot snapshot) {
+  if (snapshot == null) return false;
+
   if (snapshot.hasError) {
     printError(snapshot.error);
-    return true;
+    return false;
   }
-  
+
   if (!snapshot.hasData) return false;
+  return true;
 }

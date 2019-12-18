@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
           StreamBuilder<String>(
               stream: _loginBloc.emailStream,
               builder: (context, snapshot) {
-                if (snapshotUtil(snapshot) == true) {
+                if (!hasDataSnapshotUtil(snapshot)) {
                   return Container();
                 }
                 return TextFormField(
@@ -97,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
           StreamBuilder<String>(
               stream: _loginBloc.passwordStream,
               builder: (context, snapshot) {
-                if (snapshotUtil(snapshot) == true) {
+                if (!hasDataSnapshotUtil(snapshot)) {
                   return Container();
                 }
                 return TextFormField(
@@ -133,15 +133,13 @@ class _LoginPageState extends State<LoginPage> {
       child: StreamBuilder<bool>(
           stream: _loginBloc.isLoginSuccessStream,
           builder: (context, snapshot) {
-            if (snapshotUtil(snapshot) == true) {
+            if (!hasDataSnapshotUtil(snapshot)) {
               return Container();
             }
             return AppButton(
                 color: AppColor.TOPAZ,
                 child: _renderTextInButton(CONST_LOGINTEXT_SIGNINTITLE),
-                onPressed: () {}
-                //snapshot.data == true ? () {} : null,
-                );
+                onPressed: () {});
           }),
     );
   }

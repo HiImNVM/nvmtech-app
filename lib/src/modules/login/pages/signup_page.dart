@@ -72,7 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
           StreamBuilder<String>(
               stream: _signUpBloc.nameStream,
               builder: (context, snapshot) {
-                if (snapshotUtil(snapshot) == true) {
+                if (!hasDataSnapshotUtil(snapshot)) {
                   return Container();
                 }
                 return TextFormField(
@@ -88,7 +88,7 @@ class _SignUpPageState extends State<SignUpPage> {
           StreamBuilder<String>(
               stream: _signUpBloc.emailStream,
               builder: (context, snapshot) {
-                if (snapshotUtil(snapshot) == true) {
+                if (!hasDataSnapshotUtil(snapshot)) {
                   return Container();
                 }
                 return TextFormField(
@@ -104,7 +104,7 @@ class _SignUpPageState extends State<SignUpPage> {
           StreamBuilder<String>(
               stream: _signUpBloc.passwordStream,
               builder: (context, snapshot) {
-                if (snapshotUtil(snapshot) == true) {
+                if (!hasDataSnapshotUtil(snapshot)) {
                   return Container();
                 }
                 return TextFormField(
@@ -127,7 +127,7 @@ class _SignUpPageState extends State<SignUpPage> {
       child: StreamBuilder<bool>(
           stream: _signUpBloc.isLoginSuccessStream,
           builder: (context, snapshot) {
-            if (snapshotUtil(snapshot) == true) {
+            if (!hasDataSnapshotUtil(snapshot)) {
               return Container();
             }
             return AppButton(

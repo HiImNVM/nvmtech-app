@@ -8,6 +8,7 @@ import 'package:nvmtech/src/route.dart';
 import 'package:nvmtech/src/styles/theme_style.dart';
 import 'package:nvmtech/src/types/theme_type.dart';
 import 'package:nvmtech/src/util/printUtil.dart';
+import 'package:nvmtech/src/util/snapshotUtil.dart';
 
 class MyApp extends StatefulWidget {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
@@ -32,17 +33,15 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    printCountBuild('_MyAppState');
     return BlocProvider(
       bloc: this._appBloc,
       child: StreamBuilder<ThemeType>(
         stream: this._appBloc.streamThemeType,
         builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            printError(snapshot.error);
+          if (!hasDataSnapshotUtil(snapshot)) {
             return Container();
           }
-
-          if (!snapshot.hasData) return Container();
 
           return AppMaterial(
             home: SplashPage(),

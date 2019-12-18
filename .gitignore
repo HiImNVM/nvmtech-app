@@ -71,3 +71,14 @@
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+.flutter-plugins-dependencies
+.vscode/launch.json
+*.g.dart
+*.lock
+ios/Flutter/flutter_export_environment.sh
+ios/Runner/GoogleService-Info.plist
+ios/Runner/Prod-GoogleService-Info.plist
+# /android/app/dofhunt.jks
+/android/app/src/staging/google-services.json
+*.pem

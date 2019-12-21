@@ -15,11 +15,11 @@ final Map<String, Function> LOGIN_ROUTE = {
           child: LoginPage(),
         ),
       ),
-  '/signup': (RouteSettings settings) => _routeWrapper.renderRoute(
-    settings,
-    BlocProvider(
-      bloc: SignUpBloc(),
-      child: SignUpPage(),
-    ),
-  ),
+  // '/signup': (RouteSettings settings) => _routeWrapper.renderRoute(
+  //   settings,
+  //   BlocProvider(
+  //     bloc: SignUpBloc(),
+  //     child: SignUpPage(),
+  //   ),
+  // ),
 };

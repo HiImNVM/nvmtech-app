@@ -62,7 +62,7 @@ class _WelcomePageState extends State<WelcomePage> {
       pathImg,
       width: widthImage,
       height: heightImage,
-      fit: BoxFit.fill,
+      fit: BoxFit.contain,
     );
   }
 
@@ -110,8 +110,6 @@ class _WelcomePageState extends State<WelcomePage> {
             child: this._renderBaseShowScreen(
               context,
               introduceModel.pathCenterImage,
-              size.width * 0.6,
-              size.height * 0.7,
             ),
           ),
           Positioned(
@@ -157,7 +155,7 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   Widget _renderDots() {
-    return DotIndicator(
+    return AppDotIndicator(
       index: this._currentStep,
       length: this._introduces.length,
       defaultColorDot: Colors.white.withOpacity(0.6),

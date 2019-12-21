@@ -4,3 +4,9 @@ enum AppStatus {
   Auth,
   Welcome,
 }
+
+enum ToastType {
+  Success,
+  Error,
+  Info,
+}

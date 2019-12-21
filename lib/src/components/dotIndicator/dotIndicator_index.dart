@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-class DotIndicator extends StatelessWidget {
-  const DotIndicator({
+class AppDotIndicator extends StatelessWidget {
+  const AppDotIndicator({
     @required this.index,
     @required this.length,
     this.defaultColorDot = const Color.fromRGBO(0, 0, 4, 0.4),

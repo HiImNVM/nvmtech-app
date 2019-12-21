@@ -86,4 +86,20 @@ class AppTextStyle {
       fontStyle: FontStyle.normal,
       decoration: TextDecoration.none,
       fontSize: 16.0);
+
+  static const TextStyle BROWNGREY_W400_NORMAL_F15 = const TextStyle(
+      color: AppColor.BROWNGREY,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'NunitoSans',
+      fontStyle: FontStyle.normal,
+      decoration: TextDecoration.none,
+      fontSize: 15.0);
+
+  static const TextStyle BLACK_W600_NORMAL_F14 = const TextStyle(
+    color: AppColor.BLACK,
+    fontWeight: FontWeight.w600,
+    fontFamily: "NunitoSans",
+    fontStyle: FontStyle.normal,
+    fontSize: 16.0,
+  );
 }

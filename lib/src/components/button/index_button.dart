@@ -7,12 +7,14 @@ class AppButton extends StatelessWidget {
     this.onPressed,
     this.child,
     this.color,
+    this.padding,
     this.height = 50,
   });
   final Function() onPressed;
   final Widget child;
   final color;
   final double height;
+  final EdgeInsetsGeometry padding;
 
   static Widget renderTextInButton(String text) {
     return Text(
@@ -20,11 +22,12 @@ class AppButton extends StatelessWidget {
       style: AppTextStyle.WHITE_W700_NORMAL_F16,
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      height: height, 
+      padding: padding,
+      height: height,
       minWidth: double.infinity,
       color: color,
       textColor: Colors.white,

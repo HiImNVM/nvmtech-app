@@ -3,4 +3,4 @@ enum LoginType {
   Account,
 }
 
-enum LoginState { Loading, Success, NewUser, Fail, Cancel, Default }
+enum LoginState { Loading, Default }

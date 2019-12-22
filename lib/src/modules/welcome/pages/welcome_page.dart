@@ -179,6 +179,10 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget _renderTextIntroduce(context, IntroduceModel introduceModel) {
     return Container(
       decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(AppImage.PATH_BACKGROUND_IMAGE),
+          fit: BoxFit.cover,
+        ),
         gradient: AppGradient.BLUE_GREEN_LINEARGRADIENT,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(50),
@@ -216,7 +220,8 @@ class _WelcomePageState extends State<WelcomePage> {
     this._appBloc = BlocProvider.of<AppBloc>(context);
 
     final IntroduceModel introduceModel = this._introduces[this._currentStep];
-    return Container(
+    return 
+      Container(
       decoration: BoxDecoration(
         color: Colors.white,
         image: DecorationImage(

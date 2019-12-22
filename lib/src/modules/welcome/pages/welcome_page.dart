@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/index.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
+import 'package:nvmtech/src/components/background/index_background.dart';
 import 'package:nvmtech/src/components/dotIndicator/dotIndicator_index.dart';
 import 'package:nvmtech/src/modules/welcome/models/introduce_model.dart';
 import 'package:nvmtech/src/modules/welcome/welcome_constant.dart';
@@ -180,6 +181,10 @@ class _WelcomePageState extends State<WelcomePage> {
     return Container(
       decoration: BoxDecoration(
         gradient: AppGradient.BLUE_GREEN_LINEARGRADIENT,
+        image: DecorationImage(
+          image: AssetImage(AppImage.PATH_BACKGROUND_IMAGE),
+          fit: BoxFit.cover,
+        ),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(50),
           topRight: Radius.circular(50),
@@ -216,16 +221,7 @@ class _WelcomePageState extends State<WelcomePage> {
     this._appBloc = BlocProvider.of<AppBloc>(context);
 
     final IntroduceModel introduceModel = this._introduces[this._currentStep];
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        image: DecorationImage(
-          image: AssetImage(
-            AppImage.PATH_BACKGROUND_IMAGE,
-          ),
-          fit: BoxFit.fill,
-        ),
-      ),
+    return AppBackground(
       child: Column(
         children: <Widget>[
           Expanded(

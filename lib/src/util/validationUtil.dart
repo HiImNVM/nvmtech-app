@@ -20,7 +20,8 @@ class Validation {
     return '';
   }
 
-  static String validateEmail(String email) {
+  static String 
+  validateEmail(String email) {
     if (email == null) {
       return CONST_VALIDATION_EMAIL_IS_NULL;
     }

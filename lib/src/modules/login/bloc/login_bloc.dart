@@ -13,7 +13,7 @@ class LoginBloc extends BlocBase {
   void sinkLoginType(LoginState newLoginType) =>
       this._loginState.sink.add(newLoginType);
 
-  final BehaviorSubject<String> _emailSubject =
+  final BehaviorSubject<String> _emailSubject = 
       BehaviorSubject<String>.seeded('');
   ValueObservable<String> get getStreamEmail => this._emailSubject.stream;
   void _sinkErrorMessageEmail(String errorMessage) =>

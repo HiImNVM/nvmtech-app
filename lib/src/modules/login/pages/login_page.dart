@@ -25,9 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  Widget _renderTextInButton(
-    String text,
-  ) {
+  Widget _renderTextInButton( String text,) {
     return Text(
       text,
       style: AppTextStyle.WHITE_W700_NORMAL_F16,

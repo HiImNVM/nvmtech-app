@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/core/store/shared_preferences.dart';
@@ -15,6 +17,9 @@ class AppBloc extends BlocBase {
 
   void sinkThemeType(dynamic value) => this._theme.sink.add(value);
   ValueObservable<ThemeType> get streamThemeType => this._theme.stream;
+
+  final _AppEventBloc _appEventBloc = _AppEventBloc();
+  _AppEventBloc get getEventBloc => this._appEventBloc;
 
   SharedPreferencesWrapper _sPreferencesWrapper;
 
@@ -79,5 +84,42 @@ class AppBloc extends BlocBase {
 
     await this._theme?.drain();
     this._theme.close();
+  }
+}
+
+class _AppEventBloc extends BlocBase {
+  static final _instance = _AppEventBloc._internal();
+
+  factory _AppEventBloc() => _instance;
+
+  _AppEventBloc._internal();
+
+  final PublishSubject<BlocEvent> _appEventController =
+      PublishSubject<BlocEvent>();
+  Function(BlocEvent) get emitAppEvent => this._appEventController.sink.add;
+
+  StreamSubscription<BlocEvent> listenEvent(
+    dynamic evtName,
+    Function(BlocEvent) hdl,
+  ) =>
+      this
+          ._appEventController
+          .stream
+          .where((evt) => evt.eventName == evtName)
+          .listen(hdl);
+
+  StreamSubscription<BlocEvent> listenManyEvents(
+    List evtNames,
+    Function(BlocEvent) hdl,
+  ) =>
+      this
+          ._appEventController
+          .stream
+          .where((evt) => evtNames.contains(evt.eventName))
+          .listen(hdl);
+
+  @override
+  void dispose() {
+    this._appEventController?.close();
   }
 }

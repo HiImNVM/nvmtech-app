@@ -51,22 +51,40 @@ class AppBloc extends BlocBase {
   static void toastMessage(BuildContext context, String message,
       [ToastType toastType = ToastType.Info]) {
     Color toastColor;
+    Color toastTextColor;
+    Icon toastIcon;
+    Color iconRectangleColor;
+    
     switch (toastType) {
       case ToastType.Success:
         {
-          toastColor = Colors.green;
+          toastColor = Color(0xffDCF4D9);
+          toastTextColor = Color(0xff5a724c);
+          toastIcon = Icon(Icons.check, size: 30, color: toastTextColor);
+          iconRectangleColor = Color(0xffc8e0bd);
           break;
         }
+        
       case ToastType.Error:
         {
-          toastColor = Colors.red;
+          toastColor = Color(0xfff2c8c6);
+          toastTextColor = Color(0xff9d2f29);
+          toastIcon = Icon(Icons.clear, size: 30, color: toastTextColor,);
+          iconRectangleColor = Color(0xffe7aaa5);
           break;
         }
         break;
+      
       default:
         toastColor = Colors.white;
     }
-    return Toast.show(message, context, backgroundColor: toastColor);
+    return Toast.show(message, 
+      context, 
+      backgroundColor: toastColor, 
+      textColor: toastTextColor,
+      icon: toastIcon,
+      iconRectangleColor: iconRectangleColor,
+      gravity: Toast.TOP);
   }
 
   bool _isLoggined() =>

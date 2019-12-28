@@ -58,7 +58,7 @@ class LoginBloc extends BlocBase {
         return;
       }
 
-      AppBloc.toastMessage(context, 'Login success', ToastType.Success);
+      AppBloc.toastMessage(context, CONST_LOGIN_SUCCESSFUL, ToastType.Success);
     });
   }
 

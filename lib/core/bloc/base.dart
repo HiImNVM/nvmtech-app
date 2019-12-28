@@ -7,3 +7,8 @@ abstract class BlocBase {
 abstract class SingleChildCloneableWidget implements Widget {
   SingleChildCloneableWidget cloneWithChild(Widget child);
 }
+
+abstract class BlocEvent {
+  dynamic eventName;
+  dynamic value;
+}

@@ -79,7 +79,8 @@ class AppBloc extends BlocBase {
       textColor: toastTextColor,
       icon: toastIcon,
       iconRectangleColor: iconRectangleColor,
-      gravity: Toast.TOP);
+      gravity: Toast.BOTTOM);
+    
   }
 
   bool _isLoggined() =>

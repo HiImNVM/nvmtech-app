@@ -64,7 +64,7 @@ class AppBloc extends BlocBase {
         {
           toastColor = Color(0xfff2c8c6);
           toastTextColor = Color(0xff9d2f29);
-        //  toastIcon = Icon(Icons.clear, size: 30, color: toastTextColor,);
+          toastIcon = Icon(Icons.clear, size: 30, color: toastTextColor,);
           iconRectangleColor = Color(0xffe7aaa5);
           break;
         }

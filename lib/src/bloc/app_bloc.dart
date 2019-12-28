@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/core/store/shared_preferences.dart';
+import 'package:nvmtech/core/widgets/toast/base_toast.dart';
 import 'package:nvmtech/src/constants/sharedPreference_constant.dart';
+import 'package:nvmtech/src/types/app_type.dart';
 import 'package:nvmtech/src/types/theme_type.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -22,24 +24,62 @@ class AppBloc extends BlocBase {
         .then((sf) => this._sPreferencesWrapper = sf);
   }
 
-  NavigatorState getNavigator(){
+  NavigatorState getNavigator() {
     return this._navigatorKey.currentState;
   }
+
   void setupApp() async {
     final bool isFirstTime = this._isFirstTime();
 
-    
     if (isFirstTime) {
       this._navigatorKey.currentState.pushReplacementNamed('/welcome');
       return;
     }
-    
-    // bool isLoggined = false;
+
     bool isLoggined = this._isLoggined();
     if (!isLoggined) {
       this._navigatorKey.currentState.pushReplacementNamed('/login');
       return;
     }
+  }
+
+  static void toastMessage(BuildContext context, String message,
+      [ToastType toastType = ToastType.Info]) {
+    Color toastColor;
+    Color toastTextColor;
+    Icon toastIcon;
+    Color iconRectangleColor;
+    
+    switch (toastType) {
+      case ToastType.Success:
+        {
+          toastColor = Color(0xffDCF4D9);
+          toastTextColor = Color(0xff5a724c);
+          toastIcon = Icon(Icons.check, size: 30, color: toastTextColor);
+          iconRectangleColor = Color(0xffc8e0bd);
+          break;
+        }
+        
+      case ToastType.Error:
+        {
+          toastColor = Color(0xfff2c8c6);
+          toastTextColor = Color(0xff9d2f29);
+        //  toastIcon = Icon(Icons.clear, size: 30, color: toastTextColor,);
+          iconRectangleColor = Color(0xffe7aaa5);
+          break;
+        }
+        break;
+      
+      default:
+        toastColor = Colors.white;
+    }
+    return Toast.show(message, 
+      context, 
+      backgroundColor: toastColor, 
+      textColor: toastTextColor,
+      icon: toastIcon,
+      iconRectangleColor: iconRectangleColor,
+      gravity: Toast.TOP);
   }
 
   bool _isLoggined() =>

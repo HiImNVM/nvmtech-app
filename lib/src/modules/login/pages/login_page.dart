@@ -4,14 +4,13 @@ import 'package:nvmtech/core/bloc/index.dart';
 import 'package:nvmtech/core/widgets/loading/index_loading.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
 import 'package:nvmtech/src/components/button/index_button.dart';
-import 'package:nvmtech/src/components/modal/success_modal.dart';
-import 'package:nvmtech/src/constants/login_constant.dart';
 import 'package:nvmtech/src/modules/login/bloc/login_bloc.dart';
+import 'package:nvmtech/src/modules/login/login_constant.dart';
 import 'package:nvmtech/src/styles/color_style.dart';
 import 'package:nvmtech/src/styles/image_style.dart';
+import 'package:nvmtech/src/styles/margin_style.dart';
 import 'package:nvmtech/src/styles/textStyle_style.dart';
 import 'package:nvmtech/src/types/login_type.dart';
-import 'package:nvmtech/src/util/printUtil.dart';
 import 'package:nvmtech/src/util/snapshotUtil.dart';
 
 class LoginPage extends StatefulWidget {
@@ -23,24 +22,12 @@ class _LoginPageState extends State<LoginPage> {
   LoginBloc _loginBloc;
   AppBloc _appBloc;
 
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-
-    //listen textchange tu textform(user interaction) roi add vao stream(output)
-    _emailController.addListener(() {
-      _loginBloc.emailSink.add(_emailController.text);
-    });
-
-    _passwordController.addListener(() {
-      _loginBloc.passwordSink.add(_passwordController.text);
-    });
-  }
-
-  Widget _renderTextInButton(String text) {
+  Widget _renderTextInButton(
+    String text,
+  ) {
     return Text(
       text,
       style: AppTextStyle.WHITE_W700_NORMAL_F16,
@@ -51,10 +38,8 @@ class _LoginPageState extends State<LoginPage> {
     return Row(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.only(left: 24),
-          margin: EdgeInsets.only(top: 82),
           child: Text(
-            CONST_LOGINTEXT_SIGNINTITLE,
+            CONST_SIGNIN_TITLE,
             style: AppTextStyle.BLACK_W700_NORMAL_F30,
           ),
         )
@@ -64,186 +49,238 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _renderLogo() {
     return Container(
-        margin: EdgeInsets.only(top: 32),
         child: Image.asset(
-          AppImage.PATH_MAIN_ICON,
-          width: 80,
-          height: 80,
-          fit: BoxFit.fill,
-        ));
+      AppImage.PATH_MAIN_ICON,
+      width: 80,
+      height: 80,
+      fit: BoxFit.fill,
+    ));
+  }
+
+  Widget _renderTextEmail() {
+    return StreamBuilder<String>(
+        stream: this._loginBloc.getStreamEmail,
+        builder: (context, snapshot) {
+          if (!hasDataSnapshotUtil(snapshot)) {
+            return Container();
+          }
+
+          return TextField(
+            autocorrect: false,
+            controller: this._emailController,
+            textInputAction: TextInputAction.done,
+            decoration: InputDecoration(
+              labelText: CONST_TEXT_LOGIN_EMAIL,
+              errorText: snapshot.data.isNotEmpty ? snapshot.data : null,
+            ),
+            keyboardType: TextInputType.emailAddress,
+          );
+        });
+  }
+
+  Widget _renderTextPassword() {
+    return StreamBuilder<String>(
+        stream: this._loginBloc.getStreamPassword,
+        builder: (context, snapshot) {
+          if (!hasDataSnapshotUtil(snapshot)) {
+            return Container();
+          }
+
+          return TextFormField(
+            style: AppTextStyle.BLACK_W600_NORMAL_F14,
+            controller: this._passwordController,
+            obscureText: true,
+            textInputAction: TextInputAction.done,
+            decoration: InputDecoration(
+              labelText: CONST_TEXT_LOGIN_PASSWORD,
+              errorText: snapshot.data.isNotEmpty ? snapshot.data : null,
+            ),
+            keyboardType: TextInputType.visiblePassword,
+          );
+        });
   }
 
   Widget _renderEmailPassForm() {
-    return Padding(
-      padding: const EdgeInsets.all(30.0),
-      child: Column(
-        children: <Widget>[
-          StreamBuilder<String>(
-              stream: _loginBloc.emailStream,
-              builder: (context, snapshot) {
-                if (snapshotUtil(snapshot) == true) {
-                  return Container();
-                }
-                return TextFormField(
-                  controller: _emailController,
-                  textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
-                    labelText: CONST_LOGINTEXT_ENTEREMAIL,
-                    errorText: snapshot.data,
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                );
-              }),
-          StreamBuilder<String>(
-              stream: _loginBloc.passwordStream,
-              builder: (context, snapshot) {
-                if (snapshotUtil(snapshot) == true) {
-                  return Container();
-                }
-                return TextFormField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
-                    labelText: CONST_LOGINTEXT_ENTERPASS,
-                    errorText: snapshot.data,
-                  ),
-                  keyboardType: TextInputType.visiblePassword,
-                );
-              }),
-          SizedBox(height: 10),
-          _renderForgotPassword()
-        ],
-      ),
+    return Column(
+      children: <Widget>[
+        this._renderTextEmail(),
+        SizedBox(height: 20),
+        this._renderTextPassword(),
+        SizedBox(height: 15),
+        this._renderForgotPassword()
+      ],
     );
   }
 
   Widget _renderForgotPassword() {
     return Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
       GestureDetector(
-          onTap: () => _onTapNavigation('/forgotpassword'),
-          child: Text(CONST_FORGOTPASS_TITLE + "?",
-              style: AppTextStyle.LIGHTGREY_W600_NORMAL_F12)),
+          onTap: this._navigateForgotPassword,
+          child: Opacity(
+            opacity: 0.7,
+            child: Text(CONST_FORGOT_PASS_TITLE,
+                style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
+          )),
     ]);
   }
 
-  Widget _renderSignInButton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-      child: StreamBuilder<bool>(
-          stream: _loginBloc.isLoginSuccessStream,
-          builder: (context, snapshot) {
-            if (snapshotUtil(snapshot) == true) {
-              return Container();
-            }
-            return AppButton(
-                color: AppColor.TOPAZ,
-                child: _renderTextInButton(CONST_LOGINTEXT_SIGNINTITLE),
-                onPressed: () {}
-                //snapshot.data == true ? () {} : null,
-                );
-          }),
-    );
-  }
-
-  void _onTapNavigation(String route) {
-    this._appBloc.getNavigator().pushNamed(route);
-  }
+  Widget _renderSignInButton() => AppButton(
+      color: AppColor.TOPAZ,
+      child: _renderTextInButton(CONST_SIGNIN_TITLE),
+      onPressed: this._handleSignIn);
 
   Widget _renderNavigatetoSignUp() {
+    final TextStyle signupTextStyle = AppTextStyle.BLACK_W600_NORMAL_F12
+        .copyWith(
+            fontFamily: 'NunitoSans-SemiBold', color: const Color(0xff676767));
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Padding(padding: EdgeInsets.only(top: 24)),
-        Text("Don't" + CONST_LOGINTEXT_SIGNIN,
+        Text("Don't" + CONST_TEXT_LOGIN_SIGNIN,
             style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
         GestureDetector(
-            onTap: () => _onTapNavigation('/signup'),
-            child: Text(CONST_LOGINTEXT_SIGNUPTITLE,
-                style: AppTextStyle.BLACK_W600_NORMAL_F12)),
+            onTap: this._navigateSignup,
+            child: Text(CONST_LOGINTEXT_SIGNUPTITLE, style: signupTextStyle)),
       ],
     );
   }
 
+  Widget _renderBaseLoginWith(
+      Color color, Function() onPressed, String pathImage, String content) {
+    return AppButton(
+        height: 55,
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        color: color,
+        onPressed: onPressed,
+        child: Row(
+          children: <Widget>[
+            Expanded(
+                flex: 1,
+                child: Image.asset(
+                  pathImage,
+                  width: 20,
+                  height: 20,
+                  fit: BoxFit.contain,
+                )),
+            Expanded(
+                flex: 2,
+                child: Text(
+                  '|',
+                  style: TextStyle(color: Colors.grey[500], fontSize: 20),
+                  textAlign: TextAlign.center,
+                )),
+            Expanded(
+              flex: 10,
+              child: Text(
+                content,
+                style: AppTextStyle.WHITE_W700_NORMAL_F16,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ));
+  }
+
+  Widget _renderLoginWithFB() {
+    return this._renderBaseLoginWith(
+        AppColor.DARK_BLUE_FACEBOOK,
+        this._loginWithFB,
+        AppImage.PATH_FACEBOOK_ICON,
+        CONST_TEXT_LOGIN_FACEBOOK);
+  }
+
+  Widget _renderLoginWithGG() {
+    return this._renderBaseLoginWith(AppColor.RED_GOOGLE, this._loginWithGG,
+        AppImage.PATH_GOOGLE_ICON, CONST_LOGINTEXT_GOOGLE);
+  }
+
   Widget _renderSocialMedia() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-      child: Column(
-        children: <Widget>[
-          AppButton(
-              color: AppColor.DARKBLUEFACEBOOK,
-              onPressed: () {},
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                      flex: 0,
-                      child: Image.asset(
-                        AppImage.PATH_FACEBOOK_ICON,
-                        fit: BoxFit.fill,
-                      )),
-                  Expanded(flex: 1, child: Text(' |')),
-                  Expanded(
-                    flex: 3,
-                    child: _renderTextInButton(CONST_LOGINTEXT_FACEBOOK),
-                  ),
-                ],
-              )),
-          SizedBox(
-            height: 10,
-          ),
-          AppButton(
-            color: AppColor.REDGOOGLE,
-            onPressed: () => this._loginBloc.sinkLoginType(LoginState.Success),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                    flex: 0,
-                    child: Image.asset(
-                      AppImage.PATH_GOOGLE_ICON,
-                      fit: BoxFit.fill,
-                    )),
-                Expanded(flex: 1, child: Text(' |')),
-                Expanded(
-                  flex: 3,
-                  child: _renderTextInButton(CONST_LOGINTEXT_GOOGLE),
-                ),
-              ],
+      padding: const EdgeInsets.symmetric(horizontal: 40),
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            this._renderLoginWithFB(),
+            SizedBox(
+              height: 10,
             ),
-          ),
-        ],
+            this._renderLoginWithGG(),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _renderBody(loginState, context) {
-    return Center(
-      child: Column(
-        children: <Widget>[
-          _renderSignInTitle(),
-          _renderLogo(),
-          _renderEmailPassForm(),
-          _renderSignInButton(),
-          _renderNavigatetoSignUp(),
-          Text(CONST_LOGINTEXT_OR,
-              style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
-          _renderSocialMedia()
-        ],
+  Widget _renderBody(context) {
+    double marginTop = MediaQuery.of(context).size.height * 0.1;
+    return Container(
+      margin: EdgeInsets.only(top: marginTop),
+     //padding: const EdgeInsets.all(AppDimension.PADDING),
+      padding: const EdgeInsets.symmetric(horizontal: AppDimension.PADDING),
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            this._renderSignInTitle(),
+            SizedBox(
+              height: 10,
+            ),
+            this._renderLogo(),
+            SizedBox(
+              height: 30,
+            ),
+            this._renderEmailPassForm(),
+            SizedBox(
+              height: 30,
+            ),
+            this._renderSignInButton(),
+            SizedBox(
+              height: 30,
+            ),
+            this._renderNavigatetoSignUp(),
+            SizedBox(
+              height: 15,
+            ),
+            Text(CONST_TEXT_LOGIN_OR,
+                style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
+            SizedBox(
+              height: 15,
+            ),
+            this._renderSocialMedia(),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _renderPopup(LoginState loginState) {
-    switch (loginState) {
-      case LoginState.Loading:
-        return LoadingWidget();
-      case LoginState.Success:
-        return SuccessModal(
-          content: 'Login success!',
-          onOk: () => this._loginBloc.navigateToDashBoard(context),
-        );
-      default:
-        return Container();
-    }
+  Widget _renderModal() {
+    return StreamBuilder<LoginState>(
+      stream: this._loginBloc.getStreamLoginType,
+      builder: (context, snapshot) {
+        if (!hasDataSnapshotUtil(snapshot)) {
+          return Container();
+        }
+
+        switch (snapshot.data) {
+          case LoginState.Loading:
+            return LoadingWidget();
+          default:
+            return Container();
+        }
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    this._emailController.addListener(() {
+      _loginBloc.validateEmail(_emailController.text);
+    });
+
+    this._passwordController.addListener(() {
+      _loginBloc.validatePassword(_passwordController.text);
+    });
   }
 
   @override
@@ -253,23 +290,34 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: StreamBuilder<LoginState>(
-        stream: this._loginBloc.getStreamLoginType,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            printError(snapshot.error);
-            return Container();
-          }
-          if (!snapshot.hasData) return Container();
-
-          return Stack(
-            children: <Widget>[
-              this._renderBody(snapshot.data, context),
-              this._renderPopup(snapshot.data),
-            ],
-          );
-        },
+      body: Stack(
+        children: <Widget>[
+          this._renderBody(context),
+          this._renderModal(),
+        ],
       ),
     );
   }
+
+  @override
+  void dispose() {
+    this._emailController?.dispose();
+    this._passwordController?.dispose();
+    super.dispose();
+  }
+
+  void _navigateForgotPassword() =>
+      this._appBloc.getNavigator().pushNamed('/forgotpassword');
+
+  void _navigateSignup() => this._appBloc.getNavigator().pushNamed('/signup');
+
+  void _loginWithFB() {}
+
+  void _loginWithGG() {}
+
+  void _handleSignIn() => this._loginBloc.loginWithEmail(
+        context,
+        this._emailController.text,
+        this._passwordController.text,
+      );
 }

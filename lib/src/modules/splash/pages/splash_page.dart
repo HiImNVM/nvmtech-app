@@ -6,20 +6,14 @@ import 'package:nvmtech/src/components/background/index_background.dart';
 import 'package:nvmtech/src/constants/resource_constant.dart';
 import 'package:nvmtech/src/styles/image_style.dart';
 import 'package:nvmtech/src/styles/textStyle_style.dart';
+import 'package:nvmtech/src/util/printUtil.dart';
 
 class SplashPage extends StatelessWidget {
-  SplashPage() {
-    Future.delayed(
-        Duration(milliseconds: 5000), () => this._appBloc.setupApp());
-  }
-
-  AppBloc _appBloc;
-
   Widget _renderAppIcon() {
     return Image.asset(
       AppImage.PATH_MAIN_ICON,
-      width: 120,
-      height: 120,
+      width: 100,
+      height: 100,
       fit: BoxFit.fill,
     );
   }
@@ -33,9 +27,9 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // To load resource and setup config of app
-    this._appBloc = BlocProvider.of<AppBloc>(context);
-
+    final AppBloc _appBloc = BlocProvider.of<AppBloc>(context);
+    printCountBuild('Build SplashPage');
+    Future.delayed(Duration(seconds: 3), () => _appBloc.setupApp());
     return AppBackground(
       child: Center(
         child: Column(

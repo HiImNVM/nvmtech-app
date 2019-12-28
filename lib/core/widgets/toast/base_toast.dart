@@ -54,6 +54,7 @@ class ToastView {
     paint.color = background;
 
     double widthToast = MediaQuery.of(context).size.width;
+
     Widget _renderToastContent() {
       return Row(
         children: <Widget>[
@@ -83,27 +84,26 @@ class ToastView {
     }
 
     Widget _renderToastLayout() {
-      return Container(
-        width: widthToast,
-        height: MediaQuery.of(context).size.height * 0.05,
-        child: Center(
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: widthToast * 0.035),
-            decoration: BoxDecoration(
-              color: background,
-              borderRadius: BorderRadius.circular(backgroundRadius),
-              border: border,
-            ),
-            child: _renderToastContent(),
+      return Center(
+        child: Container(
+          width: widthToast,
+          height: MediaQuery.of(context).size.height * 0.05,
+          margin: EdgeInsets.symmetric(horizontal: widthToast * 0.035),
+          decoration: BoxDecoration(
+            color: background,
+            borderRadius: BorderRadius.circular(backgroundRadius),
+            border: border,
           ),
+          child: _renderToastContent(),
         ),
       );
     }
 
     _overlayEntry = OverlayEntry(
       builder: (BuildContext context) =>
-          ToastWidget(widget: _renderToastLayout(), gravity: gravity),
+          _ToastWidget(widget: _renderToastLayout(), gravity: gravity),
     );
+
     _isVisible = true;
     overlayState.insert(_overlayEntry);
     await Future.delayed(
@@ -120,8 +120,8 @@ class ToastView {
   }
 }
 
-class ToastWidget extends StatelessWidget {
-  ToastWidget({
+class _ToastWidget extends StatelessWidget {
+  _ToastWidget({
     Key key,
     @required this.widget,
     @required this.gravity,
@@ -131,13 +131,11 @@ class ToastWidget extends StatelessWidget {
   final int gravity;
 
   @override
-  Widget build(BuildContext context) {
-    return new Positioned(
-        top: gravity == 2 ? 50 : null,
-        bottom: gravity == 0 ? 50 : null,
-        child: Material(
-          color: Colors.transparent,
-          child: widget,
-        ));
-  }
+  Widget build(BuildContext context) => Positioned(
+      top: gravity == 2 ? 50 : null,
+      bottom: gravity == 0 ? 50 : null,
+      child: Material(
+        color: Colors.transparent,
+        child: widget,
+      ));
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nvmtech/src/modules/login/login_constant.dart';
 
 class Toast {
   static final int LENGTH_SHORT = 1;
@@ -84,19 +83,20 @@ class ToastView {
     }
 
     Widget _renderToastLayout() {
-      return Center(
-        child: Container(
+      return Container(
           width: widthToast,
           height: MediaQuery.of(context).size.height * 0.05,
-          margin: EdgeInsets.symmetric(horizontal: widthToast * 0.035),
-          decoration: BoxDecoration(
-            color: background,
-            borderRadius: BorderRadius.circular(backgroundRadius),
-            border: border,
-          ),
-          child: _renderToastContent(),
-        ),
-      );
+          child: Center(
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: widthToast * 0.035),
+              decoration: BoxDecoration(
+                color: background,
+                borderRadius: BorderRadius.circular(backgroundRadius),
+                border: border,
+              ),
+              child: _renderToastContent(),
+            ),
+          ));
     }
 
     _overlayEntry = OverlayEntry(

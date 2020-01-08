@@ -5,6 +5,7 @@ import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/core/store/shared_preferences.dart';
 import 'package:nvmtech/core/widgets/toast/base_toast.dart';
 import 'package:nvmtech/src/constants/sharedPreference_constant.dart';
+import 'package:nvmtech/src/styles/color_style.dart';
 import 'package:nvmtech/src/types/app_type.dart';
 import 'package:nvmtech/src/types/theme_type.dart';
 import 'package:rxdart/rxdart.dart';
@@ -58,22 +59,30 @@ class AppBloc extends BlocBase {
     switch (toastType) {
       case ToastType.Success:
         {
-          toastColor = Color(0xffDCF4D9);
-          toastTextColor = Color(0xff5a724c);
+          toastColor = AppColor.LIGHT_GREEN_SUCCESS_BG;
+          toastTextColor = AppColor.MEDIUM_GREEN_SUCCESS_TEXT;
           toastIcon = Icon(Icons.check, size: 30, color: toastTextColor);
-          iconRectangleColor = Color(0xffc8e0bd);
+          iconRectangleColor = AppColor.DARK_GREEN_SUCCESS_ICON_BG;
           break;
         }
         
       case ToastType.Error:
         {
-          toastColor = Color(0xfff2c8c6);
-          toastTextColor = Color(0xff9d2f29);
-          toastIcon = Icon(Icons.clear, size: 30, color: toastTextColor,);
-          iconRectangleColor = Color(0xffe7aaa5);
+          toastColor = AppColor.LIGHT_RED_ERROR_BG;
+          toastTextColor = AppColor.MEDIUM_RED_ERROR_TEXT;
+          toastIcon = Icon(Icons.clear, size: 30, color: toastTextColor);
+          iconRectangleColor = AppColor.DARK_RED_ERROR_ICON_BG;
           break;
         }
-        break;
+
+      case ToastType.Info:
+        {
+          toastColor = AppColor.LIGHT_GREY_INFO_BG;
+          toastTextColor = AppColor.MEDIUM_GREY_INFO_TEXT;
+          toastIcon = Icon(Icons.access_time, size: 30, color: Colors.white);
+          iconRectangleColor = AppColor.DARK_GREY_INFO_ICON_BG;
+          break;
+        }
       
       default:
         toastColor = Colors.white;
@@ -84,7 +93,7 @@ class AppBloc extends BlocBase {
       textColor: toastTextColor,
       icon: toastIcon,
       iconRectangleColor: iconRectangleColor,
-      gravity: Toast.BOTTOM);
+      gravity: Toast.TOP);
     
   }
 

@@ -1,6 +1,7 @@
 import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
 import 'package:nvmtech/src/modules/login/login_constant.dart';
+import 'package:nvmtech/src/repositories/login_repo.dart';
 import 'package:nvmtech/src/types/app_type.dart';
 import 'package:nvmtech/src/types/login_type.dart';
 import 'package:nvmtech/src/util/validationUtil.dart';
@@ -46,8 +47,17 @@ class LoginBloc extends BlocBase {
   }
 
   void loginWithEmail(context, String email, String password) {
+    LoginRepo loginWithSignIn = LoginRepo(LoginType.Account,
+      {
+        "email": email,
+        "password": password
+      }
+    );
+    loginWithSignIn.login();
     this.sinkLoginType(LoginState.Loading);
-    // TODO: Set delayed to test, should handle with API
+    
+
+    
     Future.delayed(Duration(seconds: 1), () {
       this.sinkLoginType(LoginState.Default);
 

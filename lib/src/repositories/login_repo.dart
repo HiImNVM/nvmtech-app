@@ -1,5 +1,8 @@
 import 'package:nvmtech/core/api/response.dart';
+import 'package:nvmtech/src/bloc/app_bloc.dart';
+import 'package:nvmtech/src/modules/login/login_constant.dart';
 import 'package:nvmtech/src/repositories/index.dart';
+import 'package:nvmtech/src/types/app_type.dart';
 import 'package:nvmtech/src/types/login_type.dart';
 import 'package:nvmtech/src/util/printUtil.dart';
 
@@ -10,7 +13,8 @@ abstract class ILoginRepo {
 class LoginRepo implements IRepo, ILoginRepo {
   final ApiProviderImp _apiProviderImp = ApiProviderImp();
   dynamic _data;
-
+  LoginRepo loginwithFB = LoginRepo(LoginType.FB, {});
+  AppBloc appBloc;
   @override
   String url;
 
@@ -23,12 +27,19 @@ class LoginRepo implements IRepo, ILoginRepo {
         return LoginRepo._internal('/auth', data);
     }
   }
+  
 
   @override
   Future<ResponseModel> login() => this
           ._apiProviderImp
           .post(this.url, data: this._data)
-          .then((response) {})
+          .then((response) {
+            if (response.statusCode != 200){
+              ErrorModel(value: "Login Fail");
+              return;
+            }
+          SuccessModel(value: "276658346");
+          })
           .catchError((err) {
         printError(err);
       });

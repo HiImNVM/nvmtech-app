@@ -1,6 +1,8 @@
 import 'package:nvmtech/core/api/response.dart';
 import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
+import 'package:nvmtech/src/models/response_error_model.dart';
+import 'package:nvmtech/src/models/response_success_model.dart';
 import 'package:nvmtech/src/modules/login/login_constant.dart';
 import 'package:nvmtech/src/repositories/login_repo.dart';
 import 'package:nvmtech/src/types/app_type.dart';
@@ -68,12 +70,16 @@ class LoginBloc extends BlocBase {
     if (responseModel is SuccessModel) {
       AppBloc.toastMessage(
           context,
-        CONST_LOGIN_SUCCESSFUL + responseModel.value.toString(),
+          CONST_LOGIN_SUCCESSFUL +
+              '   ' +
+              ((responseModel.value as ResponseSuccess).data['id']).toString(),
           ToastType.Success);
       return;
     }
-    AppBloc.toastMessage(context,
-      (responseModel as ErrorModel).value, ToastType.Error);
+    AppBloc.toastMessage(
+        context,
+        ((responseModel as ErrorModel).value as ResponseError).message,
+        ToastType.Error);
   }
 
   @override

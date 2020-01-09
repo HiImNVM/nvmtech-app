@@ -1,8 +1,11 @@
 import 'package:nvmtech/core/api/response.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
+import 'package:nvmtech/src/models/response_error_model.dart';
+import 'package:nvmtech/src/models/response_success_model.dart';
 import 'package:nvmtech/src/modules/login/login_constant.dart';
 import 'package:nvmtech/src/repositories/index.dart';
 import 'package:nvmtech/src/types/login_type.dart';
+import 'package:nvmtech/src/util/jsonUtil.dart';
 import 'package:nvmtech/src/util/printUtil.dart';
 
 abstract class ILoginRepo {
@@ -27,16 +30,19 @@ class LoginRepo implements IRepo, ILoginRepo {
   }
 
   @override
-  Future<ResponseModel> login() =>
-      this._apiProviderImp.post(this.url, data: this._data).then((response) {
+  Future<ResponseModel> login() => this
+          ._apiProviderImp
+          .post(this.url, data: this._data)
+          .then((response) async {
+        dynamic body = await parseJSON(response.data);
 
-        if(response.statusCode != 200){
-          return ErrorModel(value: CONST_LOGIN_FAIL_INVALID_INPUT);
+        if (response.statusCode != 200) {
+          return ErrorModel(value: ResponseError.fromJson(body));
         }
-        return SuccessModel(value: response.statusCode);
-        
+
+        return SuccessModel(value: ResponseSuccess.fromJson(body));
       }).catchError((err) {
         printError(err);
-        return ErrorModel(value: CONST_LOGIN_FAIL_INVALID_INPUT + err.error); 
+        return ErrorModel(value: ResponseError.fromJson(err.error));
       });
 }

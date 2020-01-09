@@ -33,6 +33,8 @@ class AppBloc extends BlocBase {
     return this._navigatorKey.currentState;
   }
 
+  void logout() {}
+
   void setupApp() async {
     final bool isFirstTime = this._isFirstTime();
 
@@ -54,7 +56,7 @@ class AppBloc extends BlocBase {
     Color toastTextColor;
     Icon toastIcon;
     Color iconRectangleColor;
-    
+
     switch (toastType) {
       case ToastType.Success:
         {
@@ -64,28 +66,30 @@ class AppBloc extends BlocBase {
           iconRectangleColor = Color(0xffc8e0bd);
           break;
         }
-        
+
       case ToastType.Error:
         {
           toastColor = Color(0xfff2c8c6);
           toastTextColor = Color(0xff9d2f29);
-          toastIcon = Icon(Icons.clear, size: 30, color: toastTextColor,);
+          toastIcon = Icon(
+            Icons.clear,
+            size: 30,
+            color: toastTextColor,
+          );
           iconRectangleColor = Color(0xffe7aaa5);
           break;
         }
         break;
-      
+
       default:
         toastColor = Colors.white;
     }
-    return Toast.show(message, 
-      context, 
-      backgroundColor: toastColor, 
-      textColor: toastTextColor,
-      icon: toastIcon,
-      iconRectangleColor: iconRectangleColor,
-      gravity: Toast.BOTTOM);
-    
+    return Toast.show(message, context,
+        backgroundColor: toastColor,
+        textColor: toastTextColor,
+        icon: toastIcon,
+        iconRectangleColor: iconRectangleColor,
+        gravity: Toast.BOTTOM);
   }
 
   bool _isLoggined() =>

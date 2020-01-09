@@ -10,9 +10,9 @@ class Env {
   static String getDomainAPI() {
     switch (appFlavor) {
       case Flavor.STAG:
-        return 'http://api.nvmtech.work' + '/' + API_VERSION;
+        return 'https://api.nvmtech.work/api' + '/' + API_VERSION;
       default:
-        return 'https://api.nvmtech.work' + '/' + API_VERSION;
+        return 'https://api.nvmtech.work/api' + '/' + API_VERSION;
     }
   }
 }

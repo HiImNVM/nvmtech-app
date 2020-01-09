@@ -1,3 +1,4 @@
+import 'package:nvmtech/core/api/response.dart';
 import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
 import 'package:nvmtech/src/modules/login/login_constant.dart';
@@ -46,30 +47,23 @@ class LoginBloc extends BlocBase {
     this._sinkErrorMessagePassword(error);
   }
 
-  void loginWithEmail(context, String email, String password) {
-    LoginRepo loginWithSignIn = LoginRepo(LoginType.Account,
-      {
-        "email": email,
-        "password": password
-      }
-    );
-    loginWithSignIn.login();
+  void loginWithEmail(context, String email, String password) async {
     this.sinkLoginType(LoginState.Loading);
-    
 
-    
-    Future.delayed(Duration(seconds: 1), () {
+    if (Validation.validateEmail(email).isNotEmpty ||
+        Validation.validatePassword(password).isNotEmpty) {
       this.sinkLoginType(LoginState.Default);
+      AppBloc.toastMessage(
+          context, CONST_LOGIN_FAIL_INVALID_INPUT, ToastType.Error);
+      return;
+    }
 
-      if (Validation.validateEmail(email).isNotEmpty ||
-          Validation.validatePassword(password).isNotEmpty) {
-        AppBloc.toastMessage(
-            context, CONST_LOGIN_FAIL_INVALID_INPUT, ToastType.Error);
-        return;
-      }
+    final a = await LoginRepo(LoginType.Account, {
+      "email": email,
+      "password": password,
+    }).login();
 
-      AppBloc.toastMessage(context, CONST_LOGIN_SUCCESSFUL, ToastType.Success);
-    });
+    this.sinkLoginType(LoginState.Default);
   }
 
   @override

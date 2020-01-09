@@ -21,7 +21,7 @@ class LoginRepo implements IRepo, ILoginRepo {
       case LoginType.FB:
         return LoginRepo._internal('/auth/fb', data);
       default:
-        return LoginRepo._internal('/auth', data);
+        return LoginRepo._internal('/login', data);
     }
   }
   

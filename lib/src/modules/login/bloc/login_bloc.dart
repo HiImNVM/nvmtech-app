@@ -58,12 +58,22 @@ class LoginBloc extends BlocBase {
       return;
     }
 
-    final a = await LoginRepo(LoginType.Account, {
+    final ResponseModel responseModel = await LoginRepo(LoginType.Account, {
       "email": email,
       "password": password,
     }).login();
 
     this.sinkLoginType(LoginState.Default);
+
+    if (responseModel is SuccessModel) {
+      AppBloc.toastMessage(
+          context,
+        CONST_LOGIN_SUCCESSFUL + responseModel.value.toString(),
+          ToastType.Success);
+      return;
+    }
+    AppBloc.toastMessage(context,
+      (responseModel as ErrorModel).value, ToastType.Error);
   }
 
   @override

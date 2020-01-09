@@ -1,5 +1,6 @@
 import 'package:nvmtech/core/api/response.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
+import 'package:nvmtech/src/modules/login/login_constant.dart';
 import 'package:nvmtech/src/repositories/index.dart';
 import 'package:nvmtech/src/types/login_type.dart';
 import 'package:nvmtech/src/util/printUtil.dart';
@@ -24,20 +25,18 @@ class LoginRepo implements IRepo, ILoginRepo {
         return LoginRepo._internal('/login', data);
     }
   }
-  
 
   @override
-  Future<ResponseModel> login() => this
-          ._apiProviderImp
-          .post(this.url, data: this._data)
-          .then((response) {
-            if (response.statusCode != 200){
-              ErrorModel(value: "Login Fail");
-              return;
-            }
-          SuccessModel(value: "276658346");
-          })
-          .catchError((err) {
+  Future<ResponseModel> login() =>
+      this._apiProviderImp.post(this.url, data: this._data).then((response) {
+
+        if(response.statusCode != 200){
+          return ErrorModel(value: CONST_LOGIN_FAIL_INVALID_INPUT);
+        }
+        return SuccessModel(value: response.statusCode);
+        
+      }).catchError((err) {
         printError(err);
+        return ErrorModel(value: CONST_LOGIN_FAIL_INVALID_INPUT + err.error); 
       });
 }

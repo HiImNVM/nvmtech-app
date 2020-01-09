@@ -1,4 +1,4 @@
-class ResponseModel {
+abstract class ResponseModel {
   ResponseModel({
     this.value,
   });
@@ -9,7 +9,7 @@ class SuccessModel extends ResponseModel {
   @override
   dynamic value;
 
-  SuccessModel({value}) : super(value: value);
+  SuccessModel({this.value}) : super(value: value);
 }
 
 class ErrorModel extends ResponseModel {

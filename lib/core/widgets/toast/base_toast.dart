@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Toast {
-  static final int LENGTH_SHORT = 1;
-  static final int LENGTH_LONG = 2;
+  static final int SHORT_TIME = 1;
+  static final int LONG_TIME = 2;
+
   static final int BOTTOM = 0;
   static final int CENTER = 1;
   static final int TOP = 2;
@@ -14,21 +15,18 @@ class Toast {
       Color textColor = Colors.white,
       Icon icon,
       Color iconRectangleColor,
-      double backgroundRadius = 5,
+      double radius = 5,
       Border border}) {
     ToastView.dismiss();
     ToastView.createView(msg, context, duration, gravity, backgroundColor,
-        textColor, icon, iconRectangleColor, backgroundRadius, border);
+        textColor, icon, iconRectangleColor, radius);
   }
 }
 
 class ToastView {
   static final ToastView _singleton = ToastView._internal();
 
-  factory ToastView() {
-    return _singleton;
-  }
-
+  factory ToastView() => _singleton;
   ToastView._internal();
 
   static OverlayState overlayState;
@@ -36,24 +34,22 @@ class ToastView {
   static bool _isVisible = false;
 
   static void createView(
-      String msg,
-      BuildContext context,
-      int duration,
-      int gravity,
-      Color background,
-      Color textColor,
-      Icon icon,
-      Color iconRectangleColor,
-      double backgroundRadius,
-      Border border) async {
+    String msg,
+    BuildContext context,
+    int duration,
+    int gravity,
+    Color background,
+    Color textColor,
+    Icon icon,
+    Color iconRectangleColor,
+    double radius,
+  ) async {
     overlayState = Overlay.of(context);
-
     Paint paint = Paint();
     paint.strokeCap = StrokeCap.square;
     paint.color = background;
 
     double widthToast = MediaQuery.of(context).size.width;
-
     Widget _renderToastContent() {
       return Row(
         children: <Widget>[
@@ -63,18 +59,18 @@ class ToastView {
                 shape: BoxShape.rectangle,
                 color: iconRectangleColor,
               ),
-              child: icon),
+              child: Center(child: icon)),
           Center(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Text(
                 msg,
-                softWrap: true,
                 style: TextStyle(
                   fontSize: 15,
                   color: textColor,
                 ),
                 textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           )
@@ -91,8 +87,7 @@ class ToastView {
               margin: EdgeInsets.symmetric(horizontal: widthToast * 0.035),
               decoration: BoxDecoration(
                 color: background,
-                borderRadius: BorderRadius.circular(backgroundRadius),
-                border: border,
+                borderRadius: BorderRadius.circular(radius),
               ),
               child: _renderToastContent(),
             ),
@@ -106,8 +101,7 @@ class ToastView {
 
     _isVisible = true;
     overlayState.insert(_overlayEntry);
-    await Future.delayed(
-        Duration(seconds: duration == null ? Toast.LENGTH_SHORT : duration));
+    await Future.delayed(Duration(seconds: duration ?? Toast.SHORT_TIME));
     dismiss();
   }
 

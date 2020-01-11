@@ -55,7 +55,7 @@ class AppBloc extends BlocBase {
     Color toastTextColor;
     Icon toastIcon;
     Color iconRectangleColor;
-    
+
     switch (toastType) {
       case ToastType.Success:
         {
@@ -65,12 +65,12 @@ class AppBloc extends BlocBase {
           iconRectangleColor = AppColor.DARK_GREEN_SUCCESS_ICON_BG;
           break;
         }
-        
+
       case ToastType.Error:
         {
           toastColor = AppColor.LIGHT_RED_ERROR_BG;
           toastTextColor = AppColor.MEDIUM_RED_ERROR_TEXT;
-          toastIcon = Icon(Icons.clear, size: 30, color: toastTextColor);
+          toastIcon = Icon(Icons.clear, size: 20, color: toastTextColor);
           iconRectangleColor = AppColor.DARK_RED_ERROR_ICON_BG;
           break;
         }
@@ -83,18 +83,16 @@ class AppBloc extends BlocBase {
           iconRectangleColor = AppColor.DARK_GREY_INFO_ICON_BG;
           break;
         }
-      
+
       default:
         toastColor = Colors.white;
     }
-    return Toast.show(message, 
-      context, 
-      backgroundColor: toastColor, 
-      textColor: toastTextColor,
-      icon: toastIcon,
-      iconRectangleColor: iconRectangleColor,
-      gravity: Toast.TOP);
-    
+    return Toast.show(message, context,
+        backgroundColor: toastColor,
+        textColor: toastTextColor,
+        icon: toastIcon,
+        iconRectangleColor: iconRectangleColor,
+        gravity: Toast.TOP);
   }
 
   bool _isLoggined() =>

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/core/store/shared_preferences.dart';
 import 'package:nvmtech/core/widgets/toast/base_toast.dart';
+import 'package:nvmtech/core/widgets/toast/toast_test.dart';
 import 'package:nvmtech/src/constants/sharedPreference_constant.dart';
+import 'package:nvmtech/src/modules/login/login_constant.dart';
 import 'package:nvmtech/src/styles/color_style.dart';
 import 'package:nvmtech/src/types/app_type.dart';
 import 'package:nvmtech/src/types/theme_type.dart';
@@ -46,6 +48,61 @@ class AppBloc extends BlocBase {
     if (!isLoggined) {
       this._navigatorKey.currentState.pushReplacementNamed('/login');
       return;
+    }
+  }
+
+  static void showToastMessage(BuildContext context, String title,
+      [ToastType toastType = ToastType.Info]) {
+    switch (toastType) {
+      case ToastType.Success:
+        {
+          AchievementView(context,
+              title: title,
+              borderRadius: 0.5,
+              color: AppColor.DARK_GREEN_SUCCESS_ICON_BG,
+              alignment: Alignment.topCenter,
+              subTitle: CONST_SUCCESS_SUBTITLE,
+              textSubTitleColor: AppColor.MEDIUM_GREEN_SUCCESS_TEXT,
+              icon:
+                  Icon(Icons.check, color: AppColor.MEDIUM_GREEN_SUCCESS_TEXT),
+              isCircle: true, listener: (status) {
+            print(status);
+          })
+            ..show();
+          break;
+        }
+      case ToastType.Error:
+        {
+          AchievementView(context,
+              title: title,
+              borderRadius: 0.5,
+              color: AppColor.DARK_RED_ERROR_ICON_BG,
+              alignment: Alignment.topCenter,
+              subTitle: CONST_ERROR_SUBTITLE,
+              textSubTitleColor: AppColor.MEDIUM_RED_ERROR_TEXT,
+              icon: Icon(Icons.clear, color: AppColor.MEDIUM_RED_ERROR_TEXT),
+              isCircle: true, listener: (status) {
+            print(status);
+          })
+            ..show();
+          break;
+        }
+      case ToastType.Info:
+        {
+          AchievementView(context,
+              title: CONST_INFO_TITLE,
+              borderRadius: 0.5,
+              color: AppColor.DARK_GREY_INFO_ICON_BG,
+              alignment: Alignment.topCenter,
+              subTitle: CONST_ERROR_SUBTITLE,
+              textSubTitleColor: AppColor.MEDIUM_GREY_INFO_TEXT,
+              icon: Icon(Icons.access_time, color: Colors.white),
+              isCircle: true, listener: (status) {
+            print(status);
+          })
+            ..show();
+        }
+        return;
     }
   }
 

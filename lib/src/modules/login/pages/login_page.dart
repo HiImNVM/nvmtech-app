@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/index.dart';
 import 'package:nvmtech/core/widgets/loading/index_loading.dart';
-import 'package:nvmtech/core/widgets/toast/toast_test.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
 import 'package:nvmtech/src/components/button/index_button.dart';
 import 'package:nvmtech/src/modules/login/bloc/login_bloc.dart';
@@ -316,27 +315,9 @@ class _LoginPageState extends State<LoginPage> {
 
   void _loginWithGG() {}
 
-  // void _handleSignIn() => this._loginBloc.loginWithEmail(
-  //       context,
-  //       this._emailController.text,
-  //       this._passwordController.text,
-  //     );
-
-  void show(BuildContext context) {
-    AchievementView(context,
-        title: "Title",
-        borderRadius: 0.5,
-        color: Colors.blueGrey,
-        alignment: Alignment.topCenter,
-        duration: Duration(seconds: 1),
-        subTitle: "Flutter tutorial",
-        isCircle: true, listener: (status) {
-      print(status);
-    })
-      ..show();
-  }
-
-  void _handleSignIn() {
-    show(context);
-  }
+   void _handleSignIn() => this._loginBloc.loginWithEmail(
+         context,
+         this._emailController.text,
+         this._passwordController.text,
+       );
 }

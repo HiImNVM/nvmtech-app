@@ -53,14 +53,10 @@ class LoginBloc extends BlocBase {
 
       if (Validation.validateEmail(email).isNotEmpty ||
           Validation.validatePassword(password).isNotEmpty) {
-        AppBloc.toastMessage(
-            context,
-            'fjhwefiugwefiwhfoiwhfowhfoiwhfofheoihwoifwfjhwefiugwefiwhfoiwhfowhfoiwhfofheoihwoifwfjhwefiugwefiwhfoiwhfowhfoiwhfofheoihwoifwfjhwefiugwefiwhfoiwhfowhfoiwhfofheoihwoifwfjhwefiugwefiwhfoiwhfowhfoiwhfofheoihwoifwfjhwefiugwefiwhfoiwhfowhfoiwhfofheoihwoifwfjhwefiugwefiwhfoiwhfowhfoiwhfofheoihwoifwfjhwefiugwefiwhfoiwhfowhfoiwhfofheoihwoifwfjhwefiugwefiwhfoiwhfowhfoiwhfofheoihwoifwfjhwefiugwefiwhfoiwhfowhfoiwhfofheoihwoifwfjhwefiugwefiwhfoiwhfowhfoiwhfofheoihwoifwfjhwefiugwefiwhfoiwhfowhfoiwhfofheoihwoifw',
-            ToastType.Error);
+        AppBloc.showToastMessage(context, CONST_ERROR_TITLE, ToastType.Error);
         return;
       }
-
-      AppBloc.toastMessage(context, CONST_LOGIN_SUCCESSFUL, ToastType.Success);
+      AppBloc.showToastMessage(context, CONST_SUCCESS_TITLE, ToastType.Success);
     });
   }
 

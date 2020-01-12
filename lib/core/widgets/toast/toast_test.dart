@@ -28,22 +28,22 @@ class AchievementWidget extends StatefulWidget {
   final String title;
   final String subTitle;
 
+  final Color textSubTitleColor;
+
   const AchievementWidget(
       {Key key,
       this.finish,
       this.duration = const Duration(seconds: 3),
       this.listener,
       this.isCircle = false,
-      this.icon = const Icon(
-        Icons.insert_emoticon,
-        color: Colors.white,
-      ),
+      this.icon,
       this.onTab,
       this.typeAnimationContent = AnimationTypeAchievement.fadeSlideToUp,
       this.borderRadius = 5.0,
       this.color = Colors.blueGrey,
       this.textStyleTitle,
       this.textStyleSubTitle,
+      this.textSubTitleColor,
       this.title = "",
       this.subTitle = ""})
       : super(key: key);
@@ -54,8 +54,8 @@ class AchievementWidget extends StatefulWidget {
 
 class AchievementWidgetState extends State<AchievementWidget>
     with TickerProviderStateMixin {
-  static const HEIGHT_CARD = 50.0;
-  static const MARGIN_CARD = 20.0;
+  static const HEIGHT_CARD = 55.0;
+  static const MARGIN_CARD = 15.0;
   static const ELEVATION_CARD = 2.0;
 
   AnimationController _controllerScale;
@@ -208,7 +208,8 @@ class AchievementWidgetState extends State<AchievementWidget>
         child: Text(
           widget.title,
           softWrap: true,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
+          style: TextStyle(
+                  color: widget.textSubTitleColor, fontWeight: FontWeight.bold)
               .merge(widget.textStyleTitle),
         ));
   }
@@ -227,8 +228,9 @@ class AchievementWidgetState extends State<AchievementWidget>
         },
         child: Text(
           widget.subTitle,
-          maxLines: 1,
-          style: TextStyle(color: Colors.white).merge(widget.textStyleSubTitle),
+          maxLines: 2,
+          style: TextStyle(color: widget.textSubTitleColor)
+              .merge(widget.textStyleSubTitle),
         ));
   }
 
@@ -308,14 +310,15 @@ class AchievementView {
   final GestureTapCallback onTab;
   final Function(AchievementState) listener;
   final bool isCircle;
-  final Widget icon;
   final AnimationTypeAchievement typeAnimationContent;
   final double borderRadius;
   final Color color;
+  final Color textSubTitleColor;
   final TextStyle textStyleTitle;
   final TextStyle textStyleSubTitle;
   final String title;
   final String subTitle;
+  final Icon icon;
 
   OverlayEntry _overlayEntry;
 
@@ -324,19 +327,17 @@ class AchievementView {
     this.onTab,
     this.listener,
     this.isCircle = false,
-    this.icon = const Icon(
-      Icons.insert_emoticon,
-      color: Colors.white,
-    ),
+    this.icon,
     this.typeAnimationContent = AnimationTypeAchievement.fadeSlideToUp,
     this.borderRadius = 5.0,
     this.color = Colors.blueGrey,
     this.textStyleTitle,
     this.textStyleSubTitle,
     this.alignment = Alignment.topCenter,
-    this.duration = const Duration(seconds: 3),
+    this.duration = const Duration(seconds: 10),
     this.title = "",
     this.subTitle = "",
+    this.textSubTitleColor,
   });
 
   OverlayEntry _buildOverlay() {
@@ -356,6 +357,7 @@ class AchievementView {
               typeAnimationContent: typeAnimationContent,
               borderRadius: borderRadius,
               color: color,
+              textSubTitleColor: textSubTitleColor,
               finish: () {
                 _hide();
               }));

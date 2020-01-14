@@ -6,6 +6,7 @@ import 'package:nvmtech/src/styles/color_style.dart';
 
 void showToastSuccess(BuildContext context, String message) {
   final Color textColor = AppColor.MEDIUM_GREEN_SUCCESS_TEXT;
+
   Toast.show(
     context,
     icon: Icon(Icons.check, color: textColor),

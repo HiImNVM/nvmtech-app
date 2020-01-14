@@ -47,22 +47,22 @@ class AppBloc extends BlocBase {
     }
   }
 
-  static void showToastMessage(BuildContext context, String title,
+  static void showToastMessage(BuildContext context, String message,
       [ToastType toastType = ToastType.Info]) {
     switch (toastType) {
       case ToastType.Success:
         {
-          showToastSuccess(context);
+          showToastSuccess(context, message);
           break;
         }
       case ToastType.Error:
         {
-          showToastError(context);
+          showToastError(context, message);
           break;
         }
       case ToastType.Info:
         {
-          showToastInfo(context);
+          showToastInfo(context, message);
         }
         return;
     }

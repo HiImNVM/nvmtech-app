@@ -60,7 +60,10 @@ class Toast {
   }
 
   static void dismiss() async {
-    _overlayEntry?.remove();
+    if (_overlayEntry != null) {
+      _overlayEntry?.remove();
+      _overlayEntry = null;
+    }
   }
 }
 
@@ -125,11 +128,13 @@ class ToastWidgetState extends State<ToastWidget>
         CurvedAnimation(parent: _controllerScale, curve: Curves.easeInOut)
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              _controllerSize.forward();
+              _controllerSize?.forward();
             }
             if (status == AnimationStatus.dismissed) {
               _notifyListener(ToastState.closed);
-              widget.finish();
+              if (widget.finish != null) {
+                widget.finish();
+              }
             }
           });
 
@@ -137,10 +142,10 @@ class ToastWidgetState extends State<ToastWidget>
         AnimationController(vsync: this, duration: Duration(milliseconds: 500))
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              _controllerTitle.forward();
+              _controllerTitle?.forward();
             }
             if (status == AnimationStatus.dismissed) {
-              _controllerScale.reverse();
+              _controllerScale?.reverse();
             }
           });
     _curvedAnimationSize =
@@ -150,10 +155,10 @@ class ToastWidgetState extends State<ToastWidget>
         AnimationController(vsync: this, duration: Duration(milliseconds: 250))
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              _controllerSubTitle.forward();
+              _controllerSubTitle?.forward();
             }
             if (status == AnimationStatus.dismissed) {
-              _controllerSize.reverse();
+              _controllerSize?.reverse();
             }
           });
 
@@ -167,7 +172,7 @@ class ToastWidgetState extends State<ToastWidget>
               _startTime();
             }
             if (status == AnimationStatus.dismissed) {
-              _controllerTitle.reverse();
+              _controllerTitle?.reverse();
             }
           });
 
@@ -178,7 +183,7 @@ class ToastWidgetState extends State<ToastWidget>
 
   void show() {
     _notifyListener(ToastState.opening);
-    _controllerScale.forward();
+    _controllerScale?.forward();
   }
 
   @override
@@ -326,16 +331,16 @@ class ToastWidgetState extends State<ToastWidget>
   void _startTime() {
     Future.delayed(widget.duration, () {
       _notifyListener(ToastState.closing);
-      _controllerSubTitle.reverse();
+      _controllerSubTitle?.reverse();
     });
   }
 
   @override
   void dispose() {
-    _controllerScale.dispose();
-    _controllerSize.dispose();
-    _controllerTitle.dispose();
-    _controllerSubTitle.dispose();
+    _controllerScale?.dispose();
+    _controllerSize?.dispose();
+    _controllerTitle?.dispose();
+    _controllerSubTitle?.dispose();
     super.dispose();
   }
 }

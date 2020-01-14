@@ -13,6 +13,57 @@ enum AnimationTypeToast {
   fade,
 }
 
+class Toast {
+  static final Toast _singleton = Toast._internal();
+  factory Toast() => _singleton;
+  Toast._internal();
+
+  static OverlayEntry _overlayEntry;
+
+  static void show(
+    BuildContext context, {
+    GestureTapCallback onTab,
+    Function(ToastState) listener,
+    bool isCircle = false,
+    Icon icon = const Icon(Icons.info),
+    AnimationTypeToast typeAnimationContent = AnimationTypeToast.fadeSlideToUp,
+    double borderRadius = 5,
+    Color colorBackground = Colors.blueGrey,
+    Text title,
+    Text subTitle,
+    AlignmentGeometry alignment = Alignment.topCenter,
+    Duration duration = const Duration(seconds: 4),
+    Color colorContent,
+  }) async {
+    Toast.dismiss();
+
+    _overlayEntry = OverlayEntry(
+      builder: (BuildContext context) => Align(
+        alignment: alignment,
+        child: ToastWidget(
+          title: title,
+          subTitle: subTitle,
+          duration: duration,
+          listener: listener,
+          onTab: onTab,
+          isCircle: isCircle,
+          icon: icon,
+          typeAnimationContent: typeAnimationContent,
+          borderRadius: borderRadius,
+          color: colorBackground,
+          textSubTitleColor: colorContent,
+        ),
+      ),
+    );
+
+    Overlay.of(context).insert(_overlayEntry);
+  }
+
+  static void dismiss() async {
+    _overlayEntry?.remove();
+  }
+}
+
 class ToastWidget extends StatefulWidget {
   final Function() finish;
   final GestureTapCallback onTab;
@@ -23,10 +74,8 @@ class ToastWidget extends StatefulWidget {
   final AnimationTypeToast typeAnimationContent;
   final double borderRadius;
   final Color color;
-  final TextStyle textStyleTitle;
-  final TextStyle textStyleSubTitle;
-  final String title;
-  final String subTitle;
+  final Text title;
+  final Text subTitle;
 
   final Color textSubTitleColor;
 
@@ -41,11 +90,9 @@ class ToastWidget extends StatefulWidget {
       this.typeAnimationContent = AnimationTypeToast.fadeSlideToUp,
       this.borderRadius = 5.0,
       this.color = Colors.blueGrey,
-      this.textStyleTitle,
-      this.textStyleSubTitle,
       this.textSubTitleColor,
-      this.title = "",
-      this.subTitle = ""})
+      this.title,
+      this.subTitle})
       : super(key: key);
 
   @override
@@ -195,23 +242,18 @@ class ToastWidgetState extends State<ToastWidget>
 
   Widget _buildTitle() {
     return AnimatedBuilder(
-        animation: _controllerTitle,
-        builder: (_, child) {
-          return SlideTransition(
-            position: _titleSlideUp,
-            child: FadeTransition(
-              opacity: _controllerTitle,
-              child: child,
-            ),
-          );
-        },
-        child: Text(
-          widget.title,
-          softWrap: true,
-          style: TextStyle(
-                  color: widget.textSubTitleColor, fontWeight: FontWeight.bold)
-              .merge(widget.textStyleTitle),
-        ));
+      animation: _controllerTitle,
+      builder: (_, child) {
+        return SlideTransition(
+          position: _titleSlideUp,
+          child: FadeTransition(
+            opacity: _controllerTitle,
+            child: child,
+          ),
+        );
+      },
+      child: widget.title,
+    );
   }
 
   Widget _buildSubTitle() {
@@ -226,12 +268,7 @@ class ToastWidgetState extends State<ToastWidget>
             ),
           );
         },
-        child: Text(
-          widget.subTitle,
-          maxLines: 2,
-          style: TextStyle(color: widget.textSubTitleColor)
-              .merge(widget.textStyleSubTitle),
-        ));
+        child: widget.subTitle);
   }
 
   BorderRadiusGeometry _buildBorderIcon() {
@@ -300,79 +337,5 @@ class ToastWidgetState extends State<ToastWidget>
     _controllerTitle.dispose();
     _controllerSubTitle.dispose();
     super.dispose();
-  }
-}
-
-class ToastView {
-  final BuildContext _context;
-  final AlignmentGeometry alignment;
-  final Duration duration;
-  final GestureTapCallback onTab;
-  final Function(ToastState) listener;
-  final bool isCircle;
-  final AnimationTypeToast typeAnimationContent;
-  final double borderRadius;
-  final Color color;
-  final Color textSubTitleColor;
-  final TextStyle textStyleTitle;
-  final TextStyle textStyleSubTitle;
-  final String title;
-  final String subTitle;
-  final Icon icon;
-
-  OverlayEntry _overlayEntry;
-
-  ToastView(
-    this._context, {
-    this.onTab,
-    this.listener,
-    this.isCircle = false,
-    this.icon,
-    this.typeAnimationContent = AnimationTypeToast.fadeSlideToUp,
-    this.borderRadius = 5,
-    this.color = Colors.blueGrey,
-    this.textStyleTitle,
-    this.textStyleSubTitle,
-    this.alignment = Alignment.topCenter,
-    this.duration = const Duration(seconds: 10),
-    this.title = "",
-    this.subTitle = "",
-    this.textSubTitleColor,
-  });
-
-  OverlayEntry _buildOverlay() {
-    return OverlayEntry(builder: (context) {
-      return Align(
-          alignment: alignment,
-          child: ToastWidget(
-              title: title,
-              subTitle: subTitle,
-              duration: duration,
-              listener: listener,
-              onTab: onTab,
-              isCircle: isCircle,
-              textStyleSubTitle: textStyleSubTitle,
-              textStyleTitle: textStyleTitle,
-              icon: icon,
-              typeAnimationContent: typeAnimationContent,
-              borderRadius: borderRadius,
-              color: color,
-              textSubTitleColor: textSubTitleColor,
-              finish: () {
-                _hide();
-              }));
-    });
-  }
-
-  void show() {
-    if (_overlayEntry == null) {
-      _overlayEntry = _buildOverlay();
-      Overlay.of(_context).insert(_overlayEntry);
-    }
-  }
-
-  void _hide() {
-    _overlayEntry?.remove();
-    _overlayEntry = null;
   }
 }

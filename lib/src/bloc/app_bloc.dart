@@ -3,13 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/core/store/shared_preferences.dart';
-import 'package:nvmtech/core/widgets/toast/base_toast.dart';
-import 'package:nvmtech/core/widgets/toast/toast_test.dart';
+import 'package:nvmtech/core/widgets/toast/toast_index.dart';
 import 'package:nvmtech/src/constants/sharedPreference_constant.dart';
 import 'package:nvmtech/src/modules/login/login_constant.dart';
-import 'package:nvmtech/src/styles/color_style.dart';
 import 'package:nvmtech/src/types/app_type.dart';
 import 'package:nvmtech/src/types/theme_type.dart';
+import 'package:nvmtech/src/util/printUtil.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AppBloc extends BlocBase {
@@ -53,103 +52,21 @@ class AppBloc extends BlocBase {
 
   static void showToastMessage(BuildContext context, String title,
       [ToastType toastType = ToastType.Info]) {
-    switch (toastType) {
-      case ToastType.Success:
-        {
-          AchievementView(context,
-              title: title,
-              borderRadius: 0.5,
-              color: AppColor.DARK_GREEN_SUCCESS_ICON_BG,
-              alignment: Alignment.topCenter,
-              subTitle: CONST_SUCCESS_SUBTITLE,
-              textSubTitleColor: AppColor.MEDIUM_GREEN_SUCCESS_TEXT,
-              icon:
-                  Icon(Icons.check, color: AppColor.MEDIUM_GREEN_SUCCESS_TEXT),
-               listener: (status) {
-            print(status);
-          })
-            ..show();
-          break;
-        }
-      case ToastType.Error:
-        {
-          AchievementView(context,
-              title: title,
-              borderRadius: 0.5,
-              color: AppColor.DARK_RED_ERROR_ICON_BG,
-              alignment: Alignment.topCenter,
-              subTitle: CONST_ERROR_SUBTITLE,
-              textSubTitleColor: AppColor.MEDIUM_RED_ERROR_TEXT,
-              icon: Icon(Icons.clear, color: AppColor.MEDIUM_RED_ERROR_TEXT),
-              listener: (status) {
-            print(status);
-          })
-            ..show();
-          break;
-        }
-      case ToastType.Info:
-        {
-          AchievementView(context,
-              title: CONST_INFO_TITLE,
-              borderRadius: 0.5,
-              color: AppColor.DARK_GREY_INFO_ICON_BG,
-              alignment: Alignment.topCenter,
-              subTitle: CONST_ERROR_SUBTITLE,
-              textSubTitleColor: AppColor.MEDIUM_GREY_INFO_TEXT,
-              icon: Icon(Icons.access_time, color: Colors.white),
-             listener: (status) {
-            print(status);
-          })
-            ..show();
-        }
-        return;
-    }
-  }
-
-  static void toastMessage(BuildContext context, String message,
-      [ToastType toastType = ToastType.Info]) {
-    Color toastColor;
-    Color toastTextColor;
-    Icon toastIcon;
-    Color iconRectangleColor;
-
-    switch (toastType) {
-      case ToastType.Success:
-        {
-          toastColor = AppColor.LIGHT_GREEN_SUCCESS_BG;
-          toastTextColor = AppColor.MEDIUM_GREEN_SUCCESS_TEXT;
-          toastIcon = Icon(Icons.check, size: 30, color: toastTextColor);
-          iconRectangleColor = AppColor.DARK_GREEN_SUCCESS_ICON_BG;
-          break;
-        }
-
-      case ToastType.Error:
-        {
-          toastColor = AppColor.LIGHT_RED_ERROR_BG;
-          toastTextColor = AppColor.MEDIUM_RED_ERROR_TEXT;
-          toastIcon = Icon(Icons.clear, size: 20, color: toastTextColor);
-          iconRectangleColor = AppColor.DARK_RED_ERROR_ICON_BG;
-          break;
-        }
-
-      case ToastType.Info:
-        {
-          toastColor = AppColor.LIGHT_GREY_INFO_BG;
-          toastTextColor = AppColor.MEDIUM_GREY_INFO_TEXT;
-          toastIcon = Icon(Icons.access_time, size: 30, color: Colors.white);
-          iconRectangleColor = AppColor.DARK_GREY_INFO_ICON_BG;
-          break;
-        }
-
-      default:
-        toastColor = Colors.white;
-    }
-    return Toast.show(message, context,
-        backgroundColor: toastColor,
-        textColor: toastTextColor,
-        icon: toastIcon,
-        iconRectangleColor: iconRectangleColor,
-        gravity: Toast.TOP);
+    Toast.show(context,
+        title: Text(
+          title,
+          style: TextStyle(
+            color: Colors.red,
+          ),
+        ),
+        subTitle: Text(
+          CONST_SUCCESS_SUBTITLE,
+          style: TextStyle(
+            color: Colors.red,
+          ),
+        ), listener: (ToastState state) {
+      printInfo(state);
+    });
   }
 
   bool _isLoggined() =>

@@ -65,7 +65,7 @@ class AppBloc extends BlocBase {
               textSubTitleColor: AppColor.MEDIUM_GREEN_SUCCESS_TEXT,
               icon:
                   Icon(Icons.check, color: AppColor.MEDIUM_GREEN_SUCCESS_TEXT),
-              isCircle: true, listener: (status) {
+               listener: (status) {
             print(status);
           })
             ..show();
@@ -81,7 +81,7 @@ class AppBloc extends BlocBase {
               subTitle: CONST_ERROR_SUBTITLE,
               textSubTitleColor: AppColor.MEDIUM_RED_ERROR_TEXT,
               icon: Icon(Icons.clear, color: AppColor.MEDIUM_RED_ERROR_TEXT),
-              isCircle: true, listener: (status) {
+              listener: (status) {
             print(status);
           })
             ..show();
@@ -97,7 +97,7 @@ class AppBloc extends BlocBase {
               subTitle: CONST_ERROR_SUBTITLE,
               textSubTitleColor: AppColor.MEDIUM_GREY_INFO_TEXT,
               icon: Icon(Icons.access_time, color: Colors.white),
-              isCircle: true, listener: (status) {
+             listener: (status) {
             print(status);
           })
             ..show();

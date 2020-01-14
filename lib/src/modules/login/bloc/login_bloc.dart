@@ -53,12 +53,12 @@ class LoginBloc extends BlocBase {
 
       if (Validation.validateEmail(email).isNotEmpty ||
           Validation.validatePassword(password).isNotEmpty) {
-        AppBloc.toastMessage(
-            context, CONST_LOGIN_FAIL_INVALID_INPUT, ToastType.Error);
+        AppBloc.showToastMessage(
+            context, CONST_ERROR_SUBTITLE, ToastType.Error);
         return;
       }
-
-      AppBloc.toastMessage(context, 'Login success', ToastType.Success);
+      AppBloc.showToastMessage(
+          context, CONST_SUCCESS_SUBTITLE, ToastType.Success);
     });
   }
 

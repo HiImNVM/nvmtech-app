@@ -215,7 +215,8 @@ class _LoginPageState extends State<LoginPage> {
     double marginTop = MediaQuery.of(context).size.height * 0.1;
     return Container(
       margin: EdgeInsets.only(top: marginTop),
-      padding: const EdgeInsets.all(AppDimension.PADDING),
+      //padding: const EdgeInsets.all(AppDimension.PADDING),
+      padding: const EdgeInsets.symmetric(horizontal: AppDimension.PADDING),
       child: Center(
         child: Column(
           children: <Widget>[
@@ -314,9 +315,9 @@ class _LoginPageState extends State<LoginPage> {
 
   void _loginWithGG() {}
 
-  void _handleSignIn() => this._loginBloc.loginWithEmail(
-        context,
-        this._emailController.text,
-        this._passwordController.text,
-      );
+   void _handleSignIn() => this._loginBloc.loginWithEmail(
+         context,
+         this._emailController.text,
+         this._passwordController.text,
+       );
 }

@@ -33,7 +33,6 @@ class Toast {
     Text subTitle,
     AlignmentGeometry alignment = Alignment.topCenter,
     Duration duration = const Duration(seconds: 4),
-    Color colorContent,
   }) async {
     Toast.dismiss();
 
@@ -51,7 +50,6 @@ class Toast {
           typeAnimationContent: typeAnimationContent,
           borderRadius: borderRadius,
           color: colorBackground,
-          textSubTitleColor: colorContent,
         ),
       ),
     );
@@ -79,9 +77,7 @@ class ToastWidget extends StatefulWidget {
   final Color color;
   final Text title;
   final Text subTitle;
-
-  final Color textSubTitleColor;
-
+  
   const ToastWidget(
       {Key key,
       this.finish,
@@ -93,7 +89,6 @@ class ToastWidget extends StatefulWidget {
       this.typeAnimationContent = AnimationTypeToast.fadeSlideToUp,
       this.borderRadius = 5.0,
       this.color = Colors.blueGrey,
-      this.textSubTitleColor,
       this.title,
       this.subTitle})
       : super(key: key);

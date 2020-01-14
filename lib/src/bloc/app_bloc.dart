@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/core/store/shared_preferences.dart';
 import 'package:nvmtech/core/widgets/toast/toast_index.dart';
+import 'package:nvmtech/src/components/toast/index.dart';
 import 'package:nvmtech/src/constants/sharedPreference_constant.dart';
 import 'package:nvmtech/src/modules/login/login_constant.dart';
 import 'package:nvmtech/src/types/app_type.dart';
@@ -52,21 +53,24 @@ class AppBloc extends BlocBase {
 
   static void showToastMessage(BuildContext context, String title,
       [ToastType toastType = ToastType.Info]) {
-    Toast.show(context,
-        title: Text(
-          title,
-          style: TextStyle(
-            color: Colors.red,
-          ),
-        ),
-        subTitle: Text(
-          CONST_SUCCESS_SUBTITLE,
-          style: TextStyle(
-            color: Colors.red,
-          ),
-        ), listener: (ToastState state) {
-      printInfo(state);
-    });
+    switch (toastType) {
+      case ToastType.Success:
+        {
+          showToastSuccess(context);
+          break;
+        }
+      case ToastType.Error:
+        {
+          showToastError(context);
+          break;
+        }
+      case ToastType.Info:
+        {
+          showToastInfo(context);
+        }
+        return;
+    }
+    
   }
 
   bool _isLoggined() =>

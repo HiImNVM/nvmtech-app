@@ -21,3 +21,5 @@ const String CONST_SUCCESS_SUBTITLE =
   "Login is successful!";
 const String CONST_ERROR_SUBTITLE =
   "Invalid email or password, please check again!Invalid email or password, please check again!";
+const String CONST_INFO_SUBTITLE =
+  "Info subtitle!";

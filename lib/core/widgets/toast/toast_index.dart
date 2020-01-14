@@ -77,7 +77,7 @@ class ToastWidget extends StatefulWidget {
   final Color color;
   final Text title;
   final Text subTitle;
-  
+
   const ToastWidget(
       {Key key,
       this.finish,
@@ -326,7 +326,9 @@ class ToastWidgetState extends State<ToastWidget>
   void _startTime() {
     Future.delayed(widget.duration, () {
       _notifyListener(ToastState.closing);
-      _controllerSubTitle?.reverse();
+      if (this.mounted) {
+        _controllerSubTitle?.reverse();
+      }
     });
   }
 

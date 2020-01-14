@@ -3,17 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/core/store/shared_preferences.dart';
-import 'package:nvmtech/core/widgets/toast/toast_index.dart';
 import 'package:nvmtech/src/components/toast/index.dart';
 import 'package:nvmtech/src/constants/sharedPreference_constant.dart';
-import 'package:nvmtech/src/modules/login/login_constant.dart';
 import 'package:nvmtech/src/types/app_type.dart';
 import 'package:nvmtech/src/types/theme_type.dart';
-import 'package:nvmtech/src/util/printUtil.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AppBloc extends BlocBase {
   GlobalKey<NavigatorState> _navigatorKey;
+  static SharedPreferencesWrapper sPreferencesWrapper;
 
   final BehaviorSubject<ThemeType> _theme =
       BehaviorSubject<ThemeType>.seeded(ThemeType.Light);
@@ -24,12 +22,10 @@ class AppBloc extends BlocBase {
   final _AppEventBloc _appEventBloc = _AppEventBloc();
   _AppEventBloc get getEventBloc => this._appEventBloc;
 
-  SharedPreferencesWrapper _sPreferencesWrapper;
-
   AppBloc(navigatorKey) {
     this._navigatorKey = navigatorKey;
     SharedPreferencesWrapper.getInstance()
-        .then((sf) => this._sPreferencesWrapper = sf);
+        .then((sf) => sPreferencesWrapper = sf);
   }
 
   NavigatorState getNavigator() {
@@ -70,21 +66,18 @@ class AppBloc extends BlocBase {
         }
         return;
     }
-    
   }
 
   bool _isLoggined() =>
-      this._sPreferencesWrapper.getSPreferences().getBool(CONST_LOGGINED) ??
-      false;
+      sPreferencesWrapper.getSPreferences().getBool(CONST_LOGGINED) ?? false;
 
   bool _isFirstTime() =>
-      this._sPreferencesWrapper.getSPreferences().getBool(CONST_FIRST_TIME) ??
-      true;
+      sPreferencesWrapper.getSPreferences().getBool(CONST_FIRST_TIME) ?? true;
 
   @override
   void dispose() async {
     this._navigatorKey = null;
-    this._sPreferencesWrapper = null;
+    sPreferencesWrapper = null;
 
     await this._theme?.drain();
     this._theme.close();

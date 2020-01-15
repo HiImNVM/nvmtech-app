@@ -13,7 +13,13 @@ const String CONST_TEXT_LOGIN_PASSWORD = "Password";
 const String CONST_TEXT_LOGIN_FACEBOOK = "Login with Facebook";
 const String CONST_LOGINTEXT_GOOGLE = "Login with Google";
 
-const String CONST_LOGIN_SUCCESSFUL =
+const String CONST_SUCCESS_TITLE = "Success";
+const String CONST_ERROR_TITLE = "Error";
+const String CONST_INFO_TITLE = "Info";
+
+const String CONST_SUCCESS_SUBTITLE =
   "Login is successful!";
-const String CONST_LOGIN_FAIL_INVALID_INPUT =
+const String CONST_ERROR_SUBTITLE =
   "Invalid email or password, please check again!";
+const String CONST_INFO_SUBTITLE =
+  "Info subtitle!";

@@ -55,8 +55,8 @@ class LoginBloc extends BlocBase {
     if (Validation.validateEmail(email).isNotEmpty ||
         Validation.validatePassword(password).isNotEmpty) {
       this.sinkLoginType(LoginState.Default);
-      AppBloc.toastMessage(
-          context, CONST_LOGIN_FAIL_INVALID_INPUT, ToastType.Error);
+      AppBloc.showToastMessage(
+          context, CONST_ERROR_SUBTITLE, ToastType.Error);
       return;
     }
 
@@ -68,15 +68,15 @@ class LoginBloc extends BlocBase {
     this.sinkLoginType(LoginState.Default);
 
     if (responseModel is SuccessModel) {
-      AppBloc.toastMessage(
+      AppBloc.showToastMessage(
           context,
-          CONST_LOGIN_SUCCESSFUL +
+        CONST_SUCCESS_SUBTITLE +
               '   ' +
               ((responseModel.value as ResponseSuccess).data['id']).toString(),
           ToastType.Success);
       return;
     }
-    AppBloc.toastMessage(
+    AppBloc.showToastMessage(
         context,
         ((responseModel as ErrorModel).value as ResponseError).message,
         ToastType.Error);

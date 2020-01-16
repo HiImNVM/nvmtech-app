@@ -33,7 +33,7 @@ void showToastError(BuildContext context, String message) {
 
   Toast.show(
     context,
-    icon: Icon(Icons.check, color: textColor),
+    icon: Icon(Icons.clear, color: textColor),
     title: Text(
       CONST_ERROR_TITLE,
       style: TextStyle(
@@ -55,7 +55,7 @@ void showToastInfo(BuildContext context, String message) {
 
   Toast.show(
     context,
-    icon: Icon(Icons.check, color: textColor),
+    icon: Icon(Icons.access_time, color: textColor),
     title: Text(
       CONST_INFO_TITLE,
       style: TextStyle(

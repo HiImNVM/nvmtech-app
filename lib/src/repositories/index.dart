@@ -1,11 +1,12 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:nvmtech/core/api/index.dart';
+import 'package:nvmtech/core/bloc/index.dart';
 import 'package:nvmtech/core/store/shared_preferences.dart';
 import 'package:nvmtech/env.dart';
+import 'package:nvmtech/src/app.dart';
+import 'package:nvmtech/src/bloc/app_bloc.dart';
 import 'package:nvmtech/src/util/printUtil.dart';
+import 'package:nvmtech/src/util/jsonUtil.dart' as jsonUtil;
 
 class ApiProviderImp implements IApiProvider, IMethod {
   Dio _dio;
@@ -115,15 +116,22 @@ class ApiProviderImp implements IApiProvider, IMethod {
     if (statusCode == 401) {
       this._dio.lock();
       try {
-        // final AppStateBloc appStateBloc =
-        //     BlocProvider.of(MyApp.navigatorKey.currentContext);
-        // appStateBloc.logout();
+        final AppBloc appBloc =
+            BlocProvider.of(MyApp.navigatorKey.currentContext);
+        appBloc.logout();
       } catch (e) {
         printError(e);
         await SharedPreferencesWrapper.getInstance()
             .then((sharedPreferences) => sharedPreferences.clear());
       }
       this._dio.unlock();
+    }
+
+    printError(
+        'Fail API:\n-URL: ${e.response.request.uri}\n-StatusCode: ${e.response.statusCode}\n-Body: ${e.response.data}');
+
+    if (e.response.data is String) {
+      e.error = await parseJSON(e.response.data);
     }
 
     return e;
@@ -143,7 +151,7 @@ class ApiProviderImp implements IApiProvider, IMethod {
   void setupInterceptors() => this._dio.interceptors.add(this._beforeRequest());
 
   @override
-  dynamic parseJSON(String text) => compute(jsonDecode, text);
+  dynamic parseJSON(String text) => jsonUtil.parseJSON(text);
 
   @override
   Future<Response> get(String path,

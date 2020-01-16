@@ -213,40 +213,45 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _renderBody(context) {
     double marginTop = MediaQuery.of(context).size.height * 0.1;
-    return Container(
-      margin: EdgeInsets.only(top: marginTop),
-      //padding: const EdgeInsets.all(AppDimension.PADDING),
-      padding: const EdgeInsets.symmetric(horizontal: AppDimension.PADDING),
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            this._renderSignInTitle(),
-            SizedBox(
-              height: 10,
-            ),
-            this._renderLogo(),
-            SizedBox(
-              height: 30,
-            ),
-            this._renderEmailPassForm(),
-            SizedBox(
-              height: 30,
-            ),
-            this._renderSignInButton(),
-            SizedBox(
-              height: 30,
-            ),
-            this._renderNavigatetoSignUp(),
-            SizedBox(
-              height: 15,
-            ),
-            Text(CONST_TEXT_LOGIN_OR,
-                style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
-            SizedBox(
-              height: 15,
-            ),
-            this._renderSocialMedia(),
-          ],
+    return SingleChildScrollView(
+      child: Container(
+        margin: EdgeInsets.only(top: marginTop),
+        //padding: const EdgeInsets.all(AppDimension.PADDING),
+        padding: const EdgeInsets.symmetric(horizontal: AppDimension.PADDING),
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              this._renderSignInTitle(),
+              SizedBox(
+                height: 10,
+              ),
+              this._renderLogo(),
+              SizedBox(
+                height: 30,
+              ),
+              this._renderEmailPassForm(),
+              SizedBox(
+                height: 30,
+              ),
+              this._renderSignInButton(),
+              SizedBox(
+                height: 30,
+              ),
+              this._renderNavigatetoSignUp(),
+              SizedBox(
+                height: 15,
+              ),
+              Text(CONST_TEXT_LOGIN_OR,
+                  style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
+              SizedBox(
+                height: 15,
+              ),
+              this._renderSocialMedia(),
+              SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -289,7 +294,6 @@ class _LoginPageState extends State<LoginPage> {
     this._loginBloc = BlocProvider.of<LoginBloc>(context);
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           this._renderBody(context),
@@ -315,9 +319,9 @@ class _LoginPageState extends State<LoginPage> {
 
   void _loginWithGG() {}
 
-   void _handleSignIn() => this._loginBloc.loginWithEmail(
-         context,
-         this._emailController.text,
-         this._passwordController.text,
-       );
+  void _handleSignIn() => this._loginBloc.loginWithEmail(
+        context,
+        this._emailController.text,
+        this._passwordController.text,
+      );
 }

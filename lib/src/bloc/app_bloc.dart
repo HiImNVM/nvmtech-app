@@ -32,6 +32,7 @@ class AppBloc extends BlocBase {
     return this._navigatorKey.currentState;
   }
 
+  void logout() {}
   void setupApp() async {
     final bool isFirstTime = this._isFirstTime();
 
@@ -66,6 +67,15 @@ class AppBloc extends BlocBase {
         }
         return;
     }
+  }
+
+  static void setUserInfoToStore(
+      String userId, String token, String refreshToken) {
+    sPreferencesWrapper.getSPreferences().setString(CONST_USER_ID, userId);
+    sPreferencesWrapper.getSPreferences().setString(CONST_USER_TOKEN, token);
+    sPreferencesWrapper
+        .getSPreferences()
+        .setString(CONST_USER_REFRESHTOKEN, refreshToken);
   }
 
   bool _isLoggined() =>

@@ -5,7 +5,6 @@ import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/core/store/shared_preferences.dart';
 import 'package:nvmtech/src/components/toast/index.dart';
 import 'package:nvmtech/src/constants/sharedPreference_constant.dart';
-import 'package:nvmtech/src/models/response_success_model.dart';
 import 'package:nvmtech/src/types/app_type.dart';
 import 'package:nvmtech/src/types/theme_type.dart';
 import 'package:rxdart/rxdart.dart';
@@ -70,16 +69,13 @@ class AppBloc extends BlocBase {
     }
   }
 
-  void setUserInfoToStore() {
-    ResponseSuccess responseSuccess;
+  static void setUserInfoToStore(
+      String userId, String token, String refreshToken) {
+    sPreferencesWrapper.getSPreferences().setString(CONST_USER_ID, userId);
+    sPreferencesWrapper.getSPreferences().setString(CONST_USER_TOKEN, token);
     sPreferencesWrapper
         .getSPreferences()
-        .setInt(CONST_USER_ID, responseSuccess.data['id']);
-    sPreferencesWrapper
-        .getSPreferences()
-        .setString(CONST_USER_TOKEN, responseSuccess.data['token']);
-    sPreferencesWrapper.getSPreferences().setString(
-        CONST_USER_REFRESHTOKEN, responseSuccess.data['refreshToken']);
+        .setString(CONST_USER_REFRESHTOKEN, refreshToken);
   }
 
   bool _isLoggined() =>

@@ -4,9 +4,11 @@ import 'package:nvmtech/src/bloc/app_bloc.dart';
 import 'package:nvmtech/src/models/response_error_model.dart';
 import 'package:nvmtech/src/models/response_success_model.dart';
 import 'package:nvmtech/src/modules/login/login_constant.dart';
+import 'package:nvmtech/src/modules/login/models/loginWithEmail_model.dart';
 import 'package:nvmtech/src/repositories/login_repo.dart';
 import 'package:nvmtech/src/types/app_type.dart';
 import 'package:nvmtech/src/types/login_type.dart';
+import 'package:nvmtech/src/util/printUtil.dart';
 import 'package:nvmtech/src/util/validationUtil.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -55,8 +57,7 @@ class LoginBloc extends BlocBase {
     if (Validation.validateEmail(email).isNotEmpty ||
         Validation.validatePassword(password).isNotEmpty) {
       this.sinkLoginType(LoginState.Default);
-      AppBloc.showToastMessage(
-          context, CONST_ERROR_SUBTITLE, ToastType.Error);
+      AppBloc.showToastMessage(context, CONST_ERROR_SUBTITLE, ToastType.Error);
       return;
     }
 
@@ -68,14 +69,20 @@ class LoginBloc extends BlocBase {
     this.sinkLoginType(LoginState.Default);
 
     if (responseModel is SuccessModel) {
+      printInfo('Login success!');
+      final LoginWithEmailModel loginWithEmailModel =
+          LoginWithEmailModel.fromJson(
+              (responseModel.value as ResponseSuccess).data);
+
+      AppBloc.setUserInfoToStore(loginWithEmailModel.id.toString(),
+          loginWithEmailModel.token, loginWithEmailModel.refreshToken);
+      // TODO: Should replace show toast successful to navigate home page
       AppBloc.showToastMessage(
-          context,
-        CONST_SUCCESS_SUBTITLE +
-              '   ' +
-              ((responseModel.value as ResponseSuccess).data['id']).toString(),
-          ToastType.Success);
+          context, CONST_SUCCESS_SUBTITLE, ToastType.Success);
       return;
     }
+
+    printInfo('Login fail!');
     AppBloc.showToastMessage(
         context,
         ((responseModel as ErrorModel).value as ResponseError).message,

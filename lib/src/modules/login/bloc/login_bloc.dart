@@ -1,13 +1,13 @@
-import 'package:nvmtech/core/api/response.dart';
+import 'package:nvmtech/core/api/index.dart';
 import 'package:nvmtech/core/bloc/base.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
 import 'package:nvmtech/src/models/response_error_model.dart';
 import 'package:nvmtech/src/models/response_success_model.dart';
-import 'package:nvmtech/src/modules/login/login_constant.dart';
+import 'package:nvmtech/src/modules/login/constants/login_constant.dart';
 import 'package:nvmtech/src/modules/login/models/loginWithEmail_model.dart';
-import 'package:nvmtech/src/repositories/login_repo.dart';
+import 'package:nvmtech/src/modules/login/repositories/login_repo.dart';
+import 'package:nvmtech/src/modules/login/types/login_type.dart';
 import 'package:nvmtech/src/types/app_type.dart';
-import 'package:nvmtech/src/types/login_type.dart';
 import 'package:nvmtech/src/util/printUtil.dart';
 import 'package:nvmtech/src/util/validationUtil.dart';
 import 'package:rxdart/rxdart.dart';

@@ -129,7 +129,7 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget _renderTitle(String title) {
     return Text(
       title,
-      style: AppTextStyle.WHITE_W700_NORMAL_F18,
+      style: AppTextStyle.WHITE_W700_F18,
       textAlign: TextAlign.center,
     );
   }
@@ -137,7 +137,7 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget _renderContent(String content) {
     return Text(
       content,
-      style: AppTextStyle.WHITE_W600_NORMAL_F14_H2,
+      style: AppTextStyle.WHITE_W600_F14_H2,
       textAlign: TextAlign.center,
     );
   }
@@ -151,8 +151,7 @@ class _WelcomePageState extends State<WelcomePage> {
         onTap: this._clickSkip,
         child: Opacity(
             opacity: 0.6,
-            child: Text(CONST_SKIP,
-                style: AppTextStyle.WHITE_W600_NORMAL_F14_H2)));
+            child: Text(CONST_SKIP, style: AppTextStyle.WHITE_W600_F14_H2)));
   }
 
   Widget _renderDots() {
@@ -171,7 +170,7 @@ class _WelcomePageState extends State<WelcomePage> {
       onTap: this._clickNext,
       child: Text(
         textButton,
-        style: AppTextStyle.WHITE_W600_NORMAL_F14_H2,
+        style: AppTextStyle.WHITE_W600_F14_H2,
         textAlign: TextAlign.end,
       ),
     );

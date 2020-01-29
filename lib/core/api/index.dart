@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+export './response.dart';
 
 abstract class IApiProvider {
   dynamic parseJSON(String text);
@@ -49,4 +50,9 @@ abstract class IMethod {
     Options options,
     CancelToken cancelToken,
   });
+}
+
+abstract class IRepo {
+  String url;
+  dynamic data;
 }

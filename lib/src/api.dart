@@ -85,7 +85,8 @@ class ApiProviderImp implements IApiProvider, IMethod {
       this._dio.lock();
       return SharedPreferencesWrapper.getInstance()
           .then((sp) {
-            if (this._accessToken != null) {
+            final String token = sp.getToken();
+            if (token != null && token.isNotEmpty) {
               printInfo('Calling with access token: $this._accessToken');
               this._setRequestOptionsWithAuthen(options);
             }
@@ -104,26 +105,27 @@ class ApiProviderImp implements IApiProvider, IMethod {
     // you can return a `DioError` object or return `dio.reject(errMsg)`
   }
 
-  dynamic _onResponse(Response response) => response;
+  dynamic _onResponse(Response response) async {
+    final int statusCode = response.statusCode;
+
+    if (statusCode == 200) {
+      response.data = await parseJSON(response.data);
+      return response;
+    }
+
+    return this._dio.reject(DioError(
+        response: response, error: 'Something went wrong. Please try again!'));
+  }
 
   dynamic _onError(DioError e) async {
     if (e.response == null) return e;
 
-    // Do something with response error.
     // 401 is UnAuthentication
     final int statusCode = e.response.statusCode;
 
     if (statusCode == 401) {
       this._dio.lock();
-      try {
-        final AppBloc appBloc =
-            BlocProvider.of(MyApp.navigatorKey.currentContext);
-        appBloc.logout();
-      } catch (e) {
-        printError(e);
-        await SharedPreferencesWrapper.getInstance()
-            .then((sharedPreferences) => sharedPreferences.clear());
-      }
+      await this._handleUnAuthentication();
       this._dio.unlock();
     }
 
@@ -131,21 +133,17 @@ class ApiProviderImp implements IApiProvider, IMethod {
         'Fail API:\n-URL: ${e.response.request.uri}\n-StatusCode: ${e.response.statusCode}\n-Body: ${e.response.data}');
 
     if (e.response.data is String) {
-      e.error = await parseJSON(e.response.data);
+      e.response.data = await parseJSON(e.response.data);
     }
 
     return e;
   }
 
-  InterceptorsWrapper _beforeRequest() {
-    InterceptorsWrapper result = InterceptorsWrapper(
-      onRequest: this._onRequest,
-      onResponse: this._onResponse,
-      onError: this._onError,
-    );
-
-    return result;
-  }
+  InterceptorsWrapper _beforeRequest() => InterceptorsWrapper(
+        onRequest: this._onRequest,
+        onResponse: this._onResponse,
+        onError: this._onError,
+      );
 
   @override
   void setupInterceptors() => this._dio.interceptors.add(this._beforeRequest());
@@ -206,8 +204,16 @@ class ApiProviderImp implements IApiProvider, IMethod {
           data: data,
           options: options,
           cancelToken: cancelToken);
-}
 
-abstract class IRepo {
-  String url;
+  Future<void> _handleUnAuthentication() async {
+    try {
+      final AppBloc appBloc =
+          BlocProvider.of(MyApp.navigatorKey.currentContext);
+      appBloc.logout();
+    } catch (e) {
+      printError(e);
+      await SharedPreferencesWrapper.getInstance()
+          .then((sharedPreferences) => sharedPreferences.clear());
+    }
+  }
 }

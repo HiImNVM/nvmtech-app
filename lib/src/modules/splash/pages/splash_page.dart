@@ -21,7 +21,7 @@ class SplashPage extends StatelessWidget {
   Widget _renderSlogan() {
     return Text(
       APP_SLOGAN,
-      style: AppTextStyle.TOPAZ_W400_NORMAL_F16,
+      style: AppTextStyle.BLACK_W400_NORMAL_F16,
     );
   }
 

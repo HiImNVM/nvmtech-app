@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nvmtech/core/widgets/toast/toast_index.dart';
-import 'package:nvmtech/src/modules/login/login_constant.dart';
+import 'package:nvmtech/src/modules/login/constants/login_constant.dart';
 import 'package:nvmtech/src/styles/color_style.dart';
 
 void showToastSuccess(BuildContext context, String message) {
-  final Color textColor = AppColor.MEDIUM_GREEN_SUCCESS_TEXT;
+  final Color textColor = AppColor.GREEN_SUCCESS;
+
   Toast.show(
     context,
     icon: Icon(Icons.check, color: textColor),
@@ -14,21 +15,23 @@ void showToastSuccess(BuildContext context, String message) {
       style: TextStyle(
         color: textColor,
         fontWeight: FontWeight.bold,
+        fontSize: 16,
       ),
     ),
     subTitle: Text(
       message,
       style: TextStyle(
         color: textColor,
+        fontSize: 14,
       ),
       overflow: TextOverflow.ellipsis,
     ),
-    colorBackground: AppColor.DARK_GREEN_SUCCESS_ICON_BG,
+    colorBackground: AppColor.GREEN_SUCCESS_BG,
   );
 }
 
 void showToastError(BuildContext context, String message) {
-  final Color textColor = AppColor.MEDIUM_RED_ERROR_TEXT;
+  final Color textColor = AppColor.RED_ERROR;
 
   Toast.show(
     context,
@@ -38,19 +41,23 @@ void showToastError(BuildContext context, String message) {
       style: TextStyle(
         color: textColor,
         fontWeight: FontWeight.bold,
+        fontSize: 16,
       ),
     ),
     subTitle: Text(
       message,
-      style: TextStyle(color: textColor),
+      style: TextStyle(
+        color: textColor,
+        fontSize: 14,
+      ),
       overflow: TextOverflow.ellipsis,
     ),
-    colorBackground: AppColor.DARK_RED_ERROR_ICON_BG,
+    colorBackground: AppColor.RED_ERROR_BG,
   );
 }
 
 void showToastInfo(BuildContext context, String message) {
-  final Color textColor = AppColor.MEDIUM_GREY_INFO_TEXT;
+  final Color textColor = AppColor.GREY_INFO;
 
   Toast.show(
     context,
@@ -60,13 +67,17 @@ void showToastInfo(BuildContext context, String message) {
       style: TextStyle(
         color: textColor,
         fontWeight: FontWeight.bold,
+        fontSize: 16,
       ),
     ),
     subTitle: Text(
       message,
-      style: TextStyle(color: textColor),
+      style: TextStyle(
+        color: textColor,
+        fontSize: 14,
+      ),
       overflow: TextOverflow.ellipsis,
     ),
-    colorBackground: AppColor.DARK_GREY_INFO_ICON_BG,
+    colorBackground: AppColor.GREY_INFO_BG,
   );
 }

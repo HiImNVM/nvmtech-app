@@ -13,7 +13,7 @@ class ResponseError {
   int errCode;
 
   @JsonKey(name: 'message')
-  String message;
+  dynamic message;
 
   ResponseError({
     this.statusCode,

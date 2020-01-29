@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
+import 'package:nvmtech/src/styles/color_style.dart';
 
-class AppGradient{
+class AppGradient {
   static const LinearGradient BLUE_GREEN_LINEARGRADIENT = const LinearGradient(
-    begin: Alignment(0.8578935970997299, 0.14151239640056992),
-    end: Alignment(0.12431690053123277, 1),
-    colors: [const Color(0xff1accb4), const Color(0xff299bcb)],
+    begin: Alignment(0.86, 0.14),
+    end: Alignment(0.12, 1),
+    colors: [AppColor.TOPAZ, AppColor.BLUISH],
   );
-
 }

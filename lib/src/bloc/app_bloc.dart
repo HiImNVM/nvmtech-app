@@ -16,7 +16,7 @@ class AppBloc extends BlocBase {
   final BehaviorSubject<ThemeType> _theme =
       BehaviorSubject<ThemeType>.seeded(ThemeType.Light);
 
-  void sinkThemeType(dynamic value) => this._theme.sink.add(value);
+  void _sinkThemeType(ThemeType value) => this._theme.sink.add(value);
   ValueObservable<ThemeType> get streamThemeType => this._theme.stream;
 
   final _AppEventBloc _appEventBloc = _AppEventBloc();
@@ -33,6 +33,9 @@ class AppBloc extends BlocBase {
   }
 
   void logout() {}
+  void changeTheme([bool isLight = true]) =>
+      this._sinkThemeType(isLight ? ThemeType.Light : ThemeType.Dark);
+
   void setupApp() async {
     final bool isFirstTime = this._isFirstTime();
 

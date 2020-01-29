@@ -21,19 +21,19 @@ class SuccessModal extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 8.0),
         child: Text(
           title,
-          style: AppTextStyle.BLACK_W700_NORMAL_F18,
+          style: AppTextStyle.BROWN_GREY_W700_F18,
         ),
       ),
       content: Text(
         content,
-        style: AppTextStyle.BLACK_W600_NORMAL_F12,
+        style: AppTextStyle.BROWN_GREY_W600_F12,
       ),
       actions: <Widget>[
         CupertinoDialogAction(
           onPressed: this.onOk,
           child: Text(
             textButton,
-            style: AppTextStyle.TOPAZ_W600_NORMAL_F12,
+            style: AppTextStyle.TOPAZ_W600_F12,
           ),
         )
       ],

@@ -19,13 +19,14 @@ class AppButton extends StatelessWidget {
   static Widget renderTextInButton(String text) {
     return Text(
       text,
-      style: AppTextStyle.WHITE_W700_NORMAL_F16,
+      style: AppTextStyle.WHITE_W700_F16,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+      disabledColor: Color(0xff595959),
       padding: padding,
       height: height,
       minWidth: double.infinity,

@@ -27,34 +27,19 @@ class RouteWrapper {
     }
   }
 
-  // TODO: Should research to use it
-  // Route renderRouteWithBloc(RouteSettings settings, bloc, Widget widget,
-  //         [RouteType routeType = RouteType.Basic]) =>
-  //     this.renderRoute(
-  //       settings,
-  //       bloc.length == 1
-  //           ? BlocProvider(
-  //               bloc: (bloc[0] as BlocBase),
-  //               child: widget,
-  //             )
-  //           : MultiBlocProvider(
-  //               blocProviders: bloc,
-  //               child: widget,
-  //             ),
-  //       routeType,
-  //     );
-
-  MaterialPageRoute _routeError(RouteSettings settings, Widget builder) {
-    return MaterialPageRoute(builder: (_) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('Coming soon'),
-        ),
-        body: Center(
-          child: Text('Page not found'),
-        ),
-      );
-    });
+  PageRouteBuilder _routeError(RouteSettings settings, Widget builder) {
+    return FadedTransitionRoute(
+      settings: settings,
+      widget: builder ??
+          Scaffold(
+            appBar: AppBar(
+              title: Text('Coming soon'),
+            ),
+            body: Center(
+              child: Text('Page not found'),
+            ),
+          ),
+    );
   }
 
   MaterialPageRoute _route(RouteSettings settings, Widget builder) {

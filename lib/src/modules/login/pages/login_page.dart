@@ -5,12 +5,12 @@ import 'package:nvmtech/core/widgets/loading/index_loading.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
 import 'package:nvmtech/src/components/button/index_button.dart';
 import 'package:nvmtech/src/modules/login/bloc/login_bloc.dart';
-import 'package:nvmtech/src/modules/login/login_constant.dart';
+import 'package:nvmtech/src/modules/login/constants/login_constant.dart';
+import 'package:nvmtech/src/modules/login/types/login_type.dart';
 import 'package:nvmtech/src/styles/color_style.dart';
 import 'package:nvmtech/src/styles/image_style.dart';
 import 'package:nvmtech/src/styles/margin_style.dart';
 import 'package:nvmtech/src/styles/textStyle_style.dart';
-import 'package:nvmtech/src/types/login_type.dart';
 import 'package:nvmtech/src/util/snapshotUtil.dart';
 
 class LoginPage extends StatefulWidget {
@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   ) {
     return Text(
       text,
-      style: AppTextStyle.WHITE_W700_NORMAL_F16,
+      style: AppTextStyle.WHITE_W700_F16,
     );
   }
 
@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
         Container(
           child: Text(
             CONST_SIGNIN_TITLE,
-            style: AppTextStyle.BLACK_W700_NORMAL_F30,
+            style: AppTextStyle.BROWN_GREY_W700_F30,
           ),
         )
       ],
@@ -119,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Opacity(
             opacity: 0.7,
             child: Text(CONST_FORGOT_PASS_TITLE,
-                style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
+                style: AppTextStyle.BROWN_GREY_W600_F14),
           )),
     ]);
   }
@@ -130,14 +130,13 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: this._handleSignIn);
 
   Widget _renderNavigatetoSignUp() {
-    final TextStyle signupTextStyle = AppTextStyle.BLACK_W600_NORMAL_F12
-        .copyWith(
-            fontFamily: 'NunitoSans-SemiBold', color: const Color(0xff676767));
+    final TextStyle signupTextStyle = AppTextStyle.BROWN_GREY_W600_F12.copyWith(
+        fontFamily: 'NunitoSans-SemiBold', color: const Color(0xff676767));
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text("Don't" + CONST_TEXT_LOGIN_SIGNIN,
-            style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
+            style: AppTextStyle.BROWN_GREY_W600_F14),
         GestureDetector(
             onTap: this._navigateSignup,
             child: Text(CONST_LOGINTEXT_SIGNUPTITLE, style: signupTextStyle)),
@@ -173,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
               flex: 10,
               child: Text(
                 content,
-                style: AppTextStyle.WHITE_W700_NORMAL_F16,
+                style: AppTextStyle.WHITE_W700_F16,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -182,11 +181,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _renderLoginWithFB() {
-    return this._renderBaseLoginWith(
-        AppColor.DARK_BLUE_FACEBOOK,
-        this._loginWithFB,
-        AppImage.PATH_FACEBOOK_ICON,
-        CONST_TEXT_LOGIN_FACEBOOK);
+    return this._renderBaseLoginWith(AppColor.BLUE_FACEBOOK, this._loginWithFB,
+        AppImage.PATH_FACEBOOK_ICON, CONST_TEXT_LOGIN_FACEBOOK);
   }
 
   Widget _renderLoginWithGG() {
@@ -216,7 +212,6 @@ class _LoginPageState extends State<LoginPage> {
     return SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.only(top: marginTop),
-        //padding: const EdgeInsets.all(AppDimension.PADDING),
         padding: const EdgeInsets.symmetric(horizontal: AppDimension.PADDING),
         child: Center(
           child: Column(
@@ -242,7 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 15,
               ),
               Text(CONST_TEXT_LOGIN_OR,
-                  style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
+                  style: AppTextStyle.BROWN_GREY_W600_F14),
               SizedBox(
                 height: 15,
               ),

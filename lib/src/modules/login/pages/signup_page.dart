@@ -148,11 +148,11 @@
 //       children: <Widget>[
 //         Padding(padding: EdgeInsets.only(top: 24)),
 //         Text("Already" + CONST_LOGINTEXT_SIGNIN,
-//             style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
+//             style: AppTextStyle.BROWN_GREY_W600_F14),
 //         GestureDetector(
 //             onTap: () => _onTapSignInNavigation('/login'),
 //             child: Text(CONST_LOGINTEXT_SIGNINTITLE,
-//                 style: AppTextStyle.BLACK_W600_NORMAL_F12)),
+//                 style: AppTextStyle.BROWN_GREY_W600_F12)),
 //       ],
 //     );
 //   }
@@ -181,7 +181,7 @@
 //       child: Column(
 //         children: <Widget>[
 //           AppButton(
-//             color: AppColor.DARK_BLUE_FACEBOOK,
+//             color: AppColor.BLUE_FACEBOOK,
 //             onPressed: () {},
 //             child: _renderDecorationInsideSocialMedia(
 //                 AppImage.PATH_FACEBOOK_ICON, CONST_LOGINTEXT_FACEBOOK),
@@ -209,7 +209,7 @@
 //           _renderSignUpButton(),
 //           _renderNavigateToSignUp(),
 //           Text(CONST_LOGINTEXT_OR,
-//               style: AppTextStyle.LIGHTGREY_W600_NORMAL_F14),
+//               style: AppTextStyle.BROWN_GREY_W600_F14),
 //           _renderSocialMediaButton()
 //         ],
 //       ),

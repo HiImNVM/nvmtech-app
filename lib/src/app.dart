@@ -27,10 +27,6 @@ class _MyAppState extends State<MyApp> {
     this._appBloc = AppBloc(MyApp.navigatorKey);
   }
 
-  Route _renderUnknowRoute(RouteSettings routeSettings) {
-    // TODO: Should early update
-  }
-
   @override
   Widget build(BuildContext context) {
     printCountBuild('_MyAppState');
@@ -43,10 +39,12 @@ class _MyAppState extends State<MyApp> {
             return Container();
           }
 
+          final routeGenerator = RouteGenerator();
+
           return AppMaterial(
             home: SplashPage(),
-            onUnknownRoute: this._renderUnknowRoute,
-            onGenerateRoute: RouteGenerator().generateRoutes,
+            onUnknownRoute: routeGenerator.generateNotFoundRoute,
+            onGenerateRoute: routeGenerator.generateRoutes,
             theme: this._getTheme(snapshot.data),
             navigatorKey: MyApp.navigatorKey,
             navigatorObservers: [], // TODO: Should update with firebase early
@@ -62,7 +60,7 @@ class _MyAppState extends State<MyApp> {
       case ThemeType.Light:
         return AppTheme.LIGHT_THEME;
       default:
-        return AppTheme.LIGHT_THEME;
+        throw Exception('Theme is not found!');
     }
   }
 }

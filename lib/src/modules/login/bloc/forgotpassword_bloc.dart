@@ -7,30 +7,29 @@ import 'package:nvmtech/src/modules/login/models/sendVerificationCde_model.dart'
 import 'package:nvmtech/src/modules/login/repositories/forgotpassword_repo.dart';
 import 'package:nvmtech/src/modules/login/types/forgotpassword_type.dart';
 import 'package:nvmtech/src/util/printUtil.dart';
+import 'package:nvmtech/src/util/validationUtil.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ForgotPasswordBloc extends BlocBase {
   final BehaviorSubject<ForgotPasswordState> _forgotPasswordState =
       BehaviorSubject<ForgotPasswordState>.seeded(ForgotPasswordState.Default);
-  ValueObservable<ForgotPasswordState> get getStreamForgotPasswordType =>
+  
+  Stream<ForgotPasswordState> get getStreamForgotPasswordType =>
       this._forgotPasswordState.stream;
   void sinkForgotPasswordType(ForgotPasswordState newForgotPasswordType) =>
       this._forgotPasswordState.sink.add(newForgotPasswordType);
 
   final BehaviorSubject<bool> _isEnableVerifyCode =
       BehaviorSubject<bool>.seeded(false);
-  ValueObservable<bool> get getStreamIsEnableVerifyCode =>
+  
+  Stream<bool> get getStreamIsEnableVerifyCode =>
       this._isEnableVerifyCode.stream;
   void sinkIsEnableVerifyCode(bool newIsEnableVerifyCode) =>
       this._isEnableVerifyCode.sink.add(newIsEnableVerifyCode);
 
   void verifyPhoneNumber(context, String phoneNumber) {
-    if (phoneNumber.isEmpty ||
-        !RegExp(r'^\+[0-9]{2}[0-9]{9,10}$').hasMatch(phoneNumber)) {
-      this.sinkIsEnableVerifyCode(false);
-      return;
-    }
-    this.sinkIsEnableVerifyCode(true);
+    final bool isValid = Validation.validatePhoneNumber(phoneNumber);
+    this.sinkIsEnableVerifyCode(isValid);
   }
 
   dynamic sendVerificationPhoneNumber(context, String phoneNumber) async {

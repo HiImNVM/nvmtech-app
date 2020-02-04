@@ -15,25 +15,27 @@ import 'package:rxdart/rxdart.dart';
 class LoginBloc extends BlocBase {
   final BehaviorSubject<LoginState> _loginState =
       BehaviorSubject<LoginState>.seeded(LoginState.Default);
-  ValueObservable<LoginState> get getStreamLoginType => this._loginState.stream;
+  
+  Stream<LoginState> get getStreamLoginType => this._loginState.stream;
   void sinkLoginType(LoginState newLoginType) =>
       this._loginState.sink.add(newLoginType);
 
   final BehaviorSubject<String> _emailSubject =
       BehaviorSubject<String>.seeded('');
-  ValueObservable<String> get getStreamEmail => this._emailSubject.stream;
+  
+  Stream<String> get getStreamEmail => this._emailSubject.stream;
   void _sinkErrorMessageEmail(String errorMessage) =>
       this._emailSubject.sink.add(errorMessage);
 
   final BehaviorSubject<String> _passwordSubject =
       BehaviorSubject<String>.seeded('');
-  ValueObservable<String> get getStreamPassword => this._passwordSubject.stream;
+  Stream<String> get getStreamPassword => this._passwordSubject.stream;
   void _sinkErrorMessagePassword(String errorMessage) =>
       this._passwordSubject.sink.add(errorMessage);
 
   void validateEmail(String email) {
     final String error = Validation.validateEmail(email);
-    if (error == null || error.isEmpty) {
+    if ( error.isEmpty) {
       this._sinkErrorMessageEmail('');
       return;
     }
@@ -43,7 +45,7 @@ class LoginBloc extends BlocBase {
 
   void validatePassword(String password) {
     final String error = Validation.validatePassword(password);
-    if (error == null || error.isEmpty) {
+    if (error.isEmpty) {
       this._sinkErrorMessagePassword('');
       return;
     }

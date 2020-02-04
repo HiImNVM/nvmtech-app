@@ -15,7 +15,7 @@ import 'package:nvmtech/src/util/printUtil.dart';
 import 'package:nvmtech/src/util/snapshotUtil.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
-  final List<String> COUNTRY_CODE = const ['+84', '+96', '+97'];
+  
   String _phoneNumber;
 
   ForgotPasswordBloc _forgotPasswordBloc;

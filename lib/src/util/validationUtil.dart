@@ -4,12 +4,10 @@ class Validation {
   static String _emailvalid =
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
 
-  static String validateName(String name) {
-    if (name == null) {
-      return CONST_VALIDATION_NAME_IS_NULL;
-    }
+  static String _phonevalid = r"^\+[0-9]{11}$";
 
-    if (name.isEmpty) {
+  static String validateName(String name) {
+    if (name == null || name.isEmpty) {
       return CONST_VALIDATION_IS_EMPTY;
     }
 
@@ -21,11 +19,7 @@ class Validation {
   }
 
   static String validateEmail(String email) {
-    if (email == null) {
-      return CONST_VALIDATION_EMAIL_IS_NULL;
-    }
-
-    if (email.isEmpty) {
+    if (email == null || email.isEmpty) {
       return CONST_VALIDATION_IS_EMPTY;
     }
 
@@ -39,11 +33,7 @@ class Validation {
   }
 
   static String validatePassword(String password) {
-    if (password == null) {
-      return CONST_VALIDATION_PASS_IS_NULL;
-    }
-
-    if (password.isEmpty) {
+    if (password == null || password.isEmpty) {
       return CONST_VALIDATION_IS_EMPTY;
     }
 
@@ -52,5 +42,14 @@ class Validation {
     }
 
     return '';
+  }
+
+  static bool validatePhoneNumber(String phonenumber) {
+    if (phonenumber == null || phonenumber.isEmpty) {
+      return false;
+    }
+
+    final bool phoneValid = RegExp(_phonevalid).hasMatch(phonenumber);
+    return phoneValid;
   }
 }

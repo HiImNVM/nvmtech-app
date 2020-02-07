@@ -1,12 +1,12 @@
 // import 'package:flutter/material.dart';
 // import 'package:nvmtech/core/bloc/index.dart';
 // import 'package:nvmtech/src/bloc/app_bloc.dart';
-// import 'package:nvmtech/src/components/button/index_button.dart';
+// import 'package:nvmtech/src/components/button/index.dart';
 // import 'package:nvmtech/src/modules/login/bloc/signup_bloc.dart';
 // import 'package:nvmtech/src/styles/color_style.dart';
 // import 'package:nvmtech/src/styles/image_style.dart';
 // import 'package:nvmtech/src/styles/textStyle_style.dart';
-// import 'package:nvmtech/src/util/snapshotUtil.dart';
+// import 'package:nvmtech/src/util/snapshot_util.dart';
 
 // class SignUpPage extends StatefulWidget {
 //   @override

@@ -1,9 +1,6 @@
 import 'package:nvmtech/core/api/index.dart';
 import 'package:nvmtech/src/api.dart';
-import 'package:nvmtech/src/models/response_error_model.dart';
-import 'package:nvmtech/src/models/response_success_model.dart';
 import 'package:nvmtech/src/modules/login/types/login_type.dart';
-import 'package:nvmtech/src/util/printUtil.dart';
 
 abstract class ILoginRepo {
   Future<ResponseModel> login();
@@ -36,9 +33,9 @@ class LoginRepo implements IRepo, ILoginRepo {
       final response =
           await this._apiProviderImp.post(this.url, data: this.data);
 
-      return SuccessModel(value: ResponseSuccess.fromJson(response.data));
+      return SuccessModel(value: response.data);
     } catch (err) {
-      return ErrorModel(value: ResponseError.fromJson(err.response.data));
+      return ErrorModel(value: err.response.data);
     }
   }
 }

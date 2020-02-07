@@ -8,26 +8,26 @@ import 'package:nvmtech/src/modules/login/models/loginWithEmail_model.dart';
 import 'package:nvmtech/src/modules/login/repositories/login_repo.dart';
 import 'package:nvmtech/src/modules/login/types/login_type.dart';
 import 'package:nvmtech/src/types/app_type.dart';
-import 'package:nvmtech/src/util/printUtil.dart';
-import 'package:nvmtech/src/util/validationUtil.dart';
+import 'package:nvmtech/src/util/print_util.dart';
+import 'package:nvmtech/src/util/validation_util.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LoginBloc extends BlocBase {
   final BehaviorSubject<LoginState> _loginState =
       BehaviorSubject<LoginState>.seeded(LoginState.Default);
-  ValueObservable<LoginState> get getStreamLoginType => this._loginState.stream;
+  Stream<LoginState> get getStreamLoginType => this._loginState.stream;
   void sinkLoginType(LoginState newLoginType) =>
       this._loginState.sink.add(newLoginType);
 
   final BehaviorSubject<String> _emailSubject =
       BehaviorSubject<String>.seeded('');
-  ValueObservable<String> get getStreamEmail => this._emailSubject.stream;
+  Stream<String> get getStreamEmail => this._emailSubject.stream;
   void _sinkErrorMessageEmail(String errorMessage) =>
       this._emailSubject.sink.add(errorMessage);
 
   final BehaviorSubject<String> _passwordSubject =
       BehaviorSubject<String>.seeded('');
-  ValueObservable<String> get getStreamPassword => this._passwordSubject.stream;
+  Stream<String> get getStreamPassword => this._passwordSubject.stream;
   void _sinkErrorMessagePassword(String errorMessage) =>
       this._passwordSubject.sink.add(errorMessage);
 

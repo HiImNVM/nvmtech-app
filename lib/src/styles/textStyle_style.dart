@@ -47,11 +47,16 @@ class AppTextStyle {
     fontSize: 12,
   );
 
-  static final TextStyle BLACK_W400_NORMAL_F16 = BASE_STYLE.copyWith(
+  static final TextStyle BLACK_W400_F16 = BASE_STYLE.copyWith(
       color: AppColor.BLACK, fontWeight: FontWeight.w400, fontSize: 16);
 
-  static final TextStyle BLACK_W600_NORMAL_F14 = BLACK_W400_NORMAL_F16.copyWith(
+  static final TextStyle BLACK_W600_F14 = BLACK_W400_F16.copyWith(
     fontWeight: FontWeight.w600,
-    fontSize: 16,
+    fontSize: 14,
+  );
+
+  static final TextStyle BLACK_WBOLD_F30 = BLACK_W400_F16.copyWith(
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
   );
 }

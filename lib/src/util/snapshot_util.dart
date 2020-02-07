@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:nvmtech/src/util/printUtil.dart';
+import 'package:nvmtech/src/util/print_util.dart';
 
 bool hasDataSnapshotUtil(AsyncSnapshot snapshot) {
   if (snapshot == null) return false;

@@ -2,20 +2,10 @@ const String _emailText = "Email";
 const String _passwordText = "Password";
 const String _nameText = "Name";
 const String _isInvalidText = " is invalid because it";
-const String _nullText = " is null";
 const String _unmatchedText = " has no special character";
-
-const String CONST_VALIDATION_NAME_IS_NULL =
-    _nameText + _isInvalidText + _nullText;
 
 const String CONST_VALIDATION_NAME_MIN_LENGTH =
     _nameText + " is required minimum 30 characters";
-
-const String CONST_VALIDATION_EMAIL_IS_NULL =
-    _emailText + _isInvalidText + _nullText;
-
-const String CONST_VALIDATION_PASS_IS_NULL =
-    _passwordText + _isInvalidText + _nullText;
 
 const String CONST_VALIDATION_IS_EMPTY = "You have to fill in the blank!";
 

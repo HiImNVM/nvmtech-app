@@ -17,7 +17,7 @@ class PhoneNumberInput extends StatefulWidget {
   final double borderRadius;
   final Color backgroundContryCode;
   final Color backgroundMobileNumber;
-  final Function(String text) onChanged;
+  final Function(String contryCode, String phone) onChanged;
 
   @override
   _PhoneNumberInputState createState() => _PhoneNumberInputState();
@@ -34,7 +34,7 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
     this._phoneNumberCtrl = TextEditingController();
     this._phoneNumberCtrl.addListener(() => this
         .widget
-        .onChanged(this._selectedContryCode + this._phoneNumberCtrl.text));
+        .onChanged(this._selectedContryCode, this._phoneNumberCtrl.text));
     this._selectedContryCode = this.widget.contryCodes.first;
   }
 
@@ -86,6 +86,7 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
               topRight: Radius.circular(this.widget.borderRadius),
             )),
         child: TextField(
+          autofocus: true,
           controller: this._phoneNumberCtrl,
           decoration: InputDecoration(
             border: InputBorder.none,
@@ -121,7 +122,7 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
   void _handleOnChangedContryCode(String code) {
     this.setState(() {
       this._selectedContryCode = code;
-      this.widget.onChanged(code + this._phoneNumberCtrl.text);
+      this.widget.onChanged(code, this._phoneNumberCtrl.text);
     });
   }
 }

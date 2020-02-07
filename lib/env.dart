@@ -9,10 +9,19 @@ class Env {
 
   static String getDomainAPI() {
     switch (appFlavor) {
-      case Flavor.STAG:
+      case Flavor.PROD:
         return 'https://api.nvmtech.work/api' + '/' + API_VERSION;
       default:
         return 'https://api.nvmtech.work/api' + '/' + API_VERSION;
+    }
+  }
+
+  static int getTimeOutRequest() {
+    switch (appFlavor) {
+      case Flavor.PROD:
+        return 8000;
+      default:
+        return 5000;
     }
   }
 }

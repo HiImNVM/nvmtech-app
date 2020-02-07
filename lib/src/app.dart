@@ -7,8 +7,8 @@ import 'package:nvmtech/src/modules/splash/pages/splash_page.dart';
 import 'package:nvmtech/src/route.dart';
 import 'package:nvmtech/src/styles/theme_style.dart';
 import 'package:nvmtech/src/types/theme_type.dart';
-import 'package:nvmtech/src/util/printUtil.dart';
-import 'package:nvmtech/src/util/snapshotUtil.dart';
+import 'package:nvmtech/src/util/print_util.dart';
+import 'package:nvmtech/src/util/snapshot_util.dart';
 
 class MyApp extends StatefulWidget {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey();

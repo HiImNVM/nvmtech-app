@@ -6,12 +6,12 @@ import 'package:nvmtech/core/bloc/index.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
 import 'package:nvmtech/src/components/background/index_background.dart';
 import 'package:nvmtech/src/components/dotIndicator/dotIndicator_index.dart';
+import 'package:nvmtech/src/modules/welcome/constants/welcome_constant.dart';
 import 'package:nvmtech/src/modules/welcome/models/introduce_model.dart';
-import 'package:nvmtech/src/modules/welcome/welcome_constant.dart';
 import 'package:nvmtech/src/styles/gradient_style.dart';
 import 'package:nvmtech/src/styles/image_style.dart';
 import 'package:nvmtech/src/styles/textStyle_style.dart';
-import 'package:nvmtech/src/util/printUtil.dart';
+import 'package:nvmtech/src/util/print_util.dart';
 
 class WelcomePage extends StatefulWidget {
   @override

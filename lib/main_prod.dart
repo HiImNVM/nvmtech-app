@@ -8,6 +8,7 @@ import 'package:nvmtech/src/app.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   // Setup Env
   Env.appFlavor = Flavor.PROD;
   runZoned(() => runApp(MyApp()),

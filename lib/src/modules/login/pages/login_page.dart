@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/index.dart';
 import 'package:nvmtech/core/widgets/loading/index_loading.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
-import 'package:nvmtech/src/components/button/index_button.dart';
+import 'package:nvmtech/src/components/button/index.dart';
 import 'package:nvmtech/src/modules/login/bloc/login_bloc.dart';
 import 'package:nvmtech/src/modules/login/constants/login_constant.dart';
 import 'package:nvmtech/src/modules/login/types/login_type.dart';
@@ -11,7 +11,7 @@ import 'package:nvmtech/src/styles/color_style.dart';
 import 'package:nvmtech/src/styles/image_style.dart';
 import 'package:nvmtech/src/styles/margin_style.dart';
 import 'package:nvmtech/src/styles/textStyle_style.dart';
-import 'package:nvmtech/src/util/snapshotUtil.dart';
+import 'package:nvmtech/src/util/snapshot_util.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
           }
 
           return TextFormField(
-            style: AppTextStyle.BLACK_W600_NORMAL_F14,
+            style: AppTextStyle.BLACK_W600_F14,
             controller: this._passwordController,
             obscureText: true,
             textInputAction: TextInputAction.done,
@@ -106,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
         this._renderTextEmail(),
         SizedBox(height: 20),
         this._renderTextPassword(),
-        SizedBox(height: 15),
+        SizedBox(height: 20),
         this._renderForgotPassword()
       ],
     );
@@ -125,9 +125,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _renderSignInButton() => AppButton(
-      color: AppColor.TOPAZ,
-      child: _renderTextInButton(CONST_SIGNIN_TITLE),
-      onPressed: this._handleSignIn);
+        color: AppColor.TOPAZ,
+        child: _renderTextInButton(CONST_SIGNIN_TITLE),
+        onPressed: this._handleSignIn,
+        isShadow: true,
+      );
 
   Widget _renderNavigatetoSignUp() {
     final TextStyle signupTextStyle = AppTextStyle.BROWN_GREY_W600_F12.copyWith(

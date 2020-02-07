@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:nvmtech/core/api/index.dart';
 import 'package:nvmtech/src/api.dart';
-import 'package:nvmtech/src/models/response_error_model.dart';
 import 'package:nvmtech/src/models/response_success_model.dart';
+import 'package:nvmtech/src/modules/login/models/checkVerificationCode_model.dart';
+import 'package:nvmtech/src/modules/login/models/sendVerificationCde_model.dart';
 
 abstract class IForgotPasswordRepo {
   Future<ResponseModel> sendVerificationCode();
@@ -28,10 +29,11 @@ class ForgotPassword implements IRepo, IForgotPasswordRepo {
     try {
       final response =
           await this._apiProviderImp.post(this.url + '/send', data: this.data);
-
-      return SuccessModel(value: ResponseSuccess.fromJson(response.data));
+      return SuccessModel(
+          value: ForgotPasswordSendVerificationCodeModel.fromJson(
+              (response.data as ResponseSuccess).data));
     } catch (err) {
-      return ErrorModel(value: ResponseError.fromJson(err.response.data));
+      return ErrorModel(value: err.response.data);
     }
   }
 
@@ -40,10 +42,11 @@ class ForgotPassword implements IRepo, IForgotPasswordRepo {
     try {
       final response =
           await this._apiProviderImp.post(this.url + '/check', data: this.data);
-
-      return SuccessModel(value: ResponseSuccess.fromJson(response.data));
+      return SuccessModel(
+          value: CheckVerificationCodeModel.fromJson(
+              (response.data as ResponseSuccess).data));
     } catch (err) {
-      return ErrorModel(value: ResponseError.fromJson(err.response.data));
+      return ErrorModel(value: err.response.data);
     }
   }
 }

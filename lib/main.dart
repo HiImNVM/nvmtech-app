@@ -9,7 +9,6 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  //Build environment for other environment
   // Setup Env
   Env.appFlavor = Flavor.STAG;
   runZoned(() => runApp(MyApp()), onError: (error, stackTrace) {

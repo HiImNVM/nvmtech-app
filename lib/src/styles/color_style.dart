@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class AppColor {
-  static const PRIMARY_COLOR = const Color.fromRGBO(25, 207, 179, 100);
+  static const PRIMARY_COLOR = TOPAZ;
   static const BLUE_FACEBOOK = const Color(0xff3B5998);
   static const RED_GOOGLE = const Color(0xffEA4335);
 

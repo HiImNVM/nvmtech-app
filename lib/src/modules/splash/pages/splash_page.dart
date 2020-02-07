@@ -6,7 +6,7 @@ import 'package:nvmtech/src/components/background/index_background.dart';
 import 'package:nvmtech/src/constants/resource_constant.dart';
 import 'package:nvmtech/src/styles/image_style.dart';
 import 'package:nvmtech/src/styles/textStyle_style.dart';
-import 'package:nvmtech/src/util/printUtil.dart';
+import 'package:nvmtech/src/util/print_util.dart';
 
 class SplashPage extends StatelessWidget {
   Widget _renderAppIcon() {
@@ -21,7 +21,7 @@ class SplashPage extends StatelessWidget {
   Widget _renderSlogan() {
     return Text(
       APP_SLOGAN,
-      style: AppTextStyle.BLACK_W400_NORMAL_F16,
+      style: AppTextStyle.BLACK_W400_F16,
     );
   }
 

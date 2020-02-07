@@ -17,7 +17,7 @@ class AppBloc extends BlocBase {
       BehaviorSubject<ThemeType>.seeded(ThemeType.Light);
 
   void _sinkThemeType(ThemeType value) => this._theme.sink.add(value);
-  ValueObservable<ThemeType> get streamThemeType => this._theme.stream;
+  Stream<ThemeType> get streamThemeType => this._theme.stream;
 
   final _AppEventBloc _appEventBloc = _AppEventBloc();
   _AppEventBloc get getEventBloc => this._appEventBloc;
@@ -28,9 +28,7 @@ class AppBloc extends BlocBase {
         .then((sf) => sPreferencesWrapper = sf);
   }
 
-  NavigatorState getNavigator() {
-    return this._navigatorKey.currentState;
-  }
+  NavigatorState getNavigator() => this._navigatorKey.currentState;
 
   void logout() {}
   void changeTheme([bool isLight = true]) =>

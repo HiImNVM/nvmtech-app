@@ -9,12 +9,14 @@ class AppButton extends StatelessWidget {
     this.color,
     this.padding,
     this.height = 50,
+    this.isShadow = false,
   });
   final Function() onPressed;
   final Widget child;
   final color;
   final double height;
   final EdgeInsetsGeometry padding;
+  final bool isShadow;
 
   static Widget renderTextInButton(String text) {
     return Text(
@@ -34,6 +36,7 @@ class AppButton extends StatelessWidget {
       textColor: Colors.white,
       child: child,
       onPressed: this.onPressed,
+      elevation: this.isShadow ? 8 : 2,
     );
   }
 }

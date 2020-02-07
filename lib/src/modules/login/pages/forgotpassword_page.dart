@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/index.dart';
 import 'package:nvmtech/core/widgets/loading/index_loading.dart';
 import 'package:nvmtech/src/bloc/app_bloc.dart';
-import 'package:nvmtech/src/components/button/index_button.dart';
+import 'package:nvmtech/src/components/appBar/index.dart';
+import 'package:nvmtech/src/components/button/index.dart';
+import 'package:nvmtech/src/components/layout/index.dart';
 import 'package:nvmtech/src/components/phonenumberInput/index.dart';
 import 'package:nvmtech/src/modules/login/bloc/forgotpassword_bloc.dart';
 import 'package:nvmtech/src/modules/login/constants/forgotpassword_constant.dart';
 import 'package:nvmtech/src/modules/login/types/forgotpassword_type.dart';
+import 'package:nvmtech/src/params.dart';
 import 'package:nvmtech/src/styles/color_style.dart';
 import 'package:nvmtech/src/styles/image_style.dart';
-import 'package:nvmtech/src/styles/margin_style.dart';
 import 'package:nvmtech/src/styles/textStyle_style.dart';
-import 'package:nvmtech/src/util/printUtil.dart';
-import 'package:nvmtech/src/util/snapshotUtil.dart';
+import 'package:nvmtech/src/util/print_util.dart';
+import 'package:nvmtech/src/util/snapshot_util.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
-  final List<String> COUNTRY_CODE = const ['+84', '+96', '+97'];
   String _phoneNumber;
+  String _countryCode;
 
   ForgotPasswordBloc _forgotPasswordBloc;
 
@@ -53,7 +55,8 @@ class ForgotPasswordPage extends StatelessWidget {
       height: height,
       borderRadius: 6,
       contryCodes: COUNTRY_CODE,
-      onChanged: (phone) => this._onChangePhoneNumber(context, phone),
+      onChanged: (countryCode, phone) =>
+          this._onChangePhoneNumber(context, countryCode, phone),
     );
   }
 
@@ -72,37 +75,29 @@ class ForgotPasswordPage extends StatelessWidget {
 
   Widget _renderBody(context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(color: Colors.grey),
-        backgroundColor: Colors.transparent,
-        bottomOpacity: 0.0,
-        elevation: 0.0,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(AppDimension.PADDING),
-          child: Center(
-            child: Column(
-              children: <Widget>[
-                this._renderForgotPasswordTitle(),
-                SizedBox(
-                  height: 20,
-                ),
-                this._renderLogo(),
-                SizedBox(
-                  height: 30,
-                ),
-                this._renderInputPhoneNumber(context),
-                SizedBox(
-                  height: 20,
-                ),
-                this._renderContent(),
-                SizedBox(
-                  height: 20,
-                ),
-                this._renderButtonNavigateVerificationCode(context),
-              ],
-            ),
+      appBar: AppBarTransparent(),
+      body: BodyLayout(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              this._renderForgotPasswordTitle(),
+              SizedBox(
+                height: 20,
+              ),
+              this._renderLogo(),
+              SizedBox(
+                height: 30,
+              ),
+              this._renderInputPhoneNumber(context),
+              SizedBox(
+                height: 20,
+              ),
+              this._renderContent(),
+              SizedBox(
+                height: 20,
+              ),
+              this._renderButtonNavigateVerificationCode(context),
+            ],
           ),
         ),
       ),
@@ -118,10 +113,11 @@ class ForgotPasswordPage extends StatelessWidget {
           }
 
           return AppButton(
-            child: Text('Verify Code'),
+            child: Text('Send Verification Code'),
             color: AppColor.TOPAZ,
             onPressed:
                 snapshot.data ? () => this._handleVerifyCode(context) : null,
+            isShadow: true,
           );
         });
   }
@@ -146,7 +142,7 @@ class ForgotPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    printCountBuild('_ForgotPasswordPageState');
+    printCountBuild('ForgotPasswordPage');
     this._forgotPasswordBloc = BlocProvider.of<ForgotPasswordBloc>(context);
 
     return Stack(
@@ -157,15 +153,20 @@ class ForgotPasswordPage extends StatelessWidget {
     );
   }
 
-  void _onChangePhoneNumber(context, String newPhoneNumber) {
+  void _onChangePhoneNumber(
+      context, String newCountryCode, String newPhoneNumber) {
+    this._countryCode = newCountryCode;
     this._phoneNumber = newPhoneNumber;
-    this._forgotPasswordBloc.verifyPhoneNumber(context, newPhoneNumber);
+    this
+        ._forgotPasswordBloc
+        .verifyPhoneNumber(context, newCountryCode, newPhoneNumber);
   }
 
   void _handleVerifyCode(context) async {
     final int countDownCode = await this
         ._forgotPasswordBloc
-        .sendVerificationPhoneNumber(context, this._phoneNumber);
+        .sendVerificationPhoneNumber(
+            context, this._countryCode, this._phoneNumber);
 
     if (countDownCode == null || countDownCode == 0) {
       return;
@@ -173,6 +174,11 @@ class ForgotPasswordPage extends StatelessWidget {
 
     BlocProvider.of<AppBloc>(context)
         .getNavigator()
-        .pushNamed('/verificationCode');
+        .pushNamed('/verificationCode',
+            arguments: VerificationCodePageArgument(
+              countDownCode: countDownCode,
+              countryCode: this._countryCode,
+              phoneNumber: this._phoneNumber,
+            ));
   }
 }

@@ -1,6 +1,6 @@
 import 'package:nvmtech/core/api/index.dart';
 import 'package:nvmtech/core/bloc/base.dart';
-import 'package:nvmtech/src/bloc/app_bloc.dart';
+import 'package:nvmtech/src/app_bloc.dart';
 import 'package:nvmtech/src/models/user_info_store_model.dart';
 import 'package:nvmtech/src/modules/login/constants/verificationCode_constant.dart';
 import 'package:nvmtech/src/modules/login/models/checkVerificationCode_model.dart';
@@ -90,7 +90,7 @@ class VerificationCodeBloc extends BlocBase {
 
     AppBloc.showToastMessage(
       context,
-      'Send verification code success. Please check sms!',
+      'Send verification code success!',
       ToastType.Success,
     );
     printInfo('Send verification code success!');

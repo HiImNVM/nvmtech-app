@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/index.dart';
 import 'package:nvmtech/core/widgets/loading/index_loading.dart';
-import 'package:nvmtech/src/bloc/app_bloc.dart';
+import 'package:nvmtech/src/app_bloc.dart';
 import 'package:nvmtech/src/components/button/index.dart';
 import 'package:nvmtech/src/modules/login/bloc/login_bloc.dart';
 import 'package:nvmtech/src/modules/login/constants/login_constant.dart';
@@ -312,7 +312,15 @@ class _LoginPageState extends State<LoginPage> {
 
   void _navigateSignup() => this._appBloc.getNavigator().pushNamed('/signup');
 
-  void _loginWithFB() {}
+  void _loginWithFB() async {
+    final isLoginSuccess = await this._loginBloc.loginWithFb(context);
+
+    if (!isLoginSuccess) {
+      return;
+    }
+
+    this._appBloc.getNavigator().pushNamed('/home');
+  }
 
   void _loginWithGG() {}
 

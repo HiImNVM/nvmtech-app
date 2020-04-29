@@ -6,7 +6,7 @@ import 'package:nvmtech/core/bloc/index.dart';
 import 'package:nvmtech/core/store/shared_preferences.dart';
 import 'package:nvmtech/env.dart';
 import 'package:nvmtech/src/app.dart';
-import 'package:nvmtech/src/bloc/app_bloc.dart';
+import 'package:nvmtech/src/app_bloc.dart';
 import 'package:nvmtech/src/constants/resource_constant.dart';
 import 'package:nvmtech/src/models/response_error_model.dart';
 import 'package:nvmtech/src/models/response_success_model.dart';

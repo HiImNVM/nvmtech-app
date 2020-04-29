@@ -1,6 +1,6 @@
 import 'package:nvmtech/core/api/index.dart';
 import 'package:nvmtech/core/bloc/base.dart';
-import 'package:nvmtech/src/bloc/app_bloc.dart';
+import 'package:nvmtech/src/app_bloc.dart';
 import 'package:nvmtech/src/models/response_success_model.dart';
 import 'package:nvmtech/src/modules/login/models/sendVerificationCde_model.dart';
 import 'package:nvmtech/src/modules/login/repositories/forgotpassword_repo.dart';

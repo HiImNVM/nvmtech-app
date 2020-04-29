@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nvmtech/core/bloc/index.dart';
-import 'package:nvmtech/src/bloc/app_bloc.dart';
+import 'package:nvmtech/src/app_bloc.dart';
 import 'package:nvmtech/src/components/material/index_material.dart';
 import 'package:nvmtech/src/modules/splash/pages/splash_page.dart';
 import 'package:nvmtech/src/route.dart';

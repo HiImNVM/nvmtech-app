@@ -17,9 +17,13 @@ const String CONST_SUCCESS_TITLE = "Success";
 const String CONST_ERROR_TITLE = "Error";
 const String CONST_INFO_TITLE = "Info";
 
-const String CONST_SUCCESS_SUBTITLE =
-  "Login is successful!";
+const String CONST_SUCCESS_SUBTITLE = "Login is successful!";
+const String CONST_LOGIN_FAIL = 'Login fail';
 const String CONST_ERROR_SUBTITLE =
-  "Invalid email or password, please check again!";
-const String CONST_INFO_SUBTITLE =
-  "Info subtitle!";
+    "Invalid email or password, please check again!";
+const String CONST_INFO_SUBTITLE = "Info subtitle!";
+
+const String CONST_ERROR_LOGIN_FAIL_WITH_FACEBOOK = 'Login with Facebook fail!';
+const String CONST_CANCEL_LOGIN_WITH_FACEBOOK =
+    'Cancelled login with Facebook!';
+const String CONST_EMPTY_FACEBOOK_TOKEN = 'Toke is null or empty!';

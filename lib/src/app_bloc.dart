@@ -71,12 +71,14 @@ class AppBloc extends BlocBase {
   }
 
   static void setUserInfoToStore(
-      String userId, String token, String refreshToken) {
-    sPreferencesWrapper.getSPreferences().setString(CONST_USER_ID, userId);
-    sPreferencesWrapper.getSPreferences().setString(CONST_USER_TOKEN, token);
-    sPreferencesWrapper
-        .getSPreferences()
-        .setString(CONST_USER_REFRESHTOKEN, refreshToken);
+      String userId, String token, String refreshToken) async {
+    await Future.wait([
+      sPreferencesWrapper.getSPreferences().setString(CONST_USER_ID, userId),
+      sPreferencesWrapper.getSPreferences().setString(CONST_USER_TOKEN, token),
+      sPreferencesWrapper
+          .getSPreferences()
+          .setString(CONST_USER_REFRESHTOKEN, refreshToken),
+    ]);
   }
 
   bool _isLoggined() =>

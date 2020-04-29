@@ -1,5 +1,6 @@
 import 'package:nvmtech/core/api/index.dart';
 import 'package:nvmtech/src/api.dart';
+import 'package:nvmtech/src/modules/login/models/loginWithEmail_model.dart';
 import 'package:nvmtech/src/modules/login/types/login_type.dart';
 
 abstract class ILoginRepo {
@@ -33,7 +34,7 @@ class LoginRepo implements IRepo, ILoginRepo {
       final response =
           await this._apiProviderImp.post(this.url, data: this.data);
 
-      return SuccessModel(value: response.data);
+      return SuccessModel(value: LoginWithEmailModel.fromJson(response.data));
     } catch (err) {
       return ErrorModel(value: err.response.data);
     }

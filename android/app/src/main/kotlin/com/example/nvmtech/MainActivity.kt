@@ -1,4 +1,4 @@
-package com.example.nvmtech
+package com.nvmtech.work
 
 import android.os.Bundle
 
